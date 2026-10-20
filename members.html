@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>The Crew — Compass Club</title>
-<script>try{if(sessionStorage.getItem("cc-arrive")){document.documentElement.classList.add("cc-arriving");setTimeout(function(){document.documentElement.classList.remove("cc-arriving")},1600)}}catch(e){}</script>
+<script>(function(){var r=document.documentElement,l=null;try{var m=location.search.match(/[?&]lang=(ar|en)/);if(m){l=m[1];localStorage.setItem("cc-lang",l)}else{l=localStorage.getItem("cc-lang")}}catch(e){}if(l==="ar"||l==="en"){r.setAttribute("lang",l);r.setAttribute("dir",l==="ar"?"rtl":"ltr")}else{r.classList.add("need-lang")}try{if(sessionStorage.getItem("cc-arrive")){r.classList.add("cc-arriving");setTimeout(function(){r.classList.remove("cc-arriving")},1600)}}catch(e){}})();</script>
 <meta name="description" content="Meet the Compass Club crew at Al Yamamah University: presidency, operations, treasury, public relations, events, media and design.">
 <link rel="canonical" href="https://xvhn.github.io/compassclubyu/members.html">
 <meta name="theme-color" content="#0A2B29">
@@ -18,7 +18,7 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Manrope:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=El+Messiri:wght@500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Manrope:wght@400;500;600;700&display=swap">
 <style>
   /* The Crew — night-voyage theme. Each station is one division; a giant
      background compass rose turns to face whichever station is open. */
@@ -62,7 +62,8 @@
     border: 1.5px solid rgba(185,220,208,.4); background: rgba(246,242,233,.06); transition: background .2s ease, transform .2s ease; }
   .back:hover { background: rgba(246,242,233,.14); transform: translateX(-2px); }
   .back svg { width: 16px; height: 16px; }
-  .where { text-align: right; }
+  .where { text-align: end; }
+  .top-end { display: flex; align-items: center; gap: 14px; }
   .where .nm { display: block; font-family: var(--display); font-size: 1.05rem; }
   .where .ct { display: block; font-size: .72rem; letter-spacing: .18em; color: var(--seafoam); font-weight: 700; font-variant-numeric: tabular-nums; }
 
@@ -101,7 +102,7 @@
 
   .kicker { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font-size: .74rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
   .kicker .brg { color: var(--amber); font-variant-numeric: tabular-nums; }
-  .kicker .brg::before { content: ""; display: inline-block; width: 22px; height: 2px; background: var(--amber); vertical-align: middle; margin-right: 10px; border-radius: 2px; }
+  .kicker .brg::before { content: ""; display: inline-block; width: 22px; height: 2px; background: var(--amber); vertical-align: middle; margin-inline-end: 10px; border-radius: 2px; }
   .st-copy h2 { font-family: var(--display); font-weight: 500; font-size: clamp(2.2rem, 5.2vw, 3.7rem); line-height: 1; letter-spacing: -.015em; margin-top: 14px; text-wrap: balance; }
   .st-copy h2:focus { outline: none; }
   .ar { display: block; font-family: var(--arabic); font-weight: 600; font-size: 1.05rem; color: var(--seafoam); margin-top: 8px; letter-spacing: 0; }
@@ -122,7 +123,6 @@
   .m-body { min-width: 0; }
   .m-name { display: block; font-weight: 700; font-size: 1.06rem; }
   .m-role { display: block; color: var(--seafoam); font-size: .92rem; font-weight: 600; }
-  .m-role [lang="ar"] { display: block; font-family: var(--arabic); font-weight: 400; opacity: .85; }
   .m-meta { display: block; margin-top: 3px; font-size: .78rem; color: var(--muted); }
   .crew.big .member { padding: 20px 22px; }
   .crew.big .avatar { width: 66px; height: 66px; font-size: 1.4rem; }
@@ -222,9 +222,64 @@
     .bigrose .rot { transition: none; }
     .a-draw, .a-arc { stroke-dashoffset: 0; }
   }
+  /* ---------- language: both languages live in the page; one is shown ---------- */
+  html[lang="ar"] [data-l="en"], html:not([lang="ar"]) [data-l="ar"] { display: none !important; }
+  html[lang="ar"] { --display: "El Messiri", "Cairo", Georgia, serif; --sans: "Cairo", "Segoe UI", system-ui, sans-serif; }
+  html[lang="ar"] body * { letter-spacing: normal !important; font-style: normal !important; }
+  html[lang="ar"] h1, html[lang="ar"] h2, html[lang="ar"] h3 { line-height: 1.3 !important; }
+  .lang-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 42px; padding: 0 14px; border-radius: 999px; cursor: pointer;
+    font: inherit; font-weight: 700; font-size: .9rem; transition: background .2s ease, border-color .2s ease, transform .15s ease; }
+  .lang-btn:active { transform: scale(.96); }
+  .lang-btn [lang="ar"] { font-family: "Cairo", sans-serif; }
+  .lang-gate { display: none; }
+  html.need-lang, html.need-lang body { overflow: hidden; }
+  html.need-lang .lang-gate { position: fixed; inset: 0; z-index: 10000; display: flex; align-items: center; justify-content: center; padding: 24px;
+    background: radial-gradient(900px 640px at 50% 28%, #17524D, #0B2C29 55%, #061917); color: #F6F2E9; animation: lgIn .6s ease both; }
+  .lang-gate.leaving { animation: lgOut .62s cubic-bezier(.7,0,.3,1) forwards; }
+  @keyframes lgIn { from { opacity: 0; } }
+  @keyframes lgOut { to { opacity: 0; transform: scale(1.06); } }
+  .lg-card { text-align: center; width: min(460px, 100%); }
+  .lg-compass { width: 96px; height: 96px; display: block; margin: 0 auto 22px; }
+  .lg-compass .n { transform-origin: 50px 50px; animation: lgNeedle 4s ease-in-out infinite; }
+  @keyframes lgNeedle { 0%, 100% { transform: rotate(-38deg); } 50% { transform: rotate(32deg); } }
+  .lg-brand { margin: 0; font: 700 .76rem/1.4 "Manrope", sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #B9DCD0; }
+  .lg-brand [lang="ar"], .lg-note [lang="ar"] { font-family: "Cairo", sans-serif; letter-spacing: 0; }
+  .lg-title { margin: 14px 0 0; font-family: "Fraunces", Georgia, serif; font-weight: 500; font-size: clamp(1.9rem, 6vw, 2.6rem); line-height: 1.2; }
+  .lg-title span { display: block; }
+  .lg-title [lang="ar"] { font-family: "El Messiri", "Cairo", sans-serif; font-size: .92em; margin-top: 4px; }
+  .lg-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 30px; }
+  .lg-btns button { min-height: 64px; border-radius: 18px; cursor: pointer; border: 1.5px solid rgba(185,220,208,.45); background: rgba(246,242,233,.07); color: #F6F2E9;
+    font: 700 1.2rem "Manrope", sans-serif; transition: transform .15s ease, background .2s ease, border-color .2s ease, color .2s ease; }
+  .lg-btns button[lang="ar"] { font-family: "Cairo", sans-serif; font-size: 1.32rem; }
+  .lg-btns button:hover, .lg-btns button:focus-visible { background: #D9A441; border-color: #D9A441; color: #0A2B29; transform: translateY(-2px); }
+  .lg-note { margin: 20px 0 0; font: .85rem/1.5 "Manrope", sans-serif; color: rgba(246,242,233,.62); }
+  @media (prefers-reduced-motion: reduce) { .lg-compass .n { animation: none; } html.need-lang .lang-gate, .lang-gate.leaving { animation: none; } }
+  .top .lang-btn { color: var(--ivory); background: rgba(246,242,233,.06); border: 1.5px solid rgba(185,220,208,.4); }
+  .top .lang-btn:hover { background: rgba(246,242,233,.14); }
+  html[dir="rtl"] .back svg, html[dir="rtl"] .arrow svg, html[dir="rtl"] .start svg { transform: scaleX(-1); }
+  html[dir="rtl"] .back:hover { transform: translateX(2px); }
+  html[lang="ar"] .hub-copy h1 { line-height: 1.2 !important; }
+  @media (max-width: 600px) { .top-end { gap: 10px; } .where .ct { display: none; } }
 </style>
 </head>
 <body>
+<div class="lang-gate" id="langGate" role="dialog" aria-modal="true" aria-labelledby="lgTitle">
+  <div class="lg-card">
+    <svg class="lg-compass" viewBox="0 0 100 100" aria-hidden="true">
+      <circle cx="50" cy="50" r="44" fill="#F6F2E9" stroke="#D9A441" stroke-width="5"/>
+      <circle cx="50" cy="50" r="35" fill="none" stroke="#B9DCD0" stroke-width="1.5"/>
+      <g class="n"><path d="M50 16 57 50 43 50Z" fill="#D9A441"/><path d="M50 84 57 50 43 50Z" fill="#103E3B"/></g>
+      <circle cx="50" cy="50" r="4.5" fill="#0A2B29"/>
+    </svg>
+    <p class="lg-brand">Compass Club · <span lang="ar">نادي البوصلة</span></p>
+    <h2 class="lg-title" id="lgTitle"><span>Choose your language</span><span lang="ar">اختر لغتك</span></h2>
+    <div class="lg-btns">
+      <button type="button" data-set-lang="ar" lang="ar">العربية</button>
+      <button type="button" data-set-lang="en" lang="en">English</button>
+    </div>
+    <p class="lg-note">You can switch anytime · <span lang="ar">يمكنك التغيير في أي وقت</span></p>
+  </div>
+</div>
 
 <!-- moving background -->
 <div class="bg" aria-hidden="true">
@@ -257,21 +312,24 @@
 <header class="top">
   <a class="back" href="index.html" data-transition>
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
-    Compass Club
+    <span data-l="en">Compass Club</span><span data-l="ar">نادي البوصلة</span>
   </a>
-  <div class="where" aria-live="polite"><span class="nm" id="whereName">The Crew</span><span class="ct" id="whereCount"></span></div>
+  <div class="top-end">
+    <button class="lang-btn" type="button" data-toggle-lang aria-label="Switch to Arabic" data-aria-en="Switch to Arabic" data-aria-ar="التبديل إلى الإنجليزية"><span data-l="en" lang="ar">العربية</span><span data-l="ar" lang="en">English</span></button>
+    <div class="where" aria-live="polite"><span class="nm" id="whereName">The Crew</span><span class="ct" id="whereCount" dir="auto"></span></div>
+  </div>
 </header>
 
 <main id="main">
 
   <!-- ============ HUB ============ -->
-  <section class="station hub" id="crew" data-label="The Crew" data-bearing="0" aria-labelledby="h-crew">
+  <section class="station hub" id="crew" data-label="The Crew" data-label-ar="الفريق" data-bearing="0" aria-labelledby="h-crew">
     <div class="hub-copy">
-      <p class="kicker rise" style="--d:0"><span class="brg">Compass Club</span></p>
-      <h1 id="h-crew" class="rise" style="--d:1" tabindex="-1">Meet the crew</h1>
-      <p class="hub-line rise" style="--d:2"><b>13</b> people · <b>7</b> roles · <b>1</b> direction</p>
+      <p class="kicker rise" style="--d:0"><span class="brg"><span data-l="en">Compass Club</span><span data-l="ar">نادي البوصلة</span></span></p>
+      <h1 id="h-crew" class="rise" style="--d:1" tabindex="-1"><span data-l="en">Meet the crew</span><span data-l="ar">تعرّف على الفريق</span></h1>
+      <p class="hub-line rise" style="--d:2"><span data-l="en"><b>13</b> people · <b>7</b> roles · <b>1</b> direction</span><span data-l="ar"><b>13</b> عضوًا · <b>7</b> أدوار · وجهة <b>واحدة</b></span></p>
       <button class="start rise" style="--d:3" type="button" data-go="presidency">
-        Start the tour
+        <span data-l="en">Start the tour</span><span data-l="ar">ابدأ الجولة</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </button>
     </div>
@@ -284,26 +342,26 @@
         <g id="hubNeedle"><path d="M50 31 53.2 50 46.8 50Z" fill="#D9A441"/><path d="M50 69 53.2 50 46.8 50Z" fill="#B9DCD0"/></g>
         <circle cx="50" cy="50" r="2.8" fill="#0A2B29" stroke="#D9A441" stroke-width=".8"/>
       </svg>
-      <button class="pt" type="button" style="--a:0deg" data-go="presidency" data-bearing="0"><span class="pd"></span><span class="pl">Presidency</span><span class="pb">000°</span></button>
-      <button class="pt" type="button" style="--a:45deg" data-go="operations" data-bearing="45"><span class="pd"></span><span class="pl">Operations</span><span class="pb">045°</span></button>
-      <button class="pt" type="button" style="--a:90deg" data-go="treasury" data-bearing="90"><span class="pd"></span><span class="pl">Treasury</span><span class="pb">090°</span></button>
-      <button class="pt" type="button" style="--a:135deg" data-go="relations" data-bearing="135"><span class="pd"></span><span class="pl">Relations</span><span class="pb">135°</span></button>
-      <button class="pt" type="button" style="--a:180deg" data-go="events" data-bearing="180"><span class="pd"></span><span class="pl">Events</span><span class="pb">180°</span></button>
-      <button class="pt" type="button" style="--a:225deg" data-go="media" data-bearing="225"><span class="pd"></span><span class="pl">Media</span><span class="pb">225°</span></button>
-      <button class="pt" type="button" style="--a:270deg" data-go="design" data-bearing="270"><span class="pd"></span><span class="pl">Design</span><span class="pb">270°</span></button>
-      <button class="pt you" type="button" style="--a:315deg" data-go="you" data-bearing="315"><span class="pd"></span><span class="pl">You?</span><span class="pb">315°</span></button>
+      <button class="pt" type="button" style="--a:0deg" data-go="presidency" data-bearing="0"><span class="pd"></span><span class="pl"><span data-l="en">Presidency</span><span data-l="ar">الرئاسة</span></span><span class="pb" dir="ltr">000°</span></button>
+      <button class="pt" type="button" style="--a:45deg" data-go="operations" data-bearing="45"><span class="pd"></span><span class="pl"><span data-l="en">Operations</span><span data-l="ar">العمليات</span></span><span class="pb" dir="ltr">045°</span></button>
+      <button class="pt" type="button" style="--a:90deg" data-go="treasury" data-bearing="90"><span class="pd"></span><span class="pl"><span data-l="en">Treasury</span><span data-l="ar">المالية</span></span><span class="pb" dir="ltr">090°</span></button>
+      <button class="pt" type="button" style="--a:135deg" data-go="relations" data-bearing="135"><span class="pd"></span><span class="pl"><span data-l="en">Relations</span><span data-l="ar">العلاقات</span></span><span class="pb" dir="ltr">135°</span></button>
+      <button class="pt" type="button" style="--a:180deg" data-go="events" data-bearing="180"><span class="pd"></span><span class="pl"><span data-l="en">Events</span><span data-l="ar">الفعاليات</span></span><span class="pb" dir="ltr">180°</span></button>
+      <button class="pt" type="button" style="--a:225deg" data-go="media" data-bearing="225"><span class="pd"></span><span class="pl"><span data-l="en">Media</span><span data-l="ar">الإعلام</span></span><span class="pb" dir="ltr">225°</span></button>
+      <button class="pt" type="button" style="--a:270deg" data-go="design" data-bearing="270"><span class="pd"></span><span class="pl"><span data-l="en">Design</span><span data-l="ar">التصميم</span></span><span class="pb" dir="ltr">270°</span></button>
+      <button class="pt you" type="button" style="--a:315deg" data-go="you" data-bearing="315"><span class="pd"></span><span class="pl"><span data-l="en">You?</span><span data-l="ar">أنت؟</span></span><span class="pb" dir="ltr">315°</span></button>
     </div>
   </section>
 
   <!-- ============ 01 PRESIDENCY — THE HELM ============ -->
-  <section class="station" id="presidency" data-label="Presidency" data-bearing="0" aria-labelledby="h-presidency">
+  <section class="station" id="presidency" data-label="Presidency" data-label-ar="الرئاسة" data-bearing="0" aria-labelledby="h-presidency">
     <div class="st-copy">
-      <p class="kicker rise" style="--d:0"><span class="brg">000° N</span> Station 01</p>
-      <h2 id="h-presidency" class="rise" style="--d:1" tabindex="-1">Presidency <span class="ar" lang="ar">الرئاسة</span></h2>
-      <p class="concept rise" style="--d:2"><b>The Helm.</b> Setting the course.</p>
+      <p class="kicker rise" style="--d:0"><span class="brg"><span dir="ltr">000°</span> <span data-l="en">N</span><span data-l="ar">شمال</span></span> <span data-l="en">Station 01</span><span data-l="ar">المحطة 01</span></p>
+      <h2 id="h-presidency" class="rise" style="--d:1" tabindex="-1"><span data-l="en">Presidency</span><span data-l="ar">الرئاسة</span></h2>
+      <p class="concept rise" style="--d:2"><span data-l="en"><b>The Helm.</b> Setting the course.</span><span data-l="ar"><b>الدفّة.</b> نحدّد المسار.</span></p>
       <ul class="crew big">
-        <li class="member lead rise" style="--d:3"><span class="avatar">DA</span><span class="m-body"><span class="m-name">Dhidan AlArjani</span><span class="m-role">President <span lang="ar">رئيس النادي</span></span><span class="m-meta">Industrial · 2nd year</span></span></li>
-        <li class="member lead rise" style="--d:4"><span class="avatar">LT</span><span class="m-body"><span class="m-name">Latifa AlTuwaijri</span><span class="m-role">Vice President <span lang="ar">نائب الرئيس</span></span><span class="m-meta">Architecture · 4th year</span></span></li>
+        <li class="member lead rise" style="--d:3"><span class="avatar"><span data-l="en">DA</span><span data-l="ar">ذ</span></span><span class="m-body"><span class="m-name"><span data-l="en">Dhidan AlArjani</span><span data-l="ar">ذيدان العرجاني</span></span><span class="m-role"><span data-l="en">President</span><span data-l="ar">رئيس النادي</span></span><span class="m-meta"><span data-l="en">Industrial · 2nd year</span><span data-l="ar">الهندسة الصناعية · السنة الثانية</span></span></span></li>
+        <li class="member lead rise" style="--d:4"><span class="avatar"><span data-l="en">LT</span><span data-l="ar">ل</span></span><span class="m-body"><span class="m-name"><span data-l="en">Latifa AlTuwaijri</span><span data-l="ar">لطيفة التويجري</span></span><span class="m-role"><span data-l="en">Vice President</span><span data-l="ar">نائب الرئيس</span></span><span class="m-meta"><span data-l="en">Architecture · 4th year</span><span data-l="ar">العمارة · السنة الرابعة</span></span></span></li>
       </ul>
     </div>
     <div class="st-art" aria-hidden="true">
@@ -326,13 +384,13 @@
   </section>
 
   <!-- ============ 02 OPERATIONS — THE ENGINE ROOM ============ -->
-  <section class="station" id="operations" data-label="Operations" data-bearing="45" aria-labelledby="h-operations">
+  <section class="station" id="operations" data-label="Operations" data-label-ar="العمليات" data-bearing="45" aria-labelledby="h-operations">
     <div class="st-copy">
-      <p class="kicker rise" style="--d:0"><span class="brg">045° NE</span> Station 02</p>
-      <h2 id="h-operations" class="rise" style="--d:1" tabindex="-1">Technical &amp; Professional Development <span class="ar" lang="ar">التطوير التقني والمهني</span></h2>
-      <p class="concept rise" style="--d:2"><b>The Engine Room.</b> Keeping every part moving.</p>
+      <p class="kicker rise" style="--d:0"><span class="brg"><span dir="ltr">045°</span> <span data-l="en">NE</span><span data-l="ar">شمال شرق</span></span> <span data-l="en">Station 02</span><span data-l="ar">المحطة 02</span></p>
+      <h2 id="h-operations" class="rise" style="--d:1" tabindex="-1"><span data-l="en">Technical &amp; Professional Development</span><span data-l="ar">التطوير التقني والمهني</span></h2>
+      <p class="concept rise" style="--d:2"><span data-l="en"><b>The Engine Room.</b> Keeping every part moving.</span><span data-l="ar"><b>غرفة المحرّكات.</b> نُبقي كل شيء يعمل.</span></p>
       <ul class="crew big">
-        <li class="member lead rise" style="--d:3"><span class="avatar">AO</span><span class="m-body"><span class="m-name">Abdullah AlOlayan</span><span class="m-role">Operations Manager <span lang="ar">مدير العمليات</span></span><span class="m-meta">Industrial · 2nd year</span></span></li>
+        <li class="member lead rise" style="--d:3"><span class="avatar"><span data-l="en">AO</span><span data-l="ar">ع</span></span><span class="m-body"><span class="m-name"><span data-l="en">Abdullah AlOlayan</span><span data-l="ar">عبدالله العليان</span></span><span class="m-role"><span data-l="en">Operations Manager</span><span data-l="ar">مدير العمليات</span></span><span class="m-meta"><span data-l="en">Industrial · 2nd year</span><span data-l="ar">الهندسة الصناعية · السنة الثانية</span></span></span></li>
       </ul>
     </div>
     <div class="st-art" aria-hidden="true">
@@ -364,13 +422,13 @@
   </section>
 
   <!-- ============ 03 TREASURY — THE LEDGER ============ -->
-  <section class="station" id="treasury" data-label="Treasury" data-bearing="90" aria-labelledby="h-treasury">
+  <section class="station" id="treasury" data-label="Treasury" data-label-ar="المالية" data-bearing="90" aria-labelledby="h-treasury">
     <div class="st-copy">
-      <p class="kicker rise" style="--d:0"><span class="brg">090° E</span> Station 03</p>
-      <h2 id="h-treasury" class="rise" style="--d:1" tabindex="-1">Treasury <span class="ar" lang="ar">المالية</span></h2>
-      <p class="concept rise" style="--d:2"><b>The Ledger.</b> Every riyal, accounted for.</p>
+      <p class="kicker rise" style="--d:0"><span class="brg"><span dir="ltr">090°</span> <span data-l="en">E</span><span data-l="ar">شرق</span></span> <span data-l="en">Station 03</span><span data-l="ar">المحطة 03</span></p>
+      <h2 id="h-treasury" class="rise" style="--d:1" tabindex="-1"><span data-l="en">Treasury</span><span data-l="ar">المالية</span></h2>
+      <p class="concept rise" style="--d:2"><span data-l="en"><b>The Ledger.</b> Every riyal, accounted for.</span><span data-l="ar"><b>السجلّ.</b> كل ريال في مكانه.</span></p>
       <ul class="crew big">
-        <li class="member lead rise" style="--d:3"><span class="avatar">HJ</span><span class="m-body"><span class="m-name">Hanin AlJumah</span><span class="m-role">Finance Advisor <span lang="ar">المستشار المالي</span></span><span class="m-meta">Finance · 3rd year</span></span></li>
+        <li class="member lead rise" style="--d:3"><span class="avatar"><span data-l="en">HJ</span><span data-l="ar">ح</span></span><span class="m-body"><span class="m-name"><span data-l="en">Hanin AlJumah</span><span data-l="ar">حنين الجمعة</span></span><span class="m-role"><span data-l="en">Finance Advisor</span><span data-l="ar">المستشار المالي</span></span><span class="m-meta"><span data-l="en">Finance · 3rd year</span><span data-l="ar">المالية · السنة الثالثة</span></span></span></li>
       </ul>
     </div>
     <div class="st-art" aria-hidden="true">
@@ -399,14 +457,14 @@
   </section>
 
   <!-- ============ 04 RELATIONS — THE BRIDGE ============ -->
-  <section class="station" id="relations" data-label="Relations" data-bearing="135" aria-labelledby="h-relations">
+  <section class="station" id="relations" data-label="Relations" data-label-ar="العلاقات" data-bearing="135" aria-labelledby="h-relations">
     <div class="st-copy">
-      <p class="kicker rise" style="--d:0"><span class="brg">135° SE</span> Station 04</p>
-      <h2 id="h-relations" class="rise" style="--d:1" tabindex="-1">Public Relations &amp; Partnerships <span class="ar" lang="ar">العلاقات العامة والشراكات</span></h2>
-      <p class="concept rise" style="--d:2"><b>The Bridge.</b> Connecting students and partners.</p>
+      <p class="kicker rise" style="--d:0"><span class="brg"><span dir="ltr">135°</span> <span data-l="en">SE</span><span data-l="ar">جنوب شرق</span></span> <span data-l="en">Station 04</span><span data-l="ar">المحطة 04</span></p>
+      <h2 id="h-relations" class="rise" style="--d:1" tabindex="-1"><span data-l="en">Public Relations &amp; Partnerships</span><span data-l="ar">العلاقات العامة والشراكات</span></h2>
+      <p class="concept rise" style="--d:2"><span data-l="en"><b>The Bridge.</b> Connecting students and partners.</span><span data-l="ar"><b>الجسر.</b> نصل الطلاب بالشركاء.</span></p>
       <ul class="crew">
-        <li class="member rise" style="--d:3"><span class="avatar">HA</span><span class="m-body"><span class="m-name">Hind AlAmri</span><span class="m-role">Female Students Officer <span lang="ar">مسؤولة شؤون الطالبات</span></span><span class="m-meta">Finance · 3rd year</span></span></li>
-        <li class="member rise" style="--d:4"><span class="avatar">SA</span><span class="m-body"><span class="m-name">Sultan AlAnazi</span><span class="m-role">Male Students Officer <span lang="ar">مسؤول شؤون الطلاب</span></span><span class="m-meta">Industrial · 2nd year</span></span></li>
+        <li class="member rise" style="--d:3"><span class="avatar"><span data-l="en">HA</span><span data-l="ar">ه</span></span><span class="m-body"><span class="m-name"><span data-l="en">Hind AlAmri</span><span data-l="ar">هند العمري</span></span><span class="m-role"><span data-l="en">Female Students Officer</span><span data-l="ar">مسؤولة شؤون الطالبات</span></span><span class="m-meta"><span data-l="en">Finance · 3rd year</span><span data-l="ar">المالية · السنة الثالثة</span></span></span></li>
+        <li class="member rise" style="--d:4"><span class="avatar"><span data-l="en">SA</span><span data-l="ar">س</span></span><span class="m-body"><span class="m-name"><span data-l="en">Sultan AlAnazi</span><span data-l="ar">سلطان العنزي</span></span><span class="m-role"><span data-l="en">Male Students Officer</span><span data-l="ar">مسؤول شؤون الطلاب</span></span><span class="m-meta"><span data-l="en">Industrial · 2nd year</span><span data-l="ar">الهندسة الصناعية · السنة الثانية</span></span></span></li>
       </ul>
     </div>
     <div class="st-art" aria-hidden="true">
@@ -435,13 +493,14 @@
   </section>
 
   <!-- ============ 05 EVENTS — BASE CAMP ============ -->
-  <section class="station" id="events" data-label="Events" data-bearing="180" aria-labelledby="h-events">
+  <section class="station" id="events" data-label="Events" data-label-ar="الفعاليات" data-bearing="180" aria-labelledby="h-events">
     <div class="st-copy">
-      <p class="kicker rise" style="--d:0"><span class="brg">180° S</span> Station 05</p>
-      <h2 id="h-events" class="rise" style="--d:1" tabindex="-1">Event Coordination <span class="ar" lang="ar">تنسيق الفعاليات</span></h2>
-      <p class="concept rise" style="--d:2"><b>Base Camp.</b> Turning plans into moments.</p>
-      <ul class="crew big">
-        <li class="member rise" style="--d:3"><span class="avatar">HM</span><span class="m-body"><span class="m-name">Hamad AlMulhim</span><span class="m-role">Officer <span lang="ar">عضو اللجنة</span></span><span class="m-meta">Industrial · 2nd year</span></span></li>
+      <p class="kicker rise" style="--d:0"><span class="brg"><span dir="ltr">180°</span> <span data-l="en">S</span><span data-l="ar">جنوب</span></span> <span data-l="en">Station 05</span><span data-l="ar">المحطة 05</span></p>
+      <h2 id="h-events" class="rise" style="--d:1" tabindex="-1"><span data-l="en">Event Coordination</span><span data-l="ar">تنسيق الفعاليات</span></h2>
+      <p class="concept rise" style="--d:2"><span data-l="en"><b>Base Camp.</b> Turning plans into moments.</span><span data-l="ar"><b>المخيّم.</b> نحوّل الخطط إلى لحظات.</span></p>
+      <ul class="crew">
+        <li class="member rise" style="--d:3"><span class="avatar"><span data-l="en">HM</span><span data-l="ar">ح</span></span><span class="m-body"><span class="m-name"><span data-l="en">Hamad AlMulhim</span><span data-l="ar">حمد الملحم</span></span><span class="m-role"><span data-l="en">Officer</span><span data-l="ar">عضو اللجنة</span></span><span class="m-meta"><span data-l="en">Industrial · 2nd year</span><span data-l="ar">الهندسة الصناعية · السنة الثانية</span></span></span></li>
+        <li class="member rise" style="--d:4"><span class="avatar"><span data-l="en">SB</span><span data-l="ar">س</span></span><span class="m-body"><span class="m-name"><span data-l="en">Soud AlBgumi</span><span data-l="ar">سعود البقومي</span></span><span class="m-role"><span data-l="en">Officer</span><span data-l="ar">عضو اللجنة</span></span><span class="m-meta"><span data-l="en">Industrial · 2nd year</span><span data-l="ar">الهندسة الصناعية · السنة الثانية</span></span></span></li>
       </ul>
     </div>
     <div class="st-art" aria-hidden="true">
@@ -480,14 +539,15 @@
   </section>
 
   <!-- ============ 06 MEDIA — THE LOOKOUT ============ -->
-  <section class="station" id="media" data-label="Media" data-bearing="225" aria-labelledby="h-media">
+  <section class="station" id="media" data-label="Media" data-label-ar="الإعلام" data-bearing="225" aria-labelledby="h-media">
     <div class="st-copy">
-      <p class="kicker rise" style="--d:0"><span class="brg">225° SW</span> Station 06</p>
-      <h2 id="h-media" class="rise" style="--d:1" tabindex="-1">Media Coordination <span class="ar" lang="ar">التنسيق الإعلامي</span></h2>
-      <p class="concept rise" style="--d:2"><b>The Lookout.</b> Capturing the story as it happens.</p>
+      <p class="kicker rise" style="--d:0"><span class="brg"><span dir="ltr">225°</span> <span data-l="en">SW</span><span data-l="ar">جنوب غرب</span></span> <span data-l="en">Station 06</span><span data-l="ar">المحطة 06</span></p>
+      <h2 id="h-media" class="rise" style="--d:1" tabindex="-1"><span data-l="en">Media Coordination</span><span data-l="ar">التنسيق الإعلامي</span></h2>
+      <p class="concept rise" style="--d:2"><span data-l="en"><b>The Lookout.</b> Capturing the story as it happens.</span><span data-l="ar"><b>المرصد.</b> نوثّق القصة لحظة بلحظة.</span></p>
       <ul class="crew">
-        <li class="member lead rise" style="--d:3"><span class="avatar">AK</span><span class="m-body"><span class="m-name">Ali AlKhaldi</span><span class="m-role">Officer in Charge <span lang="ar">مسؤول اللجنة</span></span><span class="m-meta">Industrial · 1st year</span></span></li>
-        <li class="member rise" style="--d:4"><span class="avatar">GD</span><span class="m-body"><span class="m-name">Ghazlan AlDaham</span><span class="m-role">Officer <span lang="ar">عضو اللجنة</span></span><span class="m-meta">Architecture · 1st year</span></span></li>
+        <li class="member lead rise" style="--d:3"><span class="avatar"><span data-l="en">AK</span><span data-l="ar">ع</span></span><span class="m-body"><span class="m-name"><span data-l="en">Ali AlKhaldi</span><span data-l="ar">علي الخالدي</span></span><span class="m-role"><span data-l="en">Officer in Charge</span><span data-l="ar">مسؤول اللجنة</span></span><span class="m-meta"><span data-l="en">Industrial · 1st year</span><span data-l="ar">الهندسة الصناعية · السنة الأولى</span></span></span></li>
+        <li class="member rise" style="--d:4"><span class="avatar"><span data-l="en">GD</span><span data-l="ar">غ</span></span><span class="m-body"><span class="m-name"><span data-l="en">Ghazlan AlDaham</span><span data-l="ar">غزلان الدهام</span></span><span class="m-role"><span data-l="en">Officer</span><span data-l="ar">عضو اللجنة</span></span><span class="m-meta"><span data-l="en">Architecture · 1st year</span><span data-l="ar">العمارة · السنة الأولى</span></span></span></li>
+        <li class="member rise" style="--d:5"><span class="avatar"><span data-l="en">DS</span><span data-l="ar">د</span></span><span class="m-body"><span class="m-name"><span data-l="en">Dala AlShahrani</span><span data-l="ar">دلع الشهراني</span></span><span class="m-role"><span data-l="en">Officer</span><span data-l="ar">عضو اللجنة</span></span><span class="m-meta"><span data-l="en">Software · 1st year</span><span data-l="ar">هندسة البرمجيات · السنة الأولى</span></span></span></li>
       </ul>
     </div>
     <div class="st-art" aria-hidden="true">
@@ -524,16 +584,14 @@
   </section>
 
   <!-- ============ 07 DESIGN — THE DRAFTING TABLE ============ -->
-  <section class="station" id="design" data-label="Design" data-bearing="270" aria-labelledby="h-design">
+  <section class="station" id="design" data-label="Design" data-label-ar="التصميم" data-bearing="270" aria-labelledby="h-design">
     <div class="st-copy">
-      <p class="kicker rise" style="--d:0"><span class="brg">270° W</span> Station 07</p>
-      <h2 id="h-design" class="rise" style="--d:1" tabindex="-1">Design Coordination <span class="ar" lang="ar">التصميم</span></h2>
-      <p class="concept rise" style="--d:2"><b>The Drafting Table.</b> Drawing the map we all follow.</p>
+      <p class="kicker rise" style="--d:0"><span class="brg"><span dir="ltr">270°</span> <span data-l="en">W</span><span data-l="ar">غرب</span></span> <span data-l="en">Station 07</span><span data-l="ar">المحطة 07</span></p>
+      <h2 id="h-design" class="rise" style="--d:1" tabindex="-1"><span data-l="en">Design Coordination</span><span data-l="ar">التصميم</span></h2>
+      <p class="concept rise" style="--d:2"><span data-l="en"><b>The Drafting Table.</b> Drawing the map we all follow.</span><span data-l="ar"><b>طاولة الرسم.</b> نرسم الخريطة التي نتبعها جميعًا.</span></p>
       <ul class="crew">
-        <li class="member lead rise" style="--d:3"><span class="avatar">JS</span><span class="m-body"><span class="m-name">Jana AlShangiti</span><span class="m-role">Officer in Charge <span lang="ar">مسؤول اللجنة</span></span><span class="m-meta">Finance · 1st year</span></span></li>
-        <li class="member rise" style="--d:4"><span class="avatar">KB</span><span class="m-body"><span class="m-name">Khadega Baessa</span><span class="m-role">Officer <span lang="ar">عضو اللجنة</span></span><span class="m-meta">Software · 1st year</span></span></li>
-        <li class="member rise" style="--d:5"><span class="avatar">DS</span><span class="m-body"><span class="m-name">Dala AlShahrani</span><span class="m-role">Officer <span lang="ar">عضو اللجنة</span></span><span class="m-meta">Software · 1st year</span></span></li>
-        <li class="member rise" style="--d:6"><span class="avatar">SB</span><span class="m-body"><span class="m-name">Soud AlBgumi</span><span class="m-role">Officer <span lang="ar">عضو اللجنة</span></span><span class="m-meta">Industrial · 2nd year</span></span></li>
+        <li class="member lead rise" style="--d:3"><span class="avatar"><span data-l="en">JS</span><span data-l="ar">ج</span></span><span class="m-body"><span class="m-name"><span data-l="en">Jana AlShangiti</span><span data-l="ar">جنى الشنقيطي</span></span><span class="m-role"><span data-l="en">Officer in Charge</span><span data-l="ar">مسؤول اللجنة</span></span><span class="m-meta"><span data-l="en">Finance · 1st year</span><span data-l="ar">المالية · السنة الأولى</span></span></span></li>
+        <li class="member rise" style="--d:4"><span class="avatar"><span data-l="en">KB</span><span data-l="ar">خ</span></span><span class="m-body"><span class="m-name"><span data-l="en">Khadega Baessa</span><span data-l="ar">خديجة باعيسى</span></span><span class="m-role"><span data-l="en">Officer</span><span data-l="ar">عضو اللجنة</span></span><span class="m-meta"><span data-l="en">Software · 1st year</span><span data-l="ar">هندسة البرمجيات · السنة الأولى</span></span></span></li>
       </ul>
     </div>
     <div class="st-art" aria-hidden="true">
@@ -564,17 +622,17 @@
   </section>
 
   <!-- ============ 08 YOU — YOUR SEAT ============ -->
-  <section class="station" id="you" data-label="You?" data-bearing="315" aria-labelledby="h-you">
+  <section class="station" id="you" data-label="You?" data-label-ar="أنت؟" data-bearing="315" aria-labelledby="h-you">
     <div class="st-copy">
-      <p class="kicker rise" style="--d:0"><span class="brg">315° NW</span> Station 08</p>
-      <h2 id="h-you" class="rise" style="--d:1" tabindex="-1">Your seat <span class="ar" lang="ar">مكانك معنا</span></h2>
-      <p class="concept rise" style="--d:2"><b>Every crew has room for one more.</b></p>
+      <p class="kicker rise" style="--d:0"><span class="brg"><span dir="ltr">315°</span> <span data-l="en">NW</span><span data-l="ar">شمال غرب</span></span> <span data-l="en">Station 08</span><span data-l="ar">المحطة 08</span></p>
+      <h2 id="h-you" class="rise" style="--d:1" tabindex="-1"><span data-l="en">Your seat</span><span data-l="ar">مكانك معنا</span></h2>
+      <p class="concept rise" style="--d:2"><span data-l="en"><b>Every crew has room for one more.</b></span><span data-l="ar"><b>في كل فريق مكان لشخص آخر.</b></span></p>
       <div class="you-cta rise" style="--d:3">
         <a class="pill solid" href="https://wa.me/966501882680" target="_blank" rel="noopener">
           <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.1 1.6 5.9L4 29l8.3-1.6c1.7.9 3.6 1.4 5.7 1.4 6.6 0 12-5.4 12-12S22.6 3 16 3zm0 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-4.9 1 1-4.8-.2-.4c-1-1.6-1.5-3.4-1.5-5.3C5 9.5 9.9 4.6 16 4.6S27 9.5 27 15.6 22.1 24.8 16 24.8zm6.1-7.1c-.3-.2-2-1-2.3-1.1-.3-.1-.5-.2-.8.2-.2.3-.9 1.1-1.1 1.3-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.7-1.6-1-.9-1.6-2-1.8-2.3-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.4-.6.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.8-.6h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.5 3.8 6 5.3.8.4 1.5.6 2 .8.8.3 1.6.2 2.2.1.7-.1 2-.8 2.3-1.6.3-.8.3-1.5.2-1.6-.1-.2-.3-.2-.6-.4z"/></svg>
-          Message us on WhatsApp
+          <span data-l="en">Message us on WhatsApp</span><span data-l="ar">راسلنا على واتساب</span>
         </a>
-        <a class="pill ghost" href="index.html#join" data-transition>Back to Compass Club</a>
+        <a class="pill ghost" href="index.html#join" data-transition><span data-l="en">Back to Compass Club</span><span data-l="ar">العودة لنادي البوصلة</span></a>
       </div>
     </div>
     <div class="st-art" aria-hidden="true">
@@ -603,15 +661,16 @@
 </main>
 
 <nav class="dock" aria-label="Crew stations">
-  <button class="arrow" id="prevBtn" type="button" aria-label="Previous station">
+  <button class="arrow" id="prevBtn" type="button" aria-label="Previous station" data-aria-en="Previous station" data-aria-ar="المحطة السابقة">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
   </button>
   <div class="dots" id="dots"></div>
-  <button class="arrow" id="nextBtn" type="button" aria-label="Next station">
+  <button class="arrow" id="nextBtn" type="button" aria-label="Next station" data-aria-en="Next station" data-aria-ar="المحطة التالية">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
   </button>
 </nav>
 
+<script src="i18n.js"></script>
 <script src="motion.js"></script>
 <script>
 (function () {
@@ -640,31 +699,43 @@
     var b = document.createElement("button");
     b.type = "button";
     b.className = "dot" + (i === 0 ? " hub" : "");
-    b.setAttribute("aria-label", st.getAttribute("data-label"));
-    b.innerHTML = '<span class="dot-mark"></span><span class="dot-label">' + st.getAttribute("data-label") + "</span>";
+    b.innerHTML = '<span class="dot-mark"></span><span class="dot-label"></span>';
     b.addEventListener("click", function (e) { go(i, e.detail === 0); });
     dotsEl.appendChild(b);
     return b;
   });
 
+  function isAr() { return root.getAttribute("lang") === "ar"; }
+  function flip() { return root.getAttribute("dir") === "rtl" ? -1 : 1; }
+  function lbl(st) { return st.getAttribute(isAr() ? "data-label-ar" : "data-label"); }
+  // Dock, header and tab title follow the current station and language.
+  function chrome() {
+    var st = stations[cur];
+    dots.forEach(function (d, k) {
+      d.classList.toggle("on", k === cur);
+      d.setAttribute("aria-label", lbl(stations[k]));
+      d.querySelector(".dot-label").textContent = lbl(stations[k]);
+      if (k === cur) d.setAttribute("aria-current", "step"); else d.removeAttribute("aria-current");
+    });
+    prevBtn.disabled = cur === 0;
+    nextBtn.disabled = cur === total;
+    nameEl.textContent = lbl(st);
+    countEl.textContent = cur === 0 ? (isAr() ? "8 محطات" : "8 stations") : pad(cur) + " / " + pad(total);
+    var crew = isAr() ? "الفريق" : "The Crew", club = isAr() ? "نادي البوصلة" : "Compass Club";
+    document.title = (cur === 0 ? crew : lbl(st) + " · " + crew) + " — " + club;
+  }
+  document.addEventListener("cc-lang", function () { if (cur > -1) chrome(); });
+
   function show(i, dir, focus) {
     var st = stations[i];
-    st.style.setProperty("--dx", (dir >= 0 ? 44 : -44) + "px");
-    st.style.setProperty("--ar", (dir >= 0 ? 8 : -8) + "deg");
+    st.style.setProperty("--dx", (dir >= 0 ? 44 : -44) * flip() + "px");
+    st.style.setProperty("--ar", (dir >= 0 ? 8 : -8) * flip() + "deg");
     st.classList.add("active");
     cur = i;
     var target = -(parseFloat(st.getAttribute("data-bearing")) || 0);
     rot += ((target - rot) % 360 + 540) % 360 - 180;
     if (bgRose) bgRose.style.transform = "rotate(" + rot + "deg)";
-    dots.forEach(function (d, k) {
-      d.classList.toggle("on", k === i);
-      if (k === i) d.setAttribute("aria-current", "step"); else d.removeAttribute("aria-current");
-    });
-    prevBtn.disabled = i === 0;
-    nextBtn.disabled = i === total;
-    nameEl.textContent = st.getAttribute("data-label");
-    countEl.textContent = i === 0 ? "8 stations" : pad(i) + " / " + pad(total);
-    document.title = (i === 0 ? "The Crew" : st.getAttribute("data-label") + " · The Crew") + " — Compass Club";
+    chrome();
     if (history.replaceState) history.replaceState(null, "", "#" + st.id);
     if (focus) { var h = st.querySelector("h1, h2"); if (h) h.focus({ preventScroll: true }); }
   }
@@ -672,7 +743,7 @@
     if (busy || i === cur || i < 0 || i > total) return;
     var dir = i > cur ? 1 : -1, old = stations[cur];
     busy = true;
-    old.style.setProperty("--ox", (dir > 0 ? -44 : 44) + "px");
+    old.style.setProperty("--ox", (dir > 0 ? -44 : 44) * flip() + "px");
     old.classList.add("leaving");
     setTimeout(function () {
       old.classList.remove("active", "leaving");
@@ -689,8 +760,8 @@
   });
   document.addEventListener("keydown", function (e) {
     if (e.altKey || e.ctrlKey || e.metaKey) return;
-    if (e.key === "ArrowRight") { e.preventDefault(); go(cur + 1, true); }
-    else if (e.key === "ArrowLeft") { e.preventDefault(); go(cur - 1, true); }
+    if (e.key === "ArrowRight") { e.preventDefault(); go(cur + flip(), true); }
+    else if (e.key === "ArrowLeft") { e.preventDefault(); go(cur - flip(), true); }
     else if (e.key === "Home") { e.preventDefault(); go(0, true); }
   });
   var main = document.getElementById("main"), sx = null, sy = 0;
@@ -699,7 +770,7 @@
     if (sx === null) return;
     var t = e.changedTouches[0], dx = t.clientX - sx, dy = t.clientY - sy;
     sx = null;
-    if (Math.abs(dx) > 70 && Math.abs(dy) < 50) go(cur + (dx < 0 ? 1 : -1));
+    if (Math.abs(dx) > 70 && Math.abs(dy) < 50) go(cur + (dx < 0 ? 1 : -1) * flip());
   }, { passive: true });
 
   var start = indexOf((location.hash || "").slice(1));

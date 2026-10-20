@@ -1,7 +1,8 @@
 <!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<script>try{if(sessionStorage.getItem("cc-arrive")){document.documentElement.classList.add("cc-arriving");setTimeout(function(){document.documentElement.classList.remove("cc-arriving")},1600)}}catch(e){}</script>
+<script>(function(){var r=document.documentElement,l=null;try{var m=location.search.match(/[?&]lang=(ar|en)/);if(m){l=m[1];localStorage.setItem("cc-lang",l)}else{l=localStorage.getItem("cc-lang")}}catch(e){}if(l==="ar"||l==="en"){r.setAttribute("lang",l);r.setAttribute("dir",l==="ar"?"rtl":"ltr")}else{r.classList.add("need-lang")}try{if(sessionStorage.getItem("cc-arrive")){r.classList.add("cc-arriving");setTimeout(function(){r.classList.remove("cc-arriving")},1600)}}catch(e){}})();</script>
+<script>window.CC_TITLES={en:"Compass Club — Find your bearings",ar:"نادي البوصلة — حدّد وجهتك"};</script>
 <title>Compass Club — Find your bearings</title>
 <meta name="description" content="Compass Club at Al Yamamah University helps students discover what they love by trying new experiences. Try something new, discover what energizes you, choose your direction.">
 <link rel="canonical" href="https://xvhn.github.io/compassclubyu/">
@@ -34,7 +35,7 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Manrope:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=El+Messiri:wght@500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Manrope:wght@400;500;600;700&display=swap">
 <style>
   /* Compass Club — ivory-first navigation theme with selected deep-teal sections.
      Palette: deep ocean teal, warm ivory, muted seafoam, warm amber (sparing). */
@@ -86,8 +87,8 @@
   .wrap { position: relative; z-index: 2; width: 100%; max-width: var(--maxw); margin-inline: auto;
     padding-inline: max(22px, env(safe-area-inset-left, 0px)) max(22px, env(safe-area-inset-right, 0px)); }
 
-  .skip { position: absolute; left: -999px; top: 0; background: var(--teal); color: var(--on-teal); padding: 10px 16px; border-radius: 8px; z-index: 100; }
-  .skip:focus { left: 12px; top: 12px; }
+  .skip { position: absolute; inset-inline-start: 12px; top: -120px; background: var(--teal); color: var(--on-teal); padding: 10px 16px; border-radius: 8px; z-index: 100; }
+  .skip:focus { top: 12px; }
 
   /* ---------- buttons ---------- */
   .btn {
@@ -283,10 +284,10 @@
   }
   .story-overlay.open { display: flex; animation: storyOpen .45s ease both; }
   @keyframes storyOpen { from { opacity: 0; } to { opacity: 1; } }
-  .story-top { position: relative; z-index: 3; display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 46px; padding-right: 150px; }
+  .story-top { position: relative; z-index: 3; display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 46px; padding-inline-end: 150px; }
   .story-progress { font-size: .74rem; letter-spacing: .16em; text-transform: uppercase; color: var(--seafoam); font-weight: 600; }
   .story-exit {
-    position: fixed; z-index: 6; top: max(14px, env(safe-area-inset-top, 0px)); right: max(16px, env(safe-area-inset-right, 0px));
+    position: fixed; z-index: 6; top: max(14px, env(safe-area-inset-top, 0px)); inset-inline-end: max(16px, env(safe-area-inset-right, 0px));
     display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 10px 18px; border-radius: 999px; cursor: pointer; white-space: nowrap;
     font: inherit; font-size: .9rem; font-weight: 700; color: var(--ivory);
     background: rgba(10,43,41,.72); backdrop-filter: blur(6px); border: 1.5px solid rgba(185,220,208,.45); transition: background .2s ease;
@@ -319,10 +320,10 @@
   .story-btn.primary:hover { filter: brightness(1.06); background: var(--amber); }
   .story-btn.picked { background: rgba(217,164,65,.22); border-color: var(--amber); }
   .story-btn[disabled] { opacity: .4; cursor: default; transform: none; }
-  .place-btn { flex: 1 1 230px; max-width: 280px; text-align: left; padding: 16px 18px; position: relative; }
+  .place-btn { flex: 1 1 230px; max-width: 280px; text-align: start; padding: 16px 18px; position: relative; }
   .place-btn .pt { display: block; font-family: var(--display); font-size: 1.25rem; font-weight: 500; }
   .place-btn .pd { display: block; font-weight: 500; font-size: .92rem; color: var(--seafoam); margin-top: 4px; line-height: 1.4; }
-  .place-btn .tag { position: absolute; top: 10px; right: 12px; font-size: .62rem; letter-spacing: .14em; text-transform: uppercase; color: var(--amber); }
+  .place-btn .tag { position: absolute; top: 10px; inset-inline-end: 12px; font-size: .62rem; letter-spacing: .14em; text-transform: uppercase; color: var(--amber); }
   .choice-row { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; width: 100%; }
   .choice-label { width: 100%; text-align: center; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--seafoam); font-weight: 700; }
   .swatch { width: 48px; height: 48px; padding: 0; border-radius: 50%; }
@@ -361,7 +362,7 @@
   @media (max-width: 600px) {
     .story-scene { max-height: 40vh; }
     .place-btn { flex-basis: 100%; max-width: none; }
-    .story-top { padding-right: 128px; }
+    .story-top { padding-inline-end: 128px; }
   }
 
   /* ---------- drifting background + page transition cover ---------- */
@@ -374,10 +375,64 @@
     .story-progress { font-size: .66rem; letter-spacing: .1em; }
     .story-exit { padding: 9px 14px; font-size: .85rem; }
   }
+  /* ---------- language: both languages live in the page; one is shown ---------- */
+  html[lang="ar"] [data-l="en"], html:not([lang="ar"]) [data-l="ar"] { display: none !important; }
+  html[lang="ar"] { --display: "El Messiri", "Cairo", Georgia, serif; --sans: "Cairo", "Segoe UI", system-ui, sans-serif; }
+  html[lang="ar"] body * { letter-spacing: normal !important; font-style: normal !important; }
+  html[lang="ar"] h1, html[lang="ar"] h2, html[lang="ar"] h3 { line-height: 1.3 !important; }
+  .lang-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 42px; padding: 0 14px; border-radius: 999px; cursor: pointer;
+    font: inherit; font-weight: 700; font-size: .9rem; transition: background .2s ease, border-color .2s ease, transform .15s ease; }
+  .lang-btn:active { transform: scale(.96); }
+  .lang-btn [lang="ar"] { font-family: "Cairo", sans-serif; }
+  .lang-gate { display: none; }
+  html.need-lang, html.need-lang body { overflow: hidden; }
+  html.need-lang .lang-gate { position: fixed; inset: 0; z-index: 10000; display: flex; align-items: center; justify-content: center; padding: 24px;
+    background: radial-gradient(900px 640px at 50% 28%, #17524D, #0B2C29 55%, #061917); color: #F6F2E9; animation: lgIn .6s ease both; }
+  .lang-gate.leaving { animation: lgOut .62s cubic-bezier(.7,0,.3,1) forwards; }
+  @keyframes lgIn { from { opacity: 0; } }
+  @keyframes lgOut { to { opacity: 0; transform: scale(1.06); } }
+  .lg-card { text-align: center; width: min(460px, 100%); }
+  .lg-compass { width: 96px; height: 96px; display: block; margin: 0 auto 22px; }
+  .lg-compass .n { transform-origin: 50px 50px; animation: lgNeedle 4s ease-in-out infinite; }
+  @keyframes lgNeedle { 0%, 100% { transform: rotate(-38deg); } 50% { transform: rotate(32deg); } }
+  .lg-brand { margin: 0; font: 700 .76rem/1.4 "Manrope", sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #B9DCD0; }
+  .lg-brand [lang="ar"], .lg-note [lang="ar"] { font-family: "Cairo", sans-serif; letter-spacing: 0; }
+  .lg-title { margin: 14px 0 0; font-family: "Fraunces", Georgia, serif; font-weight: 500; font-size: clamp(1.9rem, 6vw, 2.6rem); line-height: 1.2; }
+  .lg-title span { display: block; }
+  .lg-title [lang="ar"] { font-family: "El Messiri", "Cairo", sans-serif; font-size: .92em; margin-top: 4px; }
+  .lg-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 30px; }
+  .lg-btns button { min-height: 64px; border-radius: 18px; cursor: pointer; border: 1.5px solid rgba(185,220,208,.45); background: rgba(246,242,233,.07); color: #F6F2E9;
+    font: 700 1.2rem "Manrope", sans-serif; transition: transform .15s ease, background .2s ease, border-color .2s ease, color .2s ease; }
+  .lg-btns button[lang="ar"] { font-family: "Cairo", sans-serif; font-size: 1.32rem; }
+  .lg-btns button:hover, .lg-btns button:focus-visible { background: #D9A441; border-color: #D9A441; color: #0A2B29; transform: translateY(-2px); }
+  .lg-note { margin: 20px 0 0; font: .85rem/1.5 "Manrope", sans-serif; color: rgba(246,242,233,.62); }
+  @media (prefers-reduced-motion: reduce) { .lg-compass .n { animation: none; } html.need-lang .lang-gate, .lang-gate.leaving { animation: none; } }
+  .nav-links .lang-btn { color: var(--teal); background: transparent; border: 1.5px solid var(--line); }
+  .nav-links .lang-btn:hover { border-color: var(--teal); background: rgba(16,62,59,.06); }
+  html[dir="rtl"] .crew-cta svg { transform: scaleX(-1); }
+  html[dir="rtl"] .crew-cta .btn:hover svg { transform: scaleX(-1) translateX(3px); }
+  html[lang="ar"] .hero-h { line-height: 1.22 !important; }
 </style>
 
 <canvas class="ambient" id="ambient" aria-hidden="true"></canvas>
-<a class="skip" href="#main">Skip to content</a>
+<div class="lang-gate" id="langGate" role="dialog" aria-modal="true" aria-labelledby="lgTitle">
+  <div class="lg-card">
+    <svg class="lg-compass" viewBox="0 0 100 100" aria-hidden="true">
+      <circle cx="50" cy="50" r="44" fill="#F6F2E9" stroke="#D9A441" stroke-width="5"/>
+      <circle cx="50" cy="50" r="35" fill="none" stroke="#B9DCD0" stroke-width="1.5"/>
+      <g class="n"><path d="M50 16 57 50 43 50Z" fill="#D9A441"/><path d="M50 84 57 50 43 50Z" fill="#103E3B"/></g>
+      <circle cx="50" cy="50" r="4.5" fill="#0A2B29"/>
+    </svg>
+    <p class="lg-brand">Compass Club · <span lang="ar">نادي البوصلة</span></p>
+    <h2 class="lg-title" id="lgTitle"><span>Choose your language</span><span lang="ar">اختر لغتك</span></h2>
+    <div class="lg-btns">
+      <button type="button" data-set-lang="ar" lang="ar">العربية</button>
+      <button type="button" data-set-lang="en" lang="en">English</button>
+    </div>
+    <p class="lg-note">You can switch anytime · <span lang="ar">يمكنك التغيير في أي وقت</span></p>
+  </div>
+</div>
+<a class="skip" href="#main"><span data-l="en">Skip to content</span><span data-l="ar">تخطَّ إلى المحتوى</span></a>
 
 <!-- scroll progress route -->
 <svg class="route" viewBox="0 0 46 1000" preserveAspectRatio="none" aria-hidden="true">
@@ -389,19 +444,20 @@
 <!-- ============ NAV ============ -->
 <header class="nav" id="nav">
   <div class="wrap nav-row">
-    <a class="brand" href="#top" aria-label="Compass Club home">
+    <a class="brand" href="#top" aria-label="Compass Club home" data-aria-en="Compass Club home" data-aria-ar="الصفحة الرئيسية لنادي البوصلة">
       <svg class="mk" viewBox="0 0 32 32" aria-hidden="true">
         <circle cx="16" cy="16" r="15" fill="none" stroke="#103E3B" stroke-width="2"/>
         <path d="M16 5 19.2 16 16 27 12.8 16Z" fill="#D9A441"/>
         <circle cx="16" cy="16" r="2.4" fill="#103E3B"/>
       </svg>
-      Compass&nbsp;Club
+      <span data-l="en">Compass&nbsp;Club</span><span data-l="ar">نادي البوصلة</span>
     </a>
     <nav class="nav-links" aria-label="Primary">
-      <a class="link" href="#explore">Explore</a>
-      <a class="link" href="#about">About</a>
-      <a class="link" href="members.html" data-transition>The crew</a>
-      <a class="btn btn-primary" href="#join">Join</a>
+      <a class="link" href="#explore"><span data-l="en">Explore</span><span data-l="ar">استكشف</span></a>
+      <a class="link" href="#about"><span data-l="en">About</span><span data-l="ar">عن النادي</span></a>
+      <a class="link" href="members.html" data-transition><span data-l="en">The crew</span><span data-l="ar">الفريق</span></a>
+      <button class="lang-btn" type="button" data-toggle-lang aria-label="Switch to Arabic" data-aria-en="Switch to Arabic" data-aria-ar="التبديل إلى الإنجليزية"><span data-l="en" lang="ar">العربية</span><span data-l="ar" lang="en">English</span></button>
+      <a class="btn btn-primary" href="#join"><span data-l="en">Join</span><span data-l="ar">انضم</span></a>
     </nav>
   </div>
 </header>
@@ -434,17 +490,17 @@
 
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <span class="kicker" data-enter style="--i:0">Al Yamamah University · Student Club</span>
-      <h1 class="hero-h" data-enter style="--i:1">Find your<br>bearings.</h1>
-      <p class="hero-sub" data-enter style="--i:2">Discover what you love by trying something new.</p>
+      <span class="kicker" data-enter style="--i:0"><span data-l="en">Al Yamamah University · Student Club</span><span data-l="ar">جامعة اليمامة · نادٍ طلابي</span></span>
+      <h1 class="hero-h" data-enter style="--i:1"><span data-l="en">Find your<br>bearings.</span><span data-l="ar">حدّد<br>وجهتك.</span></h1>
+      <p class="hero-sub" data-enter style="--i:2"><span data-l="en">Discover what you love by trying something new.</span><span data-l="ar">اكتشف ما تحب بتجربة شيء جديد.</span></p>
       <div class="hero-cta" data-enter style="--i:3">
-        <a class="btn btn-primary" href="#explore">Explore experiences</a>
-        <a class="btn btn-outline" href="#join">Join Compass Club</a>
+        <a class="btn btn-primary" href="#explore"><span data-l="en">Explore experiences</span><span data-l="ar">استكشف التجارب</span></a>
+        <a class="btn btn-outline" href="#join"><span data-l="en">Join Compass Club</span><span data-l="ar">انضم لنادي البوصلة</span></a>
       </div>
     </div>
 
     <div class="compass-stage" data-enter style="--i:2">
-      <svg class="compass" id="compass" viewBox="0 0 400 400" role="img" aria-label="An interactive compass whose needle follows your pointer">
+      <svg class="compass" id="compass" viewBox="0 0 400 400" role="img" aria-label="An interactive compass whose needle follows your pointer" data-aria-en="An interactive compass whose needle follows your pointer" data-aria-ar="بوصلة تفاعلية تتبع إبرتها حركة المؤشر">
         <g id="compassBuild"></g>
       </svg>
     </div>
@@ -459,8 +515,8 @@
     <path d="M-20 420 C 320 360, 520 500, 900 400 S 1260 390, 1260 450"/>
   </svg>
   <div class="wrap">
-    <span class="sec-kicker" data-reveal style="--i:0">How it works</span>
-    <h2 class="sec-title" data-reveal style="--i:1">Try. Discover. Choose.</h2>
+    <span class="sec-kicker" data-reveal style="--i:0"><span data-l="en">How it works</span><span data-l="ar">كيف نعمل</span></span>
+    <h2 class="sec-title" data-reveal style="--i:1"><span data-l="en">Try. Discover. Choose.</span><span data-l="ar">جرّب. اكتشف. اختر.</span></h2>
     <div class="steps-grid">
       <div class="step" data-reveal style="--i:2">
         <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="#D9A441" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -469,8 +525,8 @@
           <circle cx="32" cy="32" r="4" fill="#D9A441" stroke="none"/>
         </svg>
         <div class="n">01</div>
-        <h3>Try something new</h3>
-        <p>Step into activities you've never tried.</p>
+        <h3><span data-l="en">Try something new</span><span data-l="ar">جرّب شيئًا جديدًا</span></h3>
+        <p><span data-l="en">Step into activities you've never tried.</span><span data-l="ar">خض أنشطة لم تجرّبها من قبل.</span></p>
       </div>
       <div class="step" data-reveal style="--i:3">
         <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="#D9A441" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -479,8 +535,8 @@
           <path d="M32 26l4 6h-8l4 6" class="flicker"/>
         </svg>
         <div class="n">02</div>
-        <h3>Discover what energizes you</h3>
-        <p>Notice what pulls you in.</p>
+        <h3><span data-l="en">Discover what energizes you</span><span data-l="ar">اكتشف ما يحمّسك</span></h3>
+        <p><span data-l="en">Notice what pulls you in.</span><span data-l="ar">لاحظ ما يشدّك.</span></p>
       </div>
       <div class="step" data-reveal style="--i:4">
         <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="#D9A441" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -489,8 +545,8 @@
           <circle cx="16" cy="48" r="3.4" fill="#D9A441" stroke="none"/>
         </svg>
         <div class="n">03</div>
-        <h3>Choose your next direction</h3>
-        <p>Move forward with clarity.</p>
+        <h3><span data-l="en">Choose your next direction</span><span data-l="ar">اختر وجهتك القادمة</span></h3>
+        <p><span data-l="en">Move forward with clarity.</span><span data-l="ar">تقدّم بثقة ووضوح.</span></p>
       </div>
     </div>
   </div>
@@ -499,40 +555,40 @@
 <!-- ============ EXPLORE WITH US ============ -->
 <section class="explore on-ivory pad" id="explore">
   <div class="wrap">
-    <span class="sec-kicker" data-reveal style="--i:0">What we do</span>
-    <h2 class="sec-title" data-reveal style="--i:1; color:var(--teal)">Explore with us</h2>
+    <span class="sec-kicker" data-reveal style="--i:0"><span data-l="en">What we do</span><span data-l="ar">ماذا نقدّم</span></span>
+    <h2 class="sec-title" data-reveal style="--i:1; color:var(--teal)"><span data-l="en">Explore with us</span><span data-l="ar">استكشف معنا</span></h2>
     <div class="tiles">
       <article class="tile" data-reveal data-tilt style="--i:2" tabindex="0">
-        <div class="bearing">000° · N</div>
+        <div class="bearing"><span dir="ltr">000°</span> · <span data-l="en">N</span><span data-l="ar">شمال</span></div>
         <svg class="ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <circle cx="24" cy="24" r="18"/><path d="M24 24 30 14 24 24 18 34Z" fill="#D9A441" stroke="#D9A441"/><circle cx="24" cy="24" r="2.4" fill="currentColor" stroke="none"/>
         </svg>
-        <h3>Self-discovery</h3>
-        <p>Find your strengths.</p>
+        <h3><span data-l="en">Self-discovery</span><span data-l="ar">اكتشاف الذات</span></h3>
+        <p><span data-l="en">Find your strengths.</span><span data-l="ar">اعرف نقاط قوّتك.</span></p>
       </article>
       <article class="tile" data-reveal data-tilt style="--i:3" tabindex="0">
-        <div class="bearing">090° · E</div>
+        <div class="bearing"><span dir="ltr">090°</span> · <span data-l="en">E</span><span data-l="ar">شرق</span></div>
         <svg class="ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M10 30c0-8 6-14 14-14s14 6 14 14"/><path d="M24 10v6"/><rect x="18" y="30" width="12" height="8" rx="2"/><path d="M14 38h20"/>
         </svg>
-        <h3>Workshops</h3>
-        <p>Speaking, presenting, teamwork.</p>
+        <h3><span data-l="en">Workshops</span><span data-l="ar">ورش العمل</span></h3>
+        <p><span data-l="en">Speaking, presenting, teamwork.</span><span data-l="ar">الإلقاء، العرض، العمل الجماعي.</span></p>
       </article>
       <article class="tile" data-reveal data-tilt style="--i:4" tabindex="0">
-        <div class="bearing">180° · S</div>
+        <div class="bearing"><span dir="ltr">180°</span> · <span data-l="en">S</span><span data-l="ar">جنوب</span></div>
         <svg class="ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M14 34V18l10-6 10 6v16"/><path d="M14 34h20"/><path d="M24 34v-9"/><circle cx="24" cy="12" r="0"/><path d="M20 25h8"/>
         </svg>
-        <h3>Real experience</h3>
-        <p>Run events. Lead a team.</p>
+        <h3><span data-l="en">Real experience</span><span data-l="ar">تجربة حقيقية</span></h3>
+        <p><span data-l="en">Run events. Lead a team.</span><span data-l="ar">نظّم الفعاليات. قُد فريقًا.</span></p>
       </article>
       <article class="tile" data-reveal data-tilt style="--i:5" tabindex="0">
-        <div class="bearing">270° · W</div>
+        <div class="bearing"><span dir="ltr">270°</span> · <span data-l="en">W</span><span data-l="ar">غرب</span></div>
         <svg class="ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <circle cx="18" cy="20" r="5"/><circle cx="31" cy="22" r="4"/><path d="M9 38c0-6 4-9 9-9s9 3 9 9"/><path d="M27 38c0-5 3-7 4-7 4 0 7 3 7 7"/>
         </svg>
-        <h3>Community</h3>
-        <p>Every major, every year.</p>
+        <h3><span data-l="en">Community</span><span data-l="ar">مجتمع</span></h3>
+        <p><span data-l="en">Every major, every year.</span><span data-l="ar">كل التخصصات، كل المستويات.</span></p>
       </article>
     </div>
   </div>
@@ -553,11 +609,11 @@
       <g class="ndl"><path d="M44 16 49 44 39 44Z" fill="#D9A441"/><path d="M44 72 49 44 39 44Z" fill="#103E3B"/></g>
       <circle cx="44" cy="44" r="4" fill="#103E3B"/>
     </svg>
-    <span class="sec-kicker" data-reveal style="--i:1">The Compass That Wouldn’t Point</span>
-    <h2 data-reveal style="--i:2">Your next direction starts with a little curiosity.</h2>
+    <span class="sec-kicker" data-reveal style="--i:1"><span data-l="en">The Compass That Wouldn’t Point</span><span data-l="ar">البوصلة التي لم تُشِر</span></span>
+    <h2 data-reveal style="--i:2"><span data-l="en">Your next direction starts with a little curiosity.</span><span data-l="ar">وجهتك القادمة تبدأ بقليل من الفضول.</span></h2>
     <div class="start" data-reveal style="--i:3">
-      <button class="btn btn-primary" id="storyStart" type="button" aria-haspopup="dialog">Follow your compass</button>
-      <span class="label">A 2-minute interactive story</span>
+      <button class="btn btn-primary" id="storyStart" type="button" aria-haspopup="dialog"><span data-l="en">Follow your compass</span><span data-l="ar">اتبع بوصلتك</span></button>
+      <span class="label"><span data-l="en">A 2-minute interactive story</span><span data-l="ar">قصة تفاعلية في دقيقتين</span></span>
     </div>
   </div>
 </section>
@@ -567,10 +623,10 @@
   <div class="ring parallax" data-depth="16" style="width:460px;height:460px;left:-120px;top:-120px" aria-hidden="true"></div>
   <div class="ring parallax" data-depth="26" style="width:620px;height:620px;right:-200px;bottom:-220px" aria-hidden="true"></div>
   <div class="wrap">
-    <span class="sec-kicker" data-reveal style="--i:0">About Compass</span>
-    <p class="statement" data-reveal style="--i:1">We help students discover their interests through <b>experience</b> — try things, notice what you enjoy, and find your own direction.</p>
+    <span class="sec-kicker" data-reveal style="--i:0"><span data-l="en">About Compass</span><span data-l="ar">عن البوصلة</span></span>
+    <p class="statement" data-reveal style="--i:1"><span data-l="en">We help students discover their interests through <b>experience</b> — try things, notice what you enjoy, and find your own direction.</span><span data-l="ar">نساعد الطلاب على اكتشاف اهتماماتهم من خلال <b>التجربة</b>: جرّب، ولاحظ ما تستمتع به، واكتشف وجهتك بنفسك.</span></p>
     <div class="crew-cta" data-reveal style="--i:2">
-      <a class="btn btn-outline" href="members.html" data-transition>Meet the crew
+      <a class="btn btn-outline" href="members.html" data-transition><span data-l="en">Meet the crew</span><span data-l="ar">تعرّف على الفريق</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
     </div>
@@ -586,16 +642,16 @@
         <path d="M-20 230 C 260 180, 520 290, 760 210 S 1020 210, 1020 260"/>
       </svg>
       <div class="inner">
-        <h2>Join Compass Club</h2>
-        <p class="lead">No experience needed — bring your curiosity.</p>
+        <h2><span data-l="en">Join Compass Club</span><span data-l="ar">انضم لنادي البوصلة</span></h2>
+        <p class="lead"><span data-l="en">No experience needed — bring your curiosity.</span><span data-l="ar">لا تحتاج أي خبرة، فقط أحضر فضولك.</span></p>
         <div class="cta">
           <a class="btn btn-amber" href="https://wa.me/966501882680" target="_blank" rel="noopener">
             <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.1 1.6 5.9L4 29l8.3-1.6c1.7.9 3.6 1.4 5.7 1.4 6.6 0 12-5.4 12-12S22.6 3 16 3zm0 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-4.9 1 1-4.8-.2-.4c-1-1.6-1.5-3.4-1.5-5.3C5 9.5 9.9 4.6 16 4.6S27 9.5 27 15.6 22.1 24.8 16 24.8zm6.1-7.1c-.3-.2-2-1-2.3-1.1-.3-.1-.5-.2-.8.2-.2.3-.9 1.1-1.1 1.3-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.7-1.6-1-.9-1.6-2-1.8-2.3-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.4-.6.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.8-.6h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.5 3.8 6 5.3.8.4 1.5.6 2 .8.8.3 1.6.2 2.2.1.7-.1 2-.8 2.3-1.6.3-.8.3-1.5.2-1.6-.1-.2-.3-.2-.6-.4z"/></svg>
-            Message us on WhatsApp
+            <span data-l="en">Message us on WhatsApp</span><span data-l="ar">راسلنا على واتساب</span>
           </a>
-          <a class="btn btn-outline" href="mailto:202414030@yu.edu.sa">Email us</a>
+          <a class="btn btn-outline" href="mailto:202414030@yu.edu.sa"><span data-l="en">Email us</span><span data-l="ar">راسلنا بالإيميل</span></a>
         </div>
-        <p class="contact">WhatsApp <a href="https://wa.me/966501882680" target="_blank" rel="noopener">050 188 2680</a> &nbsp;·&nbsp; <a href="mailto:202414030@yu.edu.sa">202414030@yu.edu.sa</a></p>
+        <p class="contact"><span data-l="en">WhatsApp</span><span data-l="ar">واتساب</span> <a href="https://wa.me/966501882680" target="_blank" rel="noopener">050 188 2680</a> &nbsp;·&nbsp; <a href="mailto:202414030@yu.edu.sa">202414030@yu.edu.sa</a></p>
       </div>
     </div>
   </div>
@@ -606,13 +662,13 @@
 <div class="story-overlay" id="storyOverlay" role="dialog" aria-modal="true" aria-labelledby="storyTitle" hidden>
   <div class="story-top">
     <div>
-      <span class="story-progress" id="storyTitle">The Compass That Wouldn’t Point</span>
+      <span class="story-progress" id="storyTitle"><span data-l="en">The Compass That Wouldn’t Point</span><span data-l="ar">البوصلة التي لم تُشِر</span></span>
       <span class="story-step" id="storyStep"></span>
     </div>
-    <button class="story-exit" id="storyExit" type="button" aria-label="Exit the story">Exit story <span aria-hidden="true">✕</span></button>
+    <button class="story-exit" id="storyExit" type="button" aria-label="Exit the story" data-aria-en="Exit the story" data-aria-ar="إنهاء القصة"><span data-l="en">Exit story</span><span data-l="ar">إنهاء القصة</span> <span aria-hidden="true">✕</span></button>
   </div>
   <div class="story-main">
-    <svg class="story-scene" id="storyScene" viewBox="0 0 800 440" role="img" aria-label="Illustrated story scene"></svg>
+    <svg class="story-scene" id="storyScene" viewBox="0 0 800 440" role="img" aria-label="Illustrated story scene" data-aria-en="Illustrated story scene" data-aria-ar="مشهد مصوّر من القصة"></svg>
     <p class="story-text" id="storyText" aria-live="polite"></p>
     <p class="story-sub" id="storySub" hidden></p>
     <div class="story-choices" id="storyChoices"></div>
@@ -630,26 +686,27 @@
             <path d="M16 5 19.2 16 16 27 12.8 16Z" fill="#D9A441"/>
             <circle cx="16" cy="16" r="2.4" fill="#103E3B"/>
           </svg>
-          Compass Club
+          <span data-l="en">Compass Club</span><span data-l="ar">نادي البوصلة</span>
         </a>
-        <p class="meta">Al Yamamah University · Qubar, Saudi Arabia</p>
-        <p class="ar">وجهتك تبدأ منك.</p>
+        <p class="meta"><span data-l="en">Al Yamamah University · Qubar, Saudi Arabia</span><span data-l="ar">جامعة اليمامة · الخبر، المملكة العربية السعودية</span></p>
+        <p class="ar" data-l="ar">وجهتك تبدأ منك.</p>
       </div>
       <div class="links" aria-label="Contact and navigation">
-        <a href="https://wa.me/966501882680" target="_blank" rel="noopener">WhatsApp · 050 188 2680</a>
+        <a href="https://wa.me/966501882680" target="_blank" rel="noopener"><span data-l="en">WhatsApp</span><span data-l="ar">واتساب</span> · 050 188 2680</a>
         <a href="mailto:202414030@yu.edu.sa">202414030@yu.edu.sa</a>
-        <a href="#explore">Explore</a>
-        <a href="members.html" data-transition>The crew</a>
-        <a href="#join">Join</a>
+        <a href="#explore"><span data-l="en">Explore</span><span data-l="ar">استكشف</span></a>
+        <a href="members.html" data-transition><span data-l="en">The crew</span><span data-l="ar">الفريق</span></a>
+        <a href="#join"><span data-l="en">Join</span><span data-l="ar">انضم</span></a>
       </div>
     </div>
     <div class="foot-bottom">
-      <span>© 2026 Compass Club · Al Yamamah University</span>
-      <span>A compass, not a map.</span>
+      <span><span data-l="en">© 2026 Compass Club · Al Yamamah University</span><span data-l="ar">© 2026 نادي البوصلة · جامعة اليمامة</span></span>
+      <span><span data-l="en">A compass, not a map.</span><span data-l="ar">بوصلة، لا خريطة.</span></span>
     </div>
   </div>
 </footer>
 
+<script src="i18n.js"></script>
 <script>
 (function () {
   "use strict";
@@ -700,9 +757,20 @@
       [[0, "N"], [90, "E"], [180, "S"], [270, "W"]].forEach(function (p) {
         var v = vec(p[0]);
         var t = el("text", { x: cx + v.x * 112, y: cy + v.y * 112 + 6, "text-anchor": "middle",
-          fill: p[0] === 0 ? AMBER : TEAL, "font-size": 19, "font-weight": 700, "letter-spacing": 1 });
-        t.textContent = p[1]; g.appendChild(t);
+          fill: p[0] === 0 ? AMBER : TEAL, "font-size": 19, "font-weight": 700, "letter-spacing": 1,
+          "class": "cardinal", "data-en": p[1], "data-ar": { N: "ش", E: "ق", S: "ج", W: "غ" }[p[1]] });
+        g.appendChild(t);
       });
+
+      function cardinals() {
+        var ar = document.documentElement.getAttribute("lang") === "ar";
+        Array.prototype.forEach.call(g.querySelectorAll(".cardinal"), function (t) {
+          t.textContent = t.getAttribute(ar ? "data-ar" : "data-en");
+          t.setAttribute("font-family", ar ? "Cairo, sans-serif" : "Manrope, sans-serif");
+        });
+      }
+      cardinals();
+      document.addEventListener("cc-lang", cardinals);
 
       // rotating needle group
       var needle = el("g", { id: "needle" });
@@ -873,12 +941,105 @@
   var NS = "http://www.w3.org/2000/svg";
   var C = { teal: "#103E3B", deep: "#0A2B29", ivory: "#F6F2E9", sea: "#B9DCD0", amber: "#D9A441", sand: "#E8C27A", ground: "#0E2C29", cliff: "#123B37" };
 
-  var PLACES = {
-    workshop:  { name: "The Workshop",  desc: "Something is broken. Could you find a way to fix it?",  x: 170, experiment: "Improve or repair one small thing." },
-    studio:    { name: "The Studio",    desc: "An idea is waiting to become something people can see.", x: 400, experiment: "Make something and share it." },
-    gathering: { name: "The Gathering", desc: "Someone is standing alone. Could you help them feel welcome?", x: 630, experiment: "Help someone feel included." }
-  };
+  var PLACES = { workshop: { x: 170 }, studio: { x: 400 }, gathering: { x: 630 } };
   var ORDER = ["workshop", "studio", "gathering"];
+
+  // Every word the story says, in both languages.
+  var LANG = {
+    en: {
+      font: "Manrope, sans-serif", serif: "Fraunces, Georgia, serif", italic: "italic",
+      places: {
+        workshop:  { name: "The Workshop",  label: "WORKSHOP",  desc: "Something is broken. Could you find a way to fix it?", experiment: "Improve or repair one small thing." },
+        studio:    { name: "The Studio",    label: "STUDIO",    desc: "An idea is waiting to become something people can see.", experiment: "Make something and share it." },
+        gathering: { name: "The Gathering", label: "GATHERING", desc: "Someone is standing alone. Could you help them feel welcome?", experiment: "Help someone feel included." }
+      },
+      s1: "Scene 1 · Everyone has a direction",
+      voices: ["Choose something practical.", "Have it all figured out.", "Follow your friends."],
+      s1Text: "Everyone had a direction for you.<br>But none of them felt like yours. Yet.",
+      step: "Take a small step",
+      s2: "Scene 2 · Follow something interesting",
+      s2Text: "You don’t need a destination.<br>Just something worth exploring.",
+      s2Again: "Pick another place — or return to one you liked.",
+      visited: "visited",
+      wsText: "Something is broken.<br>Could you find a way to fix it?",
+      wsSub: "Tap the pieces — any order works.",
+      pieces: ["Wooden plank", "Sturdy beam", "An old door"],
+      wsDone: "It holds.<br>You found a way across.",
+      cont: "Continue",
+      stText: "An idea is waiting<br>to become something people can see.",
+      stSub: "Choose a shape and a color for your flag.",
+      shape: "Shape", shapes: ["Circle", "Triangle", "Star"],
+      color: "Color", colors: ["Amber", "Seafoam", "Ivory"],
+      raise: "Raise my flag",
+      stDone: "There it is —<br>an idea, out where people can see it.",
+      gaText: "Someone is standing alone.<br>Could you help them feel welcome?",
+      invite: "Invite them in",
+      gaIn: "They step into the circle.",
+      gaSay: "Now say something welcoming:",
+      starters: ["Want to join us? We’re just getting started.", "What’s something you’ve been curious about lately?", "I’m new here too. What’s your name?"],
+      q1: "“", q2: "”",
+      gaDone: "The circle feels a little bigger now.",
+      s3: "Scene 3 · The first signal",
+      s3Text: "The compass didn’t reveal your future.<br>It noticed what made you curious.",
+      feel: "What did that feel like?",
+      feels: ["I’d try more of this.", "I’m curious about another path.", "Not quite my thing."],
+      acks: { more: "Then it’s worth following a little further.", other: "Good. Curiosity is a fine compass too.", not: "That counts. Learning what doesn’t fit is useful too." },
+      another: "Explore another path", revisit: "Revisit a place", onward: "See where this leads",
+      end: "One step is enough",
+      endText: "You don’t find your direction all at once.<br>You find it through the things you try.",
+      expLabel: "A small experiment, if you like",
+      unfamiliar: "Try one activity you’ve never done before.",
+      fin: "This was a little story. Your next experience can be real.",
+      toClub: "Explore Compass Club", again: "Try another path"
+    },
+    ar: {
+      font: "Cairo, sans-serif", serif: "'El Messiri', Cairo, serif", italic: "normal",
+      places: {
+        workshop:  { name: "الورشة",    label: "الورشة",    desc: "هناك شيء مكسور. هل تجد طريقة لإصلاحه؟", experiment: "حسّن أو أصلح شيئًا صغيرًا." },
+        studio:    { name: "الاستوديو", label: "الاستوديو", desc: "فكرة تنتظر أن تصبح شيئًا يراه الناس.", experiment: "اصنع شيئًا وشاركه مع الآخرين." },
+        gathering: { name: "المجلس",    label: "المجلس",    desc: "شخص يقف وحيدًا. هل تساعده ليشعر بالترحيب؟", experiment: "ساعد شخصًا ليشعر بأنه واحد منّا." }
+      },
+      s1: "المشهد 1 · الجميع يقترح عليك اتجاهًا",
+      voices: ["اختر شيئًا عمليًا.", "اعرف طريقك من الآن.", "اتبع أصدقاءك."],
+      s1Text: "كان لدى الجميع اتجاهٌ لك.<br>لكن لم يشعر أيٌّ منها أنه اتجاهك. حتى الآن.",
+      step: "خذ خطوة صغيرة",
+      s2: "المشهد 2 · اتبع ما يثير اهتمامك",
+      s2Text: "لا تحتاج إلى وجهة.<br>يكفي شيء يستحق الاستكشاف.",
+      s2Again: "اختر مكانًا آخر، أو عُد إلى مكان أعجبك.",
+      visited: "زرته",
+      wsText: "هناك شيء مكسور.<br>هل تجد طريقة لإصلاحه؟",
+      wsSub: "اضغط على القطع بأي ترتيب.",
+      pieces: ["لوح خشبي", "عارضة متينة", "باب قديم"],
+      wsDone: "صمد الجسر.<br>وجدت طريقك للعبور.",
+      cont: "متابعة",
+      stText: "فكرة تنتظر<br>أن تصبح شيئًا يراه الناس.",
+      stSub: "اختر شكلًا ولونًا لعلمك.",
+      shape: "الشكل", shapes: ["دائرة", "مثلث", "نجمة"],
+      color: "اللون", colors: ["كهرماني", "أخضر بحري", "عاجي"],
+      raise: "ارفع علمي",
+      stDone: "ها هو ذا،<br>فكرتك أمام أعين الناس.",
+      gaText: "شخص يقف وحيدًا.<br>هل تساعده ليشعر بالترحيب؟",
+      invite: "ادعُه للانضمام",
+      gaIn: "انضمّ إلى الحلقة.",
+      gaSay: "والآن، قل شيئًا ترحيبيًا:",
+      starters: ["هل تودّ الانضمام إلينا؟ ما زلنا في البداية.", "ما الشيء الذي يثير فضولك مؤخرًا؟", "أنا جديد هنا أيضًا. ما اسمك؟"],
+      q1: "«", q2: "»",
+      gaDone: "صارت الحلقة أكبر قليلًا الآن.",
+      s3: "المشهد 3 · الإشارة الأولى",
+      s3Text: "لم تكشف البوصلة مستقبلك.<br>لكنها لاحظت ما أثار فضولك.",
+      feel: "كيف كان شعورك؟",
+      feels: ["أودّ تجربة المزيد من هذا.", "يثير فضولي طريق آخر.", "ليس ما يناسبني تمامًا."],
+      acks: { more: "إذن يستحق أن تتبعه أكثر قليلًا.", other: "جميل. الفضول بوصلة جيدة أيضًا.", not: "وهذا مهم أيضًا. معرفة ما لا يناسبك خطوة مفيدة." },
+      another: "استكشف طريقًا آخر", revisit: "عُد إلى مكان زرته", onward: "إلى أين يقودني هذا؟",
+      end: "خطوة واحدة تكفي",
+      endText: "لا تجد وجهتك دفعة واحدة.<br>بل تجدها من خلال ما تجرّبه.",
+      expLabel: "تجربة صغيرة، إن أحببت",
+      unfamiliar: "جرّب نشاطًا لم تفعله من قبل.",
+      fin: "كانت هذه قصة صغيرة. وتجربتك القادمة يمكن أن تكون حقيقية.",
+      toClub: "استكشف نادي البوصلة", again: "جرّب طريقًا آخر"
+    }
+  };
+  var L = LANG.en;
 
   var state, timers = [], lastFocus = null, kb = false;
   function reset() { state = { visited: [], feelings: {}, last: null, charX: 285 }; }
@@ -1046,12 +1207,13 @@
 
   // ---------- SCENE 1: everyone has a direction ----------
   function scene1() {
-    setStep("Scene 1 · Everyone has a direction");
+    setStep(L.s1);
     var voices = [];
     var N = narrow(), fs = N ? 34 : 18, vh = N ? 62 : 38;
+    var V = L.voices;
     var VOICES = N
-      ? [["Choose something practical.", 400, 62], ["Follow your friends.", 400, 128], ["Have it all figured out.", 400, 194]]
-      : [["Choose something practical.", 205, 112], ["Have it all figured out.", 410, 58], ["Follow your friends.", 618, 152]];
+      ? [[V[0], 400, 62], [V[2], 400, 128], [V[1], 400, 194]]
+      : [[V[0], 205, 112], [V[1], 410, 58], [V[2], 618, 152]];
     frame(function (root) {
       root.appendChild(S("path", { d: "M0 378 C 200 372, 600 372, 800 378 L800 404 C 600 398, 200 398, 0 404Z", fill: "rgba(185,220,208,.1)" }));
       root.appendChild(S("path", { d: "M388 352 L412 352 L470 440 L330 440Z", fill: "rgba(185,220,208,.1)" }));
@@ -1065,7 +1227,7 @@
         var w = v[0].length * fs * 0.53 + (N ? 60 : 34);
         var g = S("g", { "class": "voice" }, [
           S("rect", { x: v[1] - w / 2, y: v[2] - vh * 0.66, width: w, height: vh, rx: vh / 2, fill: "rgba(246,242,233,.09)", stroke: "rgba(185,220,208,.35)" }),
-          T({ x: v[1], y: v[2], "text-anchor": "middle", fill: C.ivory, "font-size": fs, "font-style": "italic", "font-family": "Fraunces, Georgia, serif" }, v[0])
+          T({ x: v[1], y: v[2], "text-anchor": "middle", fill: C.ivory, "font-size": fs, "font-style": L.italic, "font-family": L.serif }, v[0])
         ]);
         voices.push(g);
         root.appendChild(g);
@@ -1074,9 +1236,9 @@
     });
     setNeedle("wobble");
     voices.forEach(function (g, i) { later(function () { g.classList.add("show"); }, 450 + i * 850); });
-    setText("Everyone had a direction for you.<br>But none of them felt like yours. Yet.");
+    setText(L.s1Text);
     setSub(null);
-    var step = button("Take a small step", { cls: "primary" }, function () {
+    var step = button(L.step, { cls: "primary" }, function () {
       step.disabled = true;
       voices.forEach(function (g) { g.classList.add("show", "leave"); });
       later(scene2, 900);
@@ -1086,7 +1248,7 @@
 
   // ---------- SCENE 2: follow something interesting ----------
   function scene2() {
-    setStep("Scene 2 · Follow something interesting");
+    setStep(L.s2);
     var spots = {}, charG;
     frame(function (root) {
       ORDER.forEach(function (key) {
@@ -1094,7 +1256,7 @@
         var g = S("g", { "class": "s-spot" }, [
           S("circle", { cx: p.x, cy: 318, r: 80, fill: "url(#storyWarm)", "class": "s-glow" }),
           placeIcon(key, p.x, 352),
-          T({ x: p.x, y: 258, "text-anchor": "middle", fill: C.ivory, "font-size": narrow() ? 28 : 13, "font-weight": 700, "letter-spacing": narrow() ? 1.5 : 2.5, "font-family": "Manrope, sans-serif" }, p.name.replace("The ", "").toUpperCase())
+          T({ x: p.x, y: 258, "text-anchor": "middle", fill: C.ivory, "font-size": narrow() ? 28 : 13, "font-weight": 700, "letter-spacing": narrow() ? 1.5 : 2.5, "font-family": L.font }, L.places[key].label)
         ]);
         if (state.visited.indexOf(key) > -1) sparkle(g, p.x, 236, 0.2);
         spots[key] = g;
@@ -1104,13 +1266,13 @@
       root.appendChild(charG);
     });
     setNeedle("wobble");
-    setText("You don’t need a destination.<br>Just something worth exploring.");
-    setSub(state.visited.length ? "Pick another place — or return to one you liked." : null);
+    setText(L.s2Text);
+    setSub(state.visited.length ? L.s2Again : null);
     var nodes = ORDER.map(function (key) {
       var p = PLACES[key], seen = state.visited.indexOf(key) > -1;
       var b = button("", {
         cls: "place-btn",
-        html: (seen ? '<span class="tag">visited</span>' : "") + '<span class="pt">' + p.name + '</span><span class="pd">' + p.desc + "</span>"
+        html: (seen ? '<span class="tag">' + L.visited + '</span>' : "") + '<span class="pt">' + L.places[key].name + '</span><span class="pd">' + L.places[key].desc + "</span>"
       }, function () { go(key); });
       ["mouseenter", "focus"].forEach(function (ev) { b.addEventListener(ev, function () { spots[key].classList.add("hot"); }); });
       ["mouseleave", "blur"].forEach(function (ev) { b.addEventListener(ev, function () { if (!b.disabled) spots[key].classList.remove("hot"); }); });
@@ -1128,7 +1290,7 @@
 
   // ---------- ACTIVITY: the workshop (finish a bridge) ----------
   function workshop() {
-    setStep("The Workshop");
+    setStep(L.places.workshop.name);
     var SLOTS = { plank: 250, beam: 350, door: 450 }, placed = {}, count = 0, layer, charG;
     frame(function (root) {
       root.appendChild(S("rect", { x: 250, y: 300, width: 300, height: 140, fill: "#061E1C" }));
@@ -1149,9 +1311,9 @@
       root.appendChild(charG);
     });
     setNeedle("wobble");
-    setText("Something is broken.<br>Could you find a way to fix it?");
-    setSub("Tap the pieces — any order works.");
-    var PIECES = [["plank", "Wooden plank"], ["beam", "Sturdy beam"], ["door", "An old door"]];
+    setText(L.wsText);
+    setSub(L.wsSub);
+    var PIECES = [["plank", L.pieces[0]], ["beam", L.pieces[1]], ["door", L.pieces[2]]];
     var btns = PIECES.map(function (pc) {
       var b = button(pc[1], {}, function () { place(pc[0], b); });
       return b;
@@ -1181,15 +1343,15 @@
     function done() {
       layer.appendChild(S("path", { d: "M241 280 Q 400 256 559 280", fill: "none", stroke: C.amber, "stroke-width": 2.5, "class": "s-draw", pathLength: 400 }));
       later(function () { charG.style.transform = "translate(640px,300px)"; }, 350);
-      setText("It holds.<br>You found a way across.");
+      setText(L.wsDone);
       setSub(null);
-      setChoices([button("Continue", { cls: "primary" }, function () { signal("workshop"); })]);
+      setChoices([button(L.cont, { cls: "primary" }, function () { signal("workshop"); })]);
     }
   }
 
   // ---------- ACTIVITY: the studio (make a flag) ----------
   function studio() {
-    setStep("The Studio");
+    setStep(L.places.studio.name);
     var shape = null, color = null, cloth, mark, sparks;
     frame(function (root) {
       root.appendChild(S("circle", { cx: 500, cy: 186, r: 140, fill: "url(#storyWarm)", opacity: ".55" }));
@@ -1204,8 +1366,8 @@
       root.appendChild(character(300, 352));
     });
     setNeedle("wobble");
-    setText("An idea is waiting<br>to become something people can see.");
-    setSub("Choose a shape and a color for your flag.");
+    setText(L.stText);
+    setSub(L.stSub);
 
     function shapeEl(kind, cx, cy, fill) {
       if (kind === "circle") return S("circle", { cx: cx, cy: cy, r: 28, fill: fill });
@@ -1226,26 +1388,26 @@
 
     var shapeRow = document.createElement("div");
     shapeRow.className = "choice-row";
-    shapeRow.innerHTML = '<span class="choice-label">Shape</span>';
-    [["circle", "Circle"], ["triangle", "Triangle"], ["star", "Star"]].forEach(function (s) {
+    shapeRow.innerHTML = '<span class="choice-label">' + L.shape + '</span>';
+    [["circle", L.shapes[0]], ["triangle", L.shapes[1]], ["star", L.shapes[2]]].forEach(function (s) {
       var b = button(s[1], {}, function () { shape = s[0]; pick(shapeRow, b); paint(); });
       b.setAttribute("aria-pressed", "false");
       shapeRow.appendChild(b);
     });
     var colorRow = document.createElement("div");
     colorRow.className = "choice-row";
-    colorRow.innerHTML = '<span class="choice-label">Color</span>';
-    [[C.amber, "Amber"], [C.sea, "Seafoam"], [C.ivory, "Ivory"]].forEach(function (c) {
+    colorRow.innerHTML = '<span class="choice-label">' + L.color + '</span>';
+    [[C.amber, L.colors[0]], [C.sea, L.colors[1]], [C.ivory, L.colors[2]]].forEach(function (c) {
       var b = button("", { cls: "swatch", aria: c[1] }, function () { color = c[0]; pick(colorRow, b); paint(); });
       b.style.background = c[0];
       b.setAttribute("aria-pressed", "false");
       colorRow.appendChild(b);
     });
-    var doneBtn = button("Raise my flag", { cls: "primary" }, function () {
+    var doneBtn = button(L.raise, { cls: "primary" }, function () {
       [[430, 110], [580, 112], [612, 190], [560, 262], [440, 258], [470, 96]].forEach(function (p, i) { sparkle(sparks, p[0], p[1], i * 0.08); });
-      setText("There it is —<br>an idea, out where people can see it.");
+      setText(L.stDone);
       setSub(null);
-      setChoices([button("Continue", { cls: "primary" }, function () { signal("studio"); })]);
+      setChoices([button(L.cont, { cls: "primary" }, function () { signal("studio"); })]);
     });
     doneBtn.disabled = true;
     setChoices([shapeRow, colorRow, doneBtn]);
@@ -1253,7 +1415,7 @@
 
   // ---------- ACTIVITY: the gathering (welcome someone) ----------
   function gathering() {
-    setStep("The Gathering");
+    setStep(L.places.gathering.name);
     var mover, lone, bubble, sparks;
     frame(function (root) {
       root.appendChild(S("circle", { cx: 400, cy: 330, r: 160, fill: "url(#storyWarm)", "class": "s-glow" }));
@@ -1277,21 +1439,17 @@
       root.appendChild(character(170, 404));
     });
     setNeedle("wobble");
-    setText("Someone is standing alone.<br>Could you help them feel welcome?");
+    setText(L.gaText);
     setSub(null);
-    setChoices([button("Invite them in", { cls: "primary" }, invite)]);
+    setChoices([button(L.invite, { cls: "primary" }, invite)]);
 
     function invite() {
       mover.style.transform = "translate(-215px,0px)";
       lone.setAttribute("opacity", "1");
-      setText("They step into the circle.");
-      setSub("Now say something welcoming:");
-      var starters = [
-        "Want to join us? We’re just getting started.",
-        "What’s something you’ve been curious about lately?",
-        "I’m new here too. What’s your name?"
-      ];
-      setChoices(starters.map(function (s) { return button("“" + s + "”", {}, function () { say(s); }); }));
+      setText(L.gaIn);
+      setSub(L.gaSay);
+      var starters = L.starters;
+      setChoices(starters.map(function (s) { return button(L.q1 + s + L.q2, {}, function () { say(s); }); }));
     }
     function say(s) {
       while (bubble.firstChild) bubble.removeChild(bubble.firstChild);
@@ -1302,13 +1460,13 @@
         S("path", { d: "M420 196 l16 20 l6 -20z", fill: C.ivory })
       ]);
       lines.forEach(function (ln, i) {
-        g.appendChild(T({ x: 400, y: top + (N ? 44 : 30) + i * lh, "text-anchor": "middle", fill: C.deep, "font-size": fs, "font-weight": 600, "font-family": "Manrope, sans-serif" }, ln));
+        g.appendChild(T({ x: 400, y: top + (N ? 44 : 30) + i * lh, "text-anchor": "middle", fill: C.deep, "font-size": fs, "font-weight": 600, "font-family": L.font }, ln));
       });
       bubble.appendChild(g);
       [[300, 300], [500, 296], [470, 330], [330, 330]].forEach(function (p, i) { sparkle(sparks, p[0], p[1], 0.2 + i * 0.1); });
-      setText("The circle feels a little bigger now.");
+      setText(L.gaDone);
       setSub(null);
-      setChoices([button("Continue", { cls: "primary" }, function () { signal("gathering"); })]);
+      setChoices([button(L.cont, { cls: "primary" }, function () { signal("gathering"); })]);
     }
   }
 
@@ -1316,14 +1474,14 @@
   function signal(key) {
     if (state.visited.indexOf(key) < 0) state.visited.push(key);
     state.last = key;
-    setStep("Scene 3 · The first signal");
+    setStep(L.s3);
     var p = PLACES[key], cx = 400, cy = 168, px = p.x, py = 318;
     var bearing = Math.atan2(px - cx, -(py - cy)) * 180 / Math.PI;
     var big, guide;
     frame(function (root) {
       root.appendChild(S("circle", { cx: px, cy: 318, r: 74, fill: "url(#storyWarm)", "class": "s-glow" }));
       root.appendChild(placeIcon(key, px, 352));
-      root.appendChild(character(px + (key === "gathering" ? -86 : 86), 432));
+      root.appendChild(character(px + (px > 400 ? -86 : 86), 432));
       guide = S("path", { d: "M" + cx + " " + cy + " L" + px + " " + (py - 6), stroke: C.amber, "stroke-width": 2.5, "stroke-dasharray": "2 9", "stroke-linecap": "round", fill: "none" });
       guide.style.opacity = "0";
       guide.style.transition = "opacity .9s ease";
@@ -1349,30 +1507,26 @@
     setNeedle("wobble");
     later(function () { setNeedle("steady", bearing); }, 700);
     later(function () { guide.style.opacity = ".85"; }, 1700);
-    setText("The compass didn’t reveal your future.<br>It noticed what made you curious.");
+    setText(L.s3Text);
     setSub(null);
     setChoices([]);
     later(function () {
-      setSub("What did that feel like?");
+      setSub(L.feel);
       setChoices([
-        button("I’d try more of this.", {}, function () { feel(key, "more"); }),
-        button("I’m curious about another path.", {}, function () { feel(key, "other"); }),
-        button("Not quite my thing.", {}, function () { feel(key, "not"); })
+        button(L.feels[0], {}, function () { feel(key, "more"); }),
+        button(L.feels[1], {}, function () { feel(key, "other"); }),
+        button(L.feels[2], {}, function () { feel(key, "not"); })
       ]);
     }, 900);
   }
 
   function feel(key, f) {
     state.feelings[key] = f;
-    var ack = {
-      more: "Then it’s worth following a little further.",
-      other: "Good. Curiosity is a fine compass too.",
-      not: "That counts. Learning what doesn’t fit is useful too."
-    };
+    var ack = L.acks;
     setSub(ack[f]);
     var left = ORDER.filter(function (k) { return state.visited.indexOf(k) < 0; }).length;
-    var explore = button(left ? "Explore another path" : "Revisit a place", { cls: f === "more" ? "" : "primary" }, scene2);
-    var onward = button("See where this leads", { cls: f === "more" ? "primary" : "" }, ending);
+    var explore = button(left ? L.another : L.revisit, { cls: f === "more" ? "" : "primary" }, scene2);
+    var onward = button(L.onward, { cls: f === "more" ? "primary" : "" }, ending);
     setChoices(f === "more" ? [onward, explore] : [explore, onward]);
   }
 
@@ -1380,18 +1534,18 @@
   function pickExperiment() {
     var recent = state.visited.slice().reverse();
     var liked = recent.filter(function (k) { return state.feelings[k] === "more"; })[0];
-    if (liked) return PLACES[liked].experiment;
+    if (liked) return L.places[liked].experiment;
     var curious = recent.filter(function (k) { return state.feelings[k] === "other"; })[0];
     if (curious) {
       var next = ORDER.filter(function (k) { return state.visited.indexOf(k) < 0; })[0];
-      if (next) return PLACES[next].experiment;
+      if (next) return L.places[next].experiment;
     }
-    return "Try one activity you’ve never done before.";
+    return L.unfamiliar;
   }
 
   function ending() {
-    setStep("One step is enough");
-    var POINTS = { studio: [400, 50], workshop: [290, 150], gathering: [510, 150] };
+    setStep(L.end);
+    var POINTS = { studio: [400, 50], workshop: [PLACES.workshop.x < 400 ? 290 : 510, 150], gathering: [PLACES.gathering.x < 400 ? 290 : 510, 150] };
     var cam = frame(function (root) {
       state.visited.forEach(function (k, i) {
         var p = PLACES[k];
@@ -1429,15 +1583,15 @@
       cam.style.transition = "";
       later(function () { cam.style.transform = "scale(1)"; }, 60);
     }
-    setText("You don’t find your direction all at once.<br>You find it through the things you try.");
-    setSub('<span class="experiment"><span class="k">A small experiment, if you like</span><span class="v">' + pickExperiment() + "</span></span>");
+    setText(L.endText);
+    setSub('<span class="experiment"><span class="k">' + L.expLabel + '</span><span class="v">' + pickExperiment() + "</span></span>");
     var fin = document.createElement("p");
     fin.className = "story-fin";
-    fin.textContent = "This was a little story. Your next experience can be real.";
+    fin.textContent = L.fin;
     setChoices([
       fin,
-      button("Explore Compass Club", { cls: "primary" }, toClub),
-      button("Try another path", {}, scene2)
+      button(L.toClub, { cls: "primary" }, toClub),
+      button(L.again, {}, scene2)
     ]);
   }
 
@@ -1445,6 +1599,9 @@
   function open() {
     clearTimers();
     reset();
+    L = LANG[window.CCLang && CCLang.current() === "ar" ? "ar" : "en"];
+    PLACES.workshop.x = L === LANG.ar ? 630 : 170;
+    PLACES.gathering.x = L === LANG.ar ? 170 : 630;
     lastFocus = document.activeElement;
     overlay.hidden = false;
     overlay.classList.add("open");
@@ -1509,6 +1666,11 @@
   window.addEventListener("resize", measure, { passive: true });
   window.addEventListener("load", measure);
   setInterval(measure, 2000);
+  document.addEventListener("cc-lang-chosen", function () {
+    var h = document.getElementById("hero");
+    if (!h) return;
+    h.classList.remove("ready"); void h.offsetWidth; h.classList.add("ready");
+  });
   CCMotion.ambient(document.getElementById("ambient"), {
     density: 20000, max: 70, sparkRatio: 0.32,
     isDark: function (x, y) {
