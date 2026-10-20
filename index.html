@@ -20,7 +20,7 @@
 <meta name="twitter:description" content="Discover what you love by trying something new. A student club at Al Yamamah University.">
 <meta name="twitter:image" content="https://xvhn.github.io/compassclubyu/og-image.png">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23103E3B'/%3E%3Cpath d='M16 6 19 16 16 26 13 16Z' fill='%23D9A441'/%3E%3Ccircle cx='16' cy='16' r='2.2' fill='%23F6F2E9'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 1.5 L65.5 34.5 L98.5 50 L65.5 65.5 L50 98.5 L34.5 65.5 L1.5 50 L34.5 34.5Z' fill='%239F8553'/%3E%3Cpath d='M50 5.5 L61.5 38.5 L94.5 50 L61.5 61.5 L50 94.5 L38.5 61.5 L5.5 50 L38.5 38.5Z' fill='%23FFFFFF' stroke='%23FFFFFF' stroke-width='1.2' stroke-linejoin='round'/%3E%3Cpath d='M50 5.5 L38.5 38.5 L50 50Z M94.5 50 L61.5 38.5 L50 50Z M50 94.5 L61.5 61.5 L50 50Z M5.5 50 L38.5 61.5 L50 50Z' fill='%233D6B8B'/%3E%3C/svg%3E">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -35,7 +35,7 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=El+Messiri:wght@500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Manrope:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Barlow+Semi+Condensed:wght@500;600&family=El+Messiri:wght@500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Manrope:wght@400;500;600;700&display=swap">
 <style>
   /* Compass Club — ivory-first navigation theme with selected deep-teal sections.
      Palette: deep ocean teal, warm ivory, muted seafoam, warm amber (sparing). */
@@ -470,6 +470,34 @@
   html[dir="rtl"] .crew-cta svg { transform: scaleX(-1); }
   html[dir="rtl"] .crew-cta .btn:hover svg { transform: scaleX(-1) translateX(3px); }
   html[lang="ar"] .hero-h { line-height: 1.22 !important; }
+  /* ---------- club logo: official star mark + wordmark ---------- */
+  .brand.logo { gap: 11px; color: #3D6B8B; }
+  .logo-mark { width: 42px; height: 42px; flex: none; transition: transform .7s cubic-bezier(.2,1.3,.4,1);
+    filter: drop-shadow(0 3px 6px rgba(16,62,59,.18)); }
+  .logo:hover .logo-mark, .logo:focus-visible .logo-mark { transform: rotate(90deg); }
+  .logo-type { display: flex; flex-direction: column; line-height: 1; font-family: "Barlow Semi Condensed", "Barlow", "Arial Narrow", sans-serif; color: #3D6B8B; }
+  .lt-1 { font-weight: 600; font-size: 1.32rem; letter-spacing: .04em; white-space: nowrap; }
+  .lt-2 { display: flex; align-items: center; gap: 5px; margin-top: 4px; font-weight: 500; font-size: .53rem; letter-spacing: .18em; white-space: nowrap; }
+  .lt-2::before, .lt-2::after { content: ""; flex: 1 1 8px; min-width: 6px; height: 1px; background: currentColor; opacity: .75; }
+  html[lang="ar"] .logo .lt-1 { letter-spacing: .04em !important; }
+  html[lang="ar"] .logo .lt-2 { letter-spacing: .18em !important; }
+  .logo-lg .logo-mark { width: 52px; height: 52px; }
+  .logo-lg .lt-1 { font-size: 1.55rem; }
+  .logo-lg .lt-2 { font-size: .6rem; }
+  @media (max-width: 420px) {
+    .logo-mark { width: 34px; height: 34px; }
+    .lt-1 { font-size: 1.08rem; }
+    .lt-2 { font-size: .45rem; }
+    .brand.logo { gap: 8px; }
+    .nav-links { gap: 10px; }
+    .nav-links .lang-btn { padding: 0 10px; }
+  }
+  @media (max-width: 380px) {
+    .logo-mark { width: 30px; height: 30px; }
+    .lt-1 { font-size: .95rem; }
+    .lt-2 { font-size: .4rem; gap: 3px; }
+    .nav-links .lang-btn { padding: 0 8px; }
+  }
 </style>
 
 <canvas class="ambient" id="ambient" aria-hidden="true"></canvas>
@@ -502,13 +530,9 @@
 <!-- ============ NAV ============ -->
 <header class="nav" id="nav">
   <div class="wrap nav-row">
-    <a class="brand" href="#top" aria-label="Compass Club home" data-aria-en="Compass Club home" data-aria-ar="الصفحة الرئيسية لنادي البوصلة">
-      <svg class="mk" viewBox="0 0 32 32" aria-hidden="true">
-        <circle cx="16" cy="16" r="15" fill="none" stroke="#103E3B" stroke-width="2"/>
-        <path d="M16 5 19.2 16 16 27 12.8 16Z" fill="#D9A441"/>
-        <circle cx="16" cy="16" r="2.4" fill="#103E3B"/>
-      </svg>
-      <span data-l="en">Compass&nbsp;Club</span><span data-l="ar">نادي البوصلة</span>
+    <a class="brand logo" href="#top" aria-label="Compass Club, Yamamah University — home" data-aria-en="Compass Club, Yamamah University — home" data-aria-ar="نادي البوصلة، جامعة اليمامة — الرئيسية">
+      <svg class="logo-mark" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 1.5 L65.5 34.5 L98.5 50 L65.5 65.5 L50 98.5 L34.5 65.5 L1.5 50 L34.5 34.5Z" fill="#9F8553"/><path d="M50 5.5 L61.5 38.5 L94.5 50 L61.5 61.5 L50 94.5 L38.5 61.5 L5.5 50 L38.5 38.5Z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.2" stroke-linejoin="round"/><path d="M50 5.5 L38.5 38.5 L50 50Z M94.5 50 L61.5 38.5 L50 50Z M50 94.5 L61.5 61.5 L50 50Z M5.5 50 L38.5 61.5 L50 50Z" fill="#3D6B8B"/></svg>
+      <span class="logo-type" aria-hidden="true"><span class="lt-1">COMPASS CLUB</span><span class="lt-2">YAMAMAH UNIVERSITY</span></span>
     </a>
     <nav class="nav-links" aria-label="Primary">
       <a class="link" href="#explore"><span data-l="en">Explore</span><span data-l="ar">استكشف</span></a>
@@ -741,13 +765,9 @@
   <div class="wrap">
     <div class="foot">
       <div class="id">
-        <a class="brand" href="#top">
-          <svg class="mk" viewBox="0 0 32 32" aria-hidden="true">
-            <circle cx="16" cy="16" r="15" fill="none" stroke="#103E3B" stroke-width="2"/>
-            <path d="M16 5 19.2 16 16 27 12.8 16Z" fill="#D9A441"/>
-            <circle cx="16" cy="16" r="2.4" fill="#103E3B"/>
-          </svg>
-          <span data-l="en">Compass Club</span><span data-l="ar">نادي البوصلة</span>
+        <a class="brand logo logo-lg" href="#top" aria-label="Compass Club, Yamamah University" data-aria-en="Compass Club, Yamamah University" data-aria-ar="نادي البوصلة، جامعة اليمامة">
+      <svg class="logo-mark" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 1.5 L65.5 34.5 L98.5 50 L65.5 65.5 L50 98.5 L34.5 65.5 L1.5 50 L34.5 34.5Z" fill="#9F8553"/><path d="M50 5.5 L61.5 38.5 L94.5 50 L61.5 61.5 L50 94.5 L38.5 61.5 L5.5 50 L38.5 38.5Z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.2" stroke-linejoin="round"/><path d="M50 5.5 L38.5 38.5 L50 50Z M94.5 50 L61.5 38.5 L50 50Z M50 94.5 L61.5 61.5 L50 50Z M5.5 50 L38.5 61.5 L50 50Z" fill="#3D6B8B"/></svg>
+      <span class="logo-type" aria-hidden="true"><span class="lt-1">COMPASS CLUB</span><span class="lt-2">YAMAMAH UNIVERSITY</span></span>
         </a>
         <p class="meta"><span data-l="en">Al Yamamah University · Qubar, Saudi Arabia</span><span data-l="ar">جامعة اليمامة · الخبر، المملكة العربية السعودية</span></p>
         <p class="ar" data-l="ar">وجهتك تبدأ منك.</p>
