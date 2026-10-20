@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://xvhn.github.io/my-game/sitemap.xml
+Sitemap: https://xvhn.github.io/compassclubyu/sitemap.xml
