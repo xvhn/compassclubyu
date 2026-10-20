@@ -274,7 +274,7 @@
   .mini-compass .ndl { transform-origin: 44px 44px; animation: miniWobble 3.2s ease-in-out infinite; }
   @keyframes miniWobble { 0%,100% { transform: rotate(-38deg); } 30% { transform: rotate(46deg); } 60% { transform: rotate(-12deg); } 80% { transform: rotate(24deg); } }
 
-  /* ---------- immersive story overlay ---------- */
+  /* ---------- story overlay: three short moments, told mostly by animation ---------- */
   body.story-lock { overflow: hidden; }
   .story-overlay {
     position: fixed; inset: 0; z-index: 200; display: none; flex-direction: column;
@@ -284,8 +284,12 @@
   }
   .story-overlay.open { display: flex; animation: storyOpen .45s ease both; }
   @keyframes storyOpen { from { opacity: 0; } to { opacity: 1; } }
-  .story-top { position: relative; z-index: 3; display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 46px; padding-inline-end: 150px; }
-  .story-progress { font-size: .74rem; letter-spacing: .16em; text-transform: uppercase; color: var(--seafoam); font-weight: 600; }
+  .story-overlay:focus { outline: none; }
+  .story-top { position: relative; z-index: 3; min-height: 46px; padding-inline-end: 150px; }
+  .story-progress { display: block; font-size: .74rem; letter-spacing: .16em; text-transform: uppercase; color: var(--seafoam); font-weight: 600; }
+  .story-step { display: flex; gap: 6px; margin-top: 8px; }
+  .story-step i { width: 24px; height: 4px; border-radius: 4px; background: rgba(246,242,233,.22); transition: background .5s ease; }
+  .story-step i.on { background: var(--amber); }
   .story-exit {
     position: fixed; z-index: 6; top: max(14px, env(safe-area-inset-top, 0px)); inset-inline-end: max(16px, env(safe-area-inset-right, 0px));
     display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 10px 18px; border-radius: 999px; cursor: pointer; white-space: nowrap;
@@ -293,76 +297,130 @@
     background: rgba(10,43,41,.72); backdrop-filter: blur(6px); border: 1.5px solid rgba(185,220,208,.45); transition: background .2s ease;
   }
   .story-exit:hover { background: rgba(32,80,75,.9); }
-  .story-main { position: relative; z-index: 2; flex: 1; width: 100%; max-width: 900px; margin-inline: auto;
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding-block: 10px; }
-  .story-scene {
-    width: 100%; height: auto; max-height: 46vh; display: block; overflow: hidden;
-    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%), linear-gradient(180deg, #000 80%, transparent 100%);
+  .story-main { position: relative; z-index: 2; flex: 1; width: 100%; max-width: 920px; margin-inline: auto;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding-block: 8px; }
+  .st-stage { position: relative; width: min(100%, calc(54vh * 800 / 460)); aspect-ratio: 800 / 460; container-type: inline-size; }
+  .st-stage > svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%), linear-gradient(180deg, transparent 0, #000 14%, #000 82%, transparent 100%);
     -webkit-mask-composite: source-in;
-    mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%), linear-gradient(180deg, #000 80%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%), linear-gradient(180deg, transparent 0, #000 14%, #000 82%, transparent 100%);
     mask-composite: intersect;
-  }
-  .story-overlay:focus { outline: none; }
-  .story-step { display: block; margin-top: 3px; font-size: .86rem; color: rgba(246,242,233,.78); }
-  .story-fin { width: 100%; text-align: center; margin: 2px 0 4px; font-family: var(--display); font-style: italic; font-size: 1.15rem; color: var(--ivory); }
-  .story-text { text-align: center; font-family: var(--display); font-weight: 400; font-size: clamp(1.25rem, 3.2vw, 1.85rem); line-height: 1.3; max-width: 32ch; margin: 0; }
-  .story-sub { text-align: center; color: var(--seafoam); font-size: 1.05rem; max-width: 46ch; margin: 0; }
-  .story-sub strong { color: var(--amber); font-weight: 700; }
-  .story-choices { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; width: 100%; }
-  .story-btn {
-    font: inherit; font-weight: 700; font-size: 1rem; cursor: pointer; color: var(--ivory); text-align: center;
-    background: rgba(246,242,233,.07); border: 1.5px solid rgba(185,220,208,.45); border-radius: 16px;
-    padding: 13px 20px; min-height: 48px; transition: transform .15s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
-  }
+    filter: saturate(.2) brightness(.84); transition: filter 1.6s ease; }
+  .st-stage.lvlh > svg { filter: saturate(.6) brightness(.95); }
+  .st-stage.lvl1 > svg { filter: saturate(1) brightness(1.02); }
+  .st-stage.lvl2 > svg { filter: saturate(1.15) brightness(1.06); }
+  .st-hot { position: absolute; inset: 0; }
+  .story-text { min-height: 1.3em; margin: 0; text-align: center; font-family: var(--display); font-weight: 400; font-size: clamp(1.5rem, 3.9vw, 2.4rem); line-height: 1.22; max-width: 24ch; text-wrap: balance; }
+  .story-sub { margin: 0; text-align: center; color: var(--seafoam); font-size: clamp(1.02rem, 2.4vw, 1.18rem); max-width: 44ch; }
+  .story-choices { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; min-height: 52px; }
+  .story-btn { font: inherit; font-weight: 700; font-size: 1.02rem; cursor: pointer; color: var(--ivory); background: rgba(246,242,233,.07);
+    border: 1.5px solid rgba(185,220,208,.45); border-radius: 999px; padding: 13px 24px; min-height: 50px;
+    transition: transform .15s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease; }
   .story-btn:hover, .story-btn:focus-visible { background: rgba(217,164,65,.14); border-color: var(--amber); transform: translateY(-2px); }
   .story-btn:active { transform: scale(.97); }
   .story-btn.primary { background: var(--amber); color: var(--teal-900); border-color: var(--amber); box-shadow: 0 12px 30px -14px rgba(217,164,65,.9); }
   .story-btn.primary:hover { filter: brightness(1.06); background: var(--amber); }
-  .story-btn.picked { background: rgba(217,164,65,.22); border-color: var(--amber); }
   .story-btn[disabled] { opacity: .4; cursor: default; transform: none; }
-  .place-btn { flex: 1 1 230px; max-width: 280px; text-align: start; padding: 16px 18px; position: relative; }
-  .place-btn .pt { display: block; font-family: var(--display); font-size: 1.25rem; font-weight: 500; }
-  .place-btn .pd { display: block; font-weight: 500; font-size: .92rem; color: var(--seafoam); margin-top: 4px; line-height: 1.4; }
-  .place-btn .tag { position: absolute; top: 10px; inset-inline-end: 12px; font-size: .62rem; letter-spacing: .14em; text-transform: uppercase; color: var(--amber); }
-  .choice-row { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; width: 100%; }
-  .choice-label { width: 100%; text-align: center; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--seafoam); font-weight: 700; }
-  .swatch { width: 48px; height: 48px; padding: 0; border-radius: 50%; }
-  .experiment { display: inline-block; border: 1.5px dashed rgba(217,164,65,.6); border-radius: 16px; padding: 14px 20px; text-align: center; max-width: 440px; }
-  .experiment .k { display: block; font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--seafoam); font-weight: 700; }
-  .experiment .v { display: block; font-family: var(--display); font-size: 1.3rem; color: var(--amber); margin-top: 4px; }
-
-  /* scene animation */
   .sfade { animation: sFade .6s cubic-bezier(.2,.7,.2,1) both; }
-  @keyframes sFade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
-  .scene-swap { animation: sceneSwap .7s ease both; }
-  @keyframes sceneSwap { from { opacity: 0; } to { opacity: 1; } }
-  .voice { opacity: 0; transition: opacity .8s ease, transform .8s ease; }
-  .voice.show { opacity: 1; }
-  .voice.leave { opacity: 0 !important; transform: translateY(-14px); }
-  .s-star { animation: twinkle 3.4s ease-in-out infinite; }
-  @keyframes twinkle { 0%,100% { opacity: .25; } 50% { opacity: 1; } }
-  .s-char { transition: transform 1s cubic-bezier(.45,.05,.2,1); }
-  .s-move { transition: transform .9s cubic-bezier(.45,.05,.2,1); }
-  .s-glow { animation: glowPulse 2.2s ease-in-out infinite; }
-  @keyframes glowPulse { 0%,100% { opacity: .45; } 50% { opacity: 1; } }
-  .s-pop { animation: sPop .45s cubic-bezier(.2,1.4,.4,1) both; transform-box: fill-box; transform-origin: center; }
-  @keyframes sPop { from { opacity: 0; transform: scale(.4); } to { opacity: 1; transform: scale(1); } }
-  .s-spot { transition: opacity .3s ease, transform .3s ease; transform-box: fill-box; transform-origin: center; }
-  .s-spot.hot { transform: scale(1.12); }
-  .s-draw { stroke-dasharray: 400; stroke-dashoffset: 400; animation: sDraw 1.6s ease forwards; }
-  @keyframes sDraw { to { stroke-dashoffset: 0; } }
-  .s-camera { transition: transform 1.6s cubic-bezier(.4,.1,.2,1); transform-origin: 400px 300px; }
+  @keyframes sFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
+  /* the three opportunities, floating in the scene */
+  .orb { position: absolute; left: var(--x); top: var(--y); width: clamp(56px, 12cqw, 98px); aspect-ratio: 1; padding: 0; border-radius: 50%; cursor: pointer;
+    border: 2px solid rgba(246,242,233,.75); color: #0A2B29; display: grid; place-items: center;
+    background: radial-gradient(circle at 34% 28%, var(--c1), var(--c2));
+    box-shadow: 0 14px 34px -14px rgba(0,0,0,.7); opacity: 0; transform: translate(-50%, -50%) scale(.3);
+    transition: transform .55s cubic-bezier(.2,1.5,.4,1), opacity .35s ease, box-shadow .3s ease; }
+  .orb.in { opacity: 1; transform: translate(-50%, -50%) scale(1); animation: orbFloat 3.6s ease-in-out var(--fd, 0s) infinite; }
+  @keyframes orbFloat { 0%, 100% { translate: 0 0; } 50% { translate: 0 -7px; } }
+  .orb.in:hover, .orb.in:focus-visible { transform: translate(-50%, -50%) scale(1.12); box-shadow: 0 14px 34px -14px rgba(0,0,0,.7), 0 0 0 9px rgba(246,242,233,.18); outline: none; }
+  .orb svg { width: 46%; height: 46%; }
+  .orb .ol { position: absolute; top: calc(100% + 6px); left: 50%; transform: translateX(-50%); white-space: nowrap; color: var(--ivory);
+    font-weight: 700; font-size: clamp(.8rem, 2.3cqw, 1.02rem); text-shadow: 0 2px 10px #071B19; }
+  .orb.done { opacity: .35; filter: grayscale(.6); cursor: default; }
+  .orb.done::after { content: "✓"; position: absolute; top: -4px; inset-inline-end: -4px; width: 22px; height: 22px; border-radius: 50%;
+    background: var(--ivory); color: #0A2B29; font-size: .8rem; display: grid; place-items: center; }
+  .orb.out { opacity: 0 !important; transform: translate(-50%, -50%) scale(.6) !important; pointer-events: none; }
+  /* the one tap inside an activity */
+  .hot { position: absolute; left: var(--x); top: var(--y); width: clamp(48px, 9cqw, 72px); aspect-ratio: 1; padding: 0; border: 0; border-radius: 50%;
+    cursor: pointer; transform: translate(-50%, -50%); background: rgba(217,164,65,.22); animation: hotIn .4s ease both; }
+  @keyframes hotIn { from { opacity: 0; transform: translate(-50%, -50%) scale(.4); } }
+  .hot::before, .hot::after { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 2.5px solid var(--amber); animation: hotPulse 1.8s ease-out infinite; }
+  .hot::after { animation-delay: .9s; }
+  @keyframes hotPulse { from { transform: scale(.6); opacity: 1; } to { transform: scale(1.6); opacity: 0; } }
+  .hot:focus-visible { outline: 3px solid var(--amber); outline-offset: 6px; }
+
+  /* scene states */
+  .sky circle { fill: #F6F2E9; opacity: .5; }
+  .sky circle:nth-child(4n) { animation: twinkle 3s ease-in-out infinite; }
+  @keyframes twinkle { 50% { opacity: .1; } }
+  .bloom { opacity: 0; transition: opacity 1.6s ease; }
+  .lvlh .bloom { opacity: .3; } .lvl1 .bloom { opacity: .62; } .lvl2 .bloom { opacity: .92; }
+  .dp { stroke-dasharray: 6 10; animation: march 2.6s linear infinite; }
+  @keyframes march { to { stroke-dashoffset: -32; } }
+  .dirs, .ends { transition: opacity .9s ease; }
+  .dim .dirs, .dim .ends { opacity: .3; }
+  .ends circle { transform-box: fill-box; transform-origin: center; animation: endPulse 2.6s ease-in-out infinite; }
+  .ends circle:nth-child(2) { animation-delay: .4s; } .ends circle:nth-child(3) { animation-delay: .8s; }
+  .ends circle:nth-child(4) { animation-delay: 1.2s; } .ends circle:nth-child(5) { animation-delay: 1.6s; } .ends circle:nth-child(6) { animation-delay: 2s; }
+  @keyframes endPulse { 50% { transform: scale(1.7); opacity: .25; } }
+  .kidpos { transition: transform 1.3s cubic-bezier(.4,0,.2,1); }
+  .kid { transform-box: view-box; transform-origin: 400px 386px; transition: transform .9s cubic-bezier(.2,1.2,.4,1); }
+  .head { transform-box: view-box; transform-origin: 400px 284px; }
+  .eyes { transition: transform .5s ease; }
+  .hes .kid { transform: scale(.96); animation: sway 3.8s ease-in-out infinite; }
+  @keyframes sway { 0%, 100% { rotate: -1.8deg; } 50% { rotate: 1.8deg; } }
+  .hes .head { animation: tilt 3.8s ease-in-out infinite; }
+  @keyframes tilt { 0%, 100% { rotate: -7deg; } 50% { rotate: 6deg; } }
+  .hes .eyes { animation: look 3.8s ease-in-out infinite; }
+  @keyframes look { 0%, 100% { transform: translateX(-3px); } 50% { transform: translateX(3px); } }
+  .look-l .eyes { transform: translateX(-4px); } .look-r .eyes { transform: translateX(4px); } .look-u .eyes { transform: translate(2px, -3px); }
+  .eng .kid { transform: scale(1.04); animation: hop .7s ease; }
+  @keyframes hop { 35% { translate: 0 -12px; } }
+  .tall .kid { transform: scale(1.1); }
+  .nod .head { animation: nod .8s ease; }
+  @keyframes nod { 30% { rotate: 9deg; } 60% { rotate: -2deg; } }
+  .m-smile, .f-smile { opacity: 0; transition: opacity .5s ease; }
+  .m-flat, .f-flat { transition: opacity .5s ease; }
+  .happy .m-smile, .met .f-smile { opacity: 1; }
+  .happy .m-flat, .met .f-flat { opacity: 0; }
+  .arm-r { transform-box: view-box; transform-origin: 419px 302px; transition: rotate .35s ease; }
+  .waving .arm-r { rotate: -125deg; animation: wv .32s ease-in-out .35s 5 alternate; }
+  @keyframes wv { from { rotate: -125deg; } to { rotate: -95deg; } }
+  .arm-f { transform-box: view-box; transform-origin: 634px 306px; transition: rotate .35s ease .5s; }
+  .met .arm-f { rotate: 125deg; animation: wvf .32s ease-in-out 1.6s 5 alternate; }
+  @keyframes wvf { from { rotate: 125deg; } to { rotate: 95deg; } }
+  .cglow { opacity: 0; transition: opacity 1.2s ease; }
+  .steady .cglow { opacity: 1; animation: glow 2.4s ease-in-out 1.2s infinite; }
+  @keyframes glow { 50% { opacity: .5; } }
+  .prop { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .7s cubic-bezier(.2,1.2,.4,1); }
+  .prop.on { opacity: 1; transform: none; }
+  .stroke { stroke-dasharray: 100; stroke-dashoffset: 100; transition: stroke-dashoffset 1s ease; }
+  .stroke.s2 { transition-delay: .35s; }
+  .painted .stroke { stroke-dashoffset: 0; }
+  .splat { transform-box: fill-box; transform-origin: center; transform: scale(0); transition: transform .5s cubic-bezier(.2,1.6,.4,1) .6s; }
+  .splat.s2 { transition-delay: .8s; }
+  .painted .splat { transform: scale(1); }
+  .piece { transition: transform .8s cubic-bezier(.5,1.5,.45,1); }
+  .board-glow { opacity: 0; transition: opacity .6s ease; }
+  .solved .board-glow { opacity: 1; }
+  .friend-pos { transition: transform 1.2s cubic-bezier(.4,0,.2,1) .4s; }
+  .met .friend-pos { transform: translateX(-118px); }
+  .hi { opacity: 0; transform: scale(.4); transform-box: fill-box; transform-origin: center bottom; transition: opacity .4s ease .3s, transform .5s cubic-bezier(.2,1.6,.4,1) .3s; }
+  .waving .hi { opacity: 1; transform: none; }
+  .burst > * { transform-box: fill-box; transform-origin: center; animation: burstIn 1.1s cubic-bezier(.2,1,.3,1) var(--bd, 0s) both; }
+  @keyframes burstIn { from { transform: translate(var(--fx), var(--fy)) scale(0); opacity: 0; } 30% { opacity: 1; } to { transform: none; opacity: .95; } }
+  .lit { stroke-dasharray: 55 200; stroke-dashoffset: 55; transition: stroke-dashoffset 1.6s cubic-bezier(.4,0,.2,1); filter: drop-shadow(0 0 6px rgba(217,164,65,.9)); }
+  .show-lit .lit { stroke-dashoffset: 0; }
+  .lit-star { opacity: 0; transform-box: fill-box; transform-origin: center; transform: scale(0); transition: opacity .3s ease 1.5s, transform .7s cubic-bezier(.2,1.6,.4,1) 1.5s; }
+  .show-lit .lit-star { opacity: 1; transform: scale(1); }
   @media (prefers-reduced-motion: reduce) {
-    .mini-compass .ndl, .s-star, .s-glow { animation: none; }
-    .story-overlay.open, .sfade, .scene-swap, .s-pop, .s-draw { animation-duration: .01ms; animation-delay: 0ms !important; }
-    .s-draw { stroke-dashoffset: 0; }
-    .s-char, .s-move, .s-camera, .voice { transition-duration: .01ms; }
+    .story-overlay.open, .sfade, .st-stage *, .orb, .orb.in, .hot, .hot::before, .hot::after { animation: none !important; }
+    .st-stage *, .st-stage > svg, .orb, .story-step i { transition-duration: .01ms !important; transition-delay: 0s !important; }
   }
   @media (max-width: 600px) {
-    .story-scene { max-height: 40vh; }
-    .place-btn { flex-basis: 100%; max-width: none; }
     .story-top { padding-inline-end: 128px; }
+    .story-main { justify-content: flex-start; padding-top: 8vh; }
+    .st-stage { width: 100%; aspect-ratio: 1.25; }
   }
 
   /* ---------- drifting background + page transition cover ---------- */
@@ -613,7 +671,7 @@
     <h2 data-reveal style="--i:2"><span data-l="en">Your next direction starts with a little curiosity.</span><span data-l="ar">وجهتك القادمة تبدأ بقليل من الفضول.</span></h2>
     <div class="start" data-reveal style="--i:3">
       <button class="btn btn-primary" id="storyStart" type="button" aria-haspopup="dialog"><span data-l="en">Follow your compass</span><span data-l="ar">اتبع بوصلتك</span></button>
-      <span class="label"><span data-l="en">A 2-minute interactive story</span><span data-l="ar">قصة تفاعلية في دقيقتين</span></span>
+      <span class="label"><span data-l="en">A 1-minute interactive story</span><span data-l="ar">قصة تفاعلية في دقيقة</span></span>
     </div>
   </div>
 </section>
@@ -668,7 +726,10 @@
     <button class="story-exit" id="storyExit" type="button" aria-label="Exit the story" data-aria-en="Exit the story" data-aria-ar="إنهاء القصة"><span data-l="en">Exit story</span><span data-l="ar">إنهاء القصة</span> <span aria-hidden="true">✕</span></button>
   </div>
   <div class="story-main">
-    <svg class="story-scene" id="storyScene" viewBox="0 0 800 440" role="img" aria-label="Illustrated story scene" data-aria-en="Illustrated story scene" data-aria-ar="مشهد مصوّر من القصة"></svg>
+    <div class="st-stage" id="stStage">
+      <svg id="storyScene" viewBox="0 0 800 460" preserveAspectRatio="xMidYMid slice" role="img" aria-label="A student holding a compass" data-aria-en="A student holding a compass" data-aria-ar="طالب يحمل بوصلة"></svg>
+      <div class="st-hot" id="stHot"></div>
+    </div>
     <p class="story-text" id="storyText" aria-live="polite"></p>
     <p class="story-sub" id="storySub" hidden></p>
     <div class="story-choices" id="storyChoices"></div>
@@ -919,15 +980,17 @@
 </script>
 
 <script>
-/* The Compass That Wouldn't Point — a tiny, state-based story.
-   Nothing is stored or sent anywhere; choices only shape the scenes. */
+/* The Compass That Wouldn't Point — three short moments told mostly by
+   animation: wonder, try one thing, notice how it felt. Nothing is stored. */
 (function () {
   "use strict";
   var overlay = document.getElementById("storyOverlay");
   var startBtn = document.getElementById("storyStart");
   if (!overlay || !startBtn) return;
 
+  var stage = document.getElementById("stStage");
   var scene = document.getElementById("storyScene");
+  var hot = document.getElementById("stHot");
   var textEl = document.getElementById("storyText");
   var subEl = document.getElementById("storySub");
   var choicesEl = document.getElementById("storyChoices");
@@ -937,684 +1000,365 @@
 
   var RM = false;
   try { RM = matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
-
   var NS = "http://www.w3.org/2000/svg";
-  var C = { teal: "#103E3B", deep: "#0A2B29", ivory: "#F6F2E9", sea: "#B9DCD0", amber: "#D9A441", sand: "#E8C27A", ground: "#0E2C29", cliff: "#123B37" };
 
-  var PLACES = { workshop: { x: 170 }, studio: { x: 400 }, gathering: { x: 630 } };
-  var ORDER = ["workshop", "studio", "gathering"];
-
-  // Every word the story says, in both languages.
   var LANG = {
     en: {
-      font: "Manrope, sans-serif", serif: "Fraunces, Georgia, serif", italic: "italic",
-      places: {
-        workshop:  { name: "The Workshop",  label: "WORKSHOP",  desc: "Something is broken. Could you find a way to fix it?", experiment: "Improve or repair one small thing." },
-        studio:    { name: "The Studio",    label: "STUDIO",    desc: "An idea is waiting to become something people can see.", experiment: "Make something and share it." },
-        gathering: { name: "The Gathering", label: "GATHERING", desc: "Someone is standing alone. Could you help them feel welcome?", experiment: "Help someone feel included." }
+      m1: "What do I actually enjoy?",
+      letsTry: "Let’s try something",
+      m2: "Let’s try something.",
+      acts: {
+        create:  { name: "Create",  action: "Paint" },
+        solve:   { name: "Solve",   action: "Fix it" },
+        connect: { name: "Connect", action: "Say hi" }
       },
-      s1: "Scene 1 · Everyone has a direction",
-      voices: ["Choose something practical.", "Have it all figured out.", "Follow your friends."],
-      s1Text: "Everyone had a direction for you.<br>But none of them felt like yours. Yet.",
-      step: "Take a small step",
-      s2: "Scene 2 · Follow something interesting",
-      s2Text: "You don’t need a destination.<br>Just something worth exploring.",
-      s2Again: "Pick another place — or return to one you liked.",
-      visited: "visited",
-      wsText: "Something is broken.<br>Could you find a way to fix it?",
-      wsSub: "Tap the pieces — any order works.",
-      pieces: ["Wooden plank", "Sturdy beam", "An old door"],
-      wsDone: "It holds.<br>You found a way across.",
-      cont: "Continue",
-      stText: "An idea is waiting<br>to become something people can see.",
-      stSub: "Choose a shape and a color for your flag.",
-      shape: "Shape", shapes: ["Circle", "Triangle", "Star"],
-      color: "Color", colors: ["Amber", "Seafoam", "Ivory"],
-      raise: "Raise my flag",
-      stDone: "There it is —<br>an idea, out where people can see it.",
-      gaText: "Someone is standing alone.<br>Could you help them feel welcome?",
-      invite: "Invite them in",
-      gaIn: "They step into the circle.",
-      gaSay: "Now say something welcoming:",
-      starters: ["Want to join us? We’re just getting started.", "What’s something you’ve been curious about lately?", "I’m new here too. What’s your name?"],
-      q1: "“", q2: "”",
-      gaDone: "The circle feels a little bigger now.",
-      s3: "Scene 3 · The first signal",
-      s3Text: "The compass didn’t reveal your future.<br>It noticed what made you curious.",
-      feel: "What did that feel like?",
-      feels: ["I’d try more of this.", "I’m curious about another path.", "Not quite my thing."],
-      acks: { more: "Then it’s worth following a little further.", other: "Good. Curiosity is a fine compass too.", not: "That counts. Learning what doesn’t fit is useful too." },
-      another: "Explore another path", revisit: "Revisit a place", onward: "See where this leads",
-      end: "One step is enough",
-      endText: "You don’t find your direction all at once.<br>You find it through the things you try.",
-      expLabel: "A small experiment, if you like",
-      unfamiliar: "Try one activity you’ve never done before.",
-      fin: "This was a little story. Your next experience can be real.",
-      toClub: "Explore Compass Club", again: "Try another path"
+      liked: "I liked that", tryElse: "Try something else", goodToKnow: "Good to know.",
+      m3: "That felt like me.", m3alt: "Every try taught me something.", nextStep: "Just a next step.",
+      endTitle: "Discover yourself through experience.",
+      endLine: "Try new things. Notice what you enjoy. Find your next direction with Compass Club.",
+      explore: "Explore with us"
     },
     ar: {
-      font: "Cairo, sans-serif", serif: "'El Messiri', Cairo, serif", italic: "normal",
-      places: {
-        workshop:  { name: "الورشة",    label: "الورشة",    desc: "هناك شيء مكسور. هل تجد طريقة لإصلاحه؟", experiment: "حسّن أو أصلح شيئًا صغيرًا." },
-        studio:    { name: "الاستوديو", label: "الاستوديو", desc: "فكرة تنتظر أن تصبح شيئًا يراه الناس.", experiment: "اصنع شيئًا وشاركه مع الآخرين." },
-        gathering: { name: "المجلس",    label: "المجلس",    desc: "شخص يقف وحيدًا. هل تساعده ليشعر بالترحيب؟", experiment: "ساعد شخصًا ليشعر بأنه واحد منّا." }
+      m1: "ما الذي أستمتع به فعلًا؟",
+      letsTry: "لنجرّب شيئًا",
+      m2: "لنجرّب شيئًا.",
+      acts: {
+        create:  { name: "ابتكر",  action: "ارسم" },
+        solve:   { name: "حُلّ",    action: "أصلحها" },
+        connect: { name: "تواصل", action: "قل مرحبًا" }
       },
-      s1: "المشهد 1 · الجميع يقترح عليك اتجاهًا",
-      voices: ["اختر شيئًا عمليًا.", "اعرف طريقك من الآن.", "اتبع أصدقاءك."],
-      s1Text: "كان لدى الجميع اتجاهٌ لك.<br>لكن لم يشعر أيٌّ منها أنه اتجاهك. حتى الآن.",
-      step: "خذ خطوة صغيرة",
-      s2: "المشهد 2 · اتبع ما يثير اهتمامك",
-      s2Text: "لا تحتاج إلى وجهة.<br>يكفي شيء يستحق الاستكشاف.",
-      s2Again: "اختر مكانًا آخر، أو عُد إلى مكان أعجبك.",
-      visited: "زرته",
-      wsText: "هناك شيء مكسور.<br>هل تجد طريقة لإصلاحه؟",
-      wsSub: "اضغط على القطع بأي ترتيب.",
-      pieces: ["لوح خشبي", "عارضة متينة", "باب قديم"],
-      wsDone: "صمد الجسر.<br>وجدت طريقك للعبور.",
-      cont: "متابعة",
-      stText: "فكرة تنتظر<br>أن تصبح شيئًا يراه الناس.",
-      stSub: "اختر شكلًا ولونًا لعلمك.",
-      shape: "الشكل", shapes: ["دائرة", "مثلث", "نجمة"],
-      color: "اللون", colors: ["كهرماني", "أخضر بحري", "عاجي"],
-      raise: "ارفع علمي",
-      stDone: "ها هو ذا،<br>فكرتك أمام أعين الناس.",
-      gaText: "شخص يقف وحيدًا.<br>هل تساعده ليشعر بالترحيب؟",
-      invite: "ادعُه للانضمام",
-      gaIn: "انضمّ إلى الحلقة.",
-      gaSay: "والآن، قل شيئًا ترحيبيًا:",
-      starters: ["هل تودّ الانضمام إلينا؟ ما زلنا في البداية.", "ما الشيء الذي يثير فضولك مؤخرًا؟", "أنا جديد هنا أيضًا. ما اسمك؟"],
-      q1: "«", q2: "»",
-      gaDone: "صارت الحلقة أكبر قليلًا الآن.",
-      s3: "المشهد 3 · الإشارة الأولى",
-      s3Text: "لم تكشف البوصلة مستقبلك.<br>لكنها لاحظت ما أثار فضولك.",
-      feel: "كيف كان شعورك؟",
-      feels: ["أودّ تجربة المزيد من هذا.", "يثير فضولي طريق آخر.", "ليس ما يناسبني تمامًا."],
-      acks: { more: "إذن يستحق أن تتبعه أكثر قليلًا.", other: "جميل. الفضول بوصلة جيدة أيضًا.", not: "وهذا مهم أيضًا. معرفة ما لا يناسبك خطوة مفيدة." },
-      another: "استكشف طريقًا آخر", revisit: "عُد إلى مكان زرته", onward: "إلى أين يقودني هذا؟",
-      end: "خطوة واحدة تكفي",
-      endText: "لا تجد وجهتك دفعة واحدة.<br>بل تجدها من خلال ما تجرّبه.",
-      expLabel: "تجربة صغيرة، إن أحببت",
-      unfamiliar: "جرّب نشاطًا لم تفعله من قبل.",
-      fin: "كانت هذه قصة صغيرة. وتجربتك القادمة يمكن أن تكون حقيقية.",
-      toClub: "استكشف نادي البوصلة", again: "جرّب طريقًا آخر"
+      liked: "أعجبني ذلك", tryElse: "جرّب شيئًا آخر", goodToKnow: "جميل أن تعرف.",
+      m3: "هذا يشبهني.", m3alt: "كل تجربة علّمتني شيئًا.", nextStep: "مجرد خطوة تالية.",
+      endTitle: "اكتشف نفسك بالتجربة.",
+      endLine: "جرّب أشياء جديدة. لاحظ ما تستمتع به. وحدّد وجهتك القادمة مع نادي البوصلة.",
+      explore: "استكشف معنا"
     }
   };
   var L = LANG.en;
 
-  var state, timers = [], lastFocus = null, kb = false;
-  function reset() { state = { visited: [], feelings: {}, last: null, charX: 285 }; }
-  // On phone widths the 800-unit scene renders small, so in-scene words get set larger.
-  function narrow() { return scene.getBoundingClientRect().width < 560; }
+  // Where each opportunity floats, where its single tap sits, and which path it lights.
+  var ACTS = ["create", "solve", "connect"];
+  var ACT = {
+    create:  { orb: [200, 138], spot: [215, 266], look: "look-l", dir: 1, burst: [215, 262], c: ["#F4CF7E", "#C9902F"] },
+    solve:   { orb: [400, 74],  spot: [540, 140], look: "look-u", dir: 2, burst: [400, 150], c: ["#E3F3EC", "#8FC2B1"] },
+    connect: { orb: [600, 138], spot: [650, 318], look: "look-r", dir: 3, burst: [470, 262], c: ["#F6C2B1", "#D9806A"] }
+  };
+  var ICONS = {
+    create: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c1.4 0 2-1 2-2s-1-1.6-1-2.6c0-1.2 1-2 2.2-2H18a3 3 0 0 0 3-3C21 6.6 17 3 12 3Z"/><circle cx="7.5" cy="11" r="1.2" fill="currentColor"/><circle cx="10" cy="7" r="1.2" fill="currentColor"/><circle cx="15" cy="7.5" r="1.2" fill="currentColor"/></svg>',
+    solve: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3h4v2.5a1.5 1.5 0 1 0 3 0V3h4v7h-2.5a1.5 1.5 0 1 0 0 3H21v8h-7v-2.5a1.5 1.5 0 1 0-3 0V21H3v-7h2.5a1.5 1.5 0 1 0 0-3H3V3h7Z"/></svg>',
+    connect: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.2-5.5 5-5.5s5 2.2 5 5.5"/><path d="M14 20c0-2.6 1.4-4.4 3-4.4s4 1.8 4 4.4"/></svg>'
+  };
 
-  // ---------- small helpers ----------
-  function S(tag, attrs, kids) {
-    var e = document.createElementNS(NS, tag);
-    if (attrs) for (var k in attrs) e.setAttribute(k, attrs[k]);
-    if (kids) kids.forEach(function (c) { if (c) e.appendChild(c); });
-    return e;
-  }
-  function T(attrs, str) { var e = S("text", attrs); e.textContent = str; return e; }
-  function later(fn, ms) { var id = setTimeout(fn, RM ? Math.min(ms, 60) : ms); timers.push(id); return id; }
+  var SVG =
+    '<defs>' +
+      '<radialGradient id="stA"><stop offset="0" stop-color="#D9A441" stop-opacity=".85"/><stop offset="1" stop-color="#D9A441" stop-opacity="0"/></radialGradient>' +
+      '<radialGradient id="stS"><stop offset="0" stop-color="#7FD1B9" stop-opacity=".8"/><stop offset="1" stop-color="#7FD1B9" stop-opacity="0"/></radialGradient>' +
+      '<radialGradient id="stR"><stop offset="0" stop-color="#E58E73" stop-opacity=".7"/><stop offset="1" stop-color="#E58E73" stop-opacity="0"/></radialGradient>' +
+      '<radialGradient id="stG"><stop offset="0" stop-color="#F4CF7E" stop-opacity=".95"/><stop offset="1" stop-color="#D9A441" stop-opacity="0"/></radialGradient>' +
+    '</defs>' +
+    '<g class="bloom"><circle cx="180" cy="190" r="240" fill="url(#stA)"/><circle cx="640" cy="160" r="250" fill="url(#stS)"/><circle cx="430" cy="430" r="270" fill="url(#stR)"/></g>' +
+    '<g class="sky">%STARS%</g>' +
+    '<path d="M0 300 C 220 288, 580 288, 800 300 L800 460 L0 460Z" fill="#0F302D"/>' +
+    '<path d="M0 300 C 220 288, 580 288, 800 300" fill="none" stroke="rgba(185,220,208,.35)" stroke-width="1.5"/>' +
+    // possible directions
+    '<g class="dirs" fill="none" stroke="rgba(185,220,208,.55)" stroke-width="3" stroke-linecap="round">' +
+      '<path class="dp" d="M392 386 C 320 368, 190 334, 70 306"/>' +
+      '<path class="dp" d="M392 386 C 350 362, 282 330, 232 304"/>' +
+      '<path class="dp" d="M408 386 C 450 362, 518 330, 568 304"/>' +
+      '<path class="dp" d="M408 386 C 480 368, 610 334, 730 306"/>' +
+      '<path class="dp" d="M396 384 C 380 352, 352 322, 330 300"/>' +
+      '<path class="dp" d="M404 384 C 420 352, 448 322, 470 300"/>' +
+    '</g>' +
+    '<g class="ends" fill="#B9DCD0"><circle cx="70" cy="306" r="5"/><circle cx="232" cy="304" r="5"/><circle cx="568" cy="304" r="5"/><circle cx="730" cy="306" r="5"/><circle cx="330" cy="300" r="4"/><circle cx="470" cy="300" r="4"/></g>' +
+    '<path class="lit" pathLength="100" d="M0 0" fill="none" stroke="#F4CF7E" stroke-width="6" stroke-linecap="round"/>' +
+    '<path class="lit-star" d="M0 0" fill="#F4CF7E"/>' +
+    // create: an easel
+    '<g class="prop p-create">' +
+      '<path d="M188 386 L204 302 M242 386 L226 302 M215 334 V386" stroke="#8A6A47" stroke-width="5" stroke-linecap="round"/>' +
+      '<rect x="166" y="226" width="98" height="80" rx="5" fill="#F6F2E9"/>' +
+      '<path class="stroke" pathLength="100" d="M178 292 C 196 252, 214 300, 252 244" fill="none" stroke="#D9A441" stroke-width="9" stroke-linecap="round"/>' +
+      '<path class="stroke s2" pathLength="100" d="M180 258 C 202 236, 228 270, 254 284" fill="none" stroke="#3E9C86" stroke-width="7" stroke-linecap="round"/>' +
+      '<circle class="splat" cx="232" cy="258" r="11" fill="#E58E73"/>' +
+      '<circle class="splat s2" cx="196" cy="246" r="7" fill="#103E3B"/>' +
+    '</g>' +
+    // solve: a puzzle with one piece missing
+    '<g class="prop p-solve">' +
+      '<rect class="board-glow" x="348" y="96" width="100" height="100" rx="12" fill="rgba(217,164,65,.18)" stroke="#F4CF7E" stroke-width="3"/>' +
+      '<rect x="356" y="104" width="40" height="40" rx="6" fill="#B9DCD0"/>' +
+      '<rect x="400" y="104" width="40" height="40" rx="6" fill="#F6F2E9"/>' +
+      '<rect x="356" y="148" width="40" height="40" rx="6" fill="#F6F2E9"/>' +
+      '<rect x="400" y="148" width="40" height="40" rx="6" fill="none" stroke="rgba(246,242,233,.55)" stroke-width="2" stroke-dasharray="5 5"/>' +
+      '<g class="piece"><rect x="520" y="120" width="40" height="40" rx="6" fill="#D9A441"/><circle cx="540" cy="140" r="5" fill="#0A2B29" opacity=".35"/></g>' +
+    '</g>' +
+    // connect: someone standing on their own
+    '<g class="prop p-connect">' +
+      '<g class="friend-pos">' +
+        '<ellipse cx="650" cy="388" rx="26" ry="5" fill="rgba(0,0,0,.28)"/>' +
+        '<path d="M642 384 L644 348 M658 384 L656 348" stroke="#0A2B29" stroke-width="8" stroke-linecap="round"/>' +
+        '<g class="arm-f"><path d="M634 306 L616 322" stroke="#E8C27A" stroke-width="9" stroke-linecap="round"/></g>' +
+        '<rect x="632" y="292" width="36" height="60" rx="18" fill="#E8C27A"/>' +
+        '<circle cx="650" cy="270" r="20" fill="#F6F2E9"/>' +
+        '<path d="M630 266 C 632 244, 668 244, 670 266 C 662 256, 638 256, 630 266Z" fill="#103E3B"/>' +
+        '<circle cx="643" cy="274" r="2.3" fill="#0A2B29"/><circle cx="656" cy="274" r="2.3" fill="#0A2B29"/>' +
+        '<path class="f-flat" d="M645 283 H655" stroke="#0A2B29" stroke-width="2" stroke-linecap="round"/>' +
+        '<path class="f-smile" d="M643 282 Q650 288 657 282" fill="none" stroke="#0A2B29" stroke-width="2.2" stroke-linecap="round"/>' +
+      '</g>' +
+      '<g class="hi"><path d="M448 204 h52 a12 12 0 0 1 12 12 v18 a12 12 0 0 1 -12 12 h-30 l-10 10 v-10 h-12 a12 12 0 0 1 -12 -12 v-18 a12 12 0 0 1 12 -12z" fill="#F6F2E9"/>' +
+        '<path d="M462 226 q6 -8 12 0 q6 8 12 0" fill="none" stroke="#D9A441" stroke-width="3" stroke-linecap="round"/></g>' +
+    '</g>' +
+    // the student
+    '<g class="kidpos"><g class="kid">' +
+      '<ellipse cx="400" cy="389" rx="30" ry="6" fill="rgba(0,0,0,.3)"/>' +
+      '<path d="M391 386 L393 346 M409 386 L407 346" stroke="#0A2B29" stroke-width="9" stroke-linecap="round"/>' +
+      '<g class="arm-r"><path d="M419 302 L440 320" stroke="#B9DCD0" stroke-width="10" stroke-linecap="round"/></g>' +
+      '<rect x="379" y="286" width="42" height="66" rx="20" fill="#B9DCD0"/>' +
+      '<path d="M381 304 L362 320" stroke="#B9DCD0" stroke-width="10" stroke-linecap="round"/>' +
+      '<g class="head">' +
+        '<circle cx="400" cy="262" r="23" fill="#F6F2E9"/>' +
+        '<path d="M377 258 C 379 232, 421 232, 423 258 C 413 247, 387 247, 377 258Z" fill="#D9A441"/>' +
+        '<g class="eyes"><circle cx="393" cy="263" r="2.6" fill="#0A2B29"/><circle cx="408" cy="263" r="2.6" fill="#0A2B29"/></g>' +
+        '<path class="m-flat" d="M395 274 H406" stroke="#0A2B29" stroke-width="2.2" stroke-linecap="round"/>' +
+        '<path class="m-smile" d="M393 272 Q400 280 408 272" fill="none" stroke="#0A2B29" stroke-width="2.4" stroke-linecap="round"/>' +
+      '</g>' +
+      '<g transform="translate(352,326)">' +
+        '<circle class="cglow" r="36" fill="url(#stG)"/>' +
+        '<circle r="17" fill="#F6F2E9" stroke="#D9A441" stroke-width="3.5"/>' +
+        '<g class="ndl"><path d="M0 -13 4 0 -4 0Z" fill="#D9A441"/><path d="M0 13 4 0 -4 0Z" fill="#103E3B"/></g>' +
+        '<circle r="2.6" fill="#0A2B29"/>' +
+      '</g>' +
+    '</g></g>' +
+    '<g class="burst"></g>';
+
+  var timers = [], lastFocus = null, kb = false, tried = {}, current = null, busy = false;
+  function later(fn, ms) { var id = setTimeout(fn, RM ? Math.min(ms, 80) : ms); timers.push(id); return id; }
+  // Reading pauses stay real even with reduced motion; only animation waits shrink.
+  function pause(fn, ms) { var id = setTimeout(fn, ms); timers.push(id); return id; }
   function clearTimers() { timers.forEach(clearTimeout); timers = []; }
-  function restart(el, cls) { el.classList.remove(cls); void el.getBoundingClientRect(); el.classList.add(cls); }
-  function button(label, opts, onClick) {
+  function restart(el, c) { el.classList.remove(c); void el.getBoundingClientRect(); el.classList.add(c); }
+  function $(sel) { return scene.querySelector(sel); }
+  function cls(map) { for (var k in map) stage.classList.toggle(k, !!map[k]); }
+  function button(label, kind, onClick) {
     var b = document.createElement("button");
     b.type = "button";
-    b.className = "story-btn" + (opts && opts.cls ? " " + opts.cls : "");
-    if (opts && opts.html) b.innerHTML = opts.html; else b.textContent = label;
-    if (opts && opts.aria) b.setAttribute("aria-label", opts.aria);
+    b.className = "story-btn" + (kind ? " " + kind : "");
+    b.textContent = label;
     b.addEventListener("click", onClick);
     return b;
   }
-  function pick(row, b) {
-    Array.prototype.forEach.call(row.querySelectorAll("button"), function (x) { x.classList.remove("picked"); x.setAttribute("aria-pressed", "false"); });
-    b.classList.add("picked"); b.setAttribute("aria-pressed", "true");
-  }
-  function wrap(str, n) {
-    var lines = [], cur = "";
-    str.split(" ").forEach(function (w) {
-      if (cur && (cur + " " + w).length > n) { lines.push(cur); cur = w; } else { cur = cur ? cur + " " + w : w; }
-    });
-    if (cur) lines.push(cur);
-    return lines;
-  }
-
-  function setStep(t) { stepEl.textContent = t; }
-  function setText(html) { textEl.innerHTML = html; restart(textEl, "sfade"); }
-  function setSub(html) {
-    if (!html) { subEl.hidden = true; subEl.innerHTML = ""; return; }
-    subEl.hidden = false; subEl.innerHTML = html; restart(subEl, "sfade");
+  function setText(t) { textEl.textContent = t || ""; restart(textEl, "sfade"); }
+  function setSub(t) {
+    if (!t) { subEl.hidden = true; subEl.textContent = ""; return; }
+    subEl.hidden = false; subEl.textContent = t; restart(subEl, "sfade");
   }
   function setChoices(nodes) {
     choicesEl.innerHTML = "";
     nodes.forEach(function (n) { choicesEl.appendChild(n); });
     restart(choicesEl, "sfade");
-    if (kb) {
-      var f = choicesEl.querySelector("button:not([disabled])");
-      if (f) f.focus({ preventScroll: true });
-    }
+    if (kb) { var f = choicesEl.querySelector("button:not([disabled])"); if (f) f.focus({ preventScroll: true }); }
+  }
+  function step(n) {
+    stepEl.innerHTML = [1, 2, 3].map(function (i) { return "<i" + (i <= n ? ' class="on"' : "") + "></i>"; }).join("");
+    stepEl.setAttribute("aria-label", n + " / 3");
+  }
+  // Place an HTML control over a point in the scene (the scene may be trimmed on phones).
+  function place(el, x, y) {
+    el.setAttribute("data-sx", x); el.setAttribute("data-sy", y);
+    var m = scene.getScreenCTM(), r = stage.getBoundingClientRect();
+    if (!m || !r.width) return;
+    el.style.setProperty("--x", ((m.a * x + m.e - r.left) / r.width * 100).toFixed(2) + "%");
+    el.style.setProperty("--y", ((m.d * y + m.f - r.top) / r.height * 100).toFixed(2) + "%");
+  }
+  window.addEventListener("resize", function () {
+    if (overlay.hidden) return;
+    Array.prototype.forEach.call(hot.querySelectorAll("[data-sx]"), function (el) {
+      place(el, +el.getAttribute("data-sx"), +el.getAttribute("data-sy"));
+    });
+  });
+  function sparkle(x, y, s) {
+    return "M" + x + " " + (y - s) + " Q" + x + " " + y + " " + (x + s) + " " + y + " Q" + x + " " + y + " " + x + " " + (y + s) +
+      " Q" + x + " " + y + " " + (x - s) + " " + y + " Q" + x + " " + y + " " + x + " " + (y - s) + "Z";
   }
 
-  // ---------- the compass needle ----------
-  var needle = null, angle = 0, target = 0, mode = "wobble", raf = 0;
-  function loop(now) {
-    if (mode === "wobble") target = Math.sin(now / 230) * 48 + Math.sin(now / 83) * 14;
-    angle += (target - angle) * (mode === "steady" ? 0.045 : 0.18);
-    if (needle) needle.setAttribute("transform", "rotate(" + angle.toFixed(1) + ")");
+  // ---------- the compass needle: wavers, then settles ----------
+  var needle = null, nA = 0, nT = 0, amp = 48, ampT = 48, raf = 0;
+  function loop(t) {
     raf = requestAnimationFrame(loop);
+    amp += (ampT - amp) * 0.035;
+    var w = Math.sin(t / 430) * amp + Math.sin(t / 160) * amp * 0.22;
+    nA += (nT + w - nA) * 0.12;
+    if (needle) needle.setAttribute("transform", "rotate(" + nA.toFixed(1) + ")");
   }
-  function startNeedle() { if (!RM && !raf) raf = requestAnimationFrame(loop); }
-  function stopNeedle() { if (raf) cancelAnimationFrame(raf); raf = 0; }
-  function setNeedle(m, t) {
-    mode = m;
-    if (typeof t === "number") target = t;
-    if (RM && needle) { angle = m === "wobble" ? 35 : target; needle.setAttribute("transform", "rotate(" + angle + ")"); }
-  }
-
-  // ---------- scenery ----------
-  var STARS = (function () {
-    var a = [], s = 11;
-    function r() { s = (s * 9301 + 49297) % 233280; return s / 233280; }
-    for (var i = 0; i < 48; i++) a.push([r() * 800, r() * 320, 0.6 + r() * 1.5, r() * 3.2]);
-    return a;
-  })();
-
-  function frame(build) {
-    while (scene.firstChild) scene.removeChild(scene.firstChild);
-    scene.appendChild(S("defs", {}, [
-      S("radialGradient", { id: "storyWarm" }, [
-        S("stop", { offset: "0%", "stop-color": C.amber, "stop-opacity": ".7" }),
-        S("stop", { offset: "100%", "stop-color": C.amber, "stop-opacity": "0" })
-      ])
-    ]));
-    var cam = S("g", { "class": "s-camera" });
-    scene.appendChild(cam);
-    var sky = S("g", { "aria-hidden": "true" });
-    STARS.forEach(function (st) {
-      var c = S("circle", { cx: st[0].toFixed(1), cy: st[1].toFixed(1), r: st[2].toFixed(2), fill: C.ivory, "class": "s-star" });
-      c.style.animationDelay = st[3].toFixed(2) + "s";
-      sky.appendChild(c);
-    });
-    cam.appendChild(sky);
-    cam.appendChild(S("path", { d: "M0 352 C 160 340, 300 356, 420 348 S 680 338, 800 350 L800 440 L0 440 Z", fill: C.ground }));
-    cam.appendChild(S("path", { d: "M0 352 C 160 340, 300 356, 420 348 S 680 338, 800 350", fill: "none", stroke: "rgba(185,220,208,.35)", "stroke-width": 1.5 }));
-    build(cam);
-    restart(scene, "scene-swap");
-    return cam;
+  function aim(target, wobble) {
+    nT = target; ampT = wobble;
+    if (RM && needle) needle.setAttribute("transform", "rotate(" + (target + (wobble ? 24 : 0)).toFixed(1) + ")");
   }
 
-  function character(x, y) {
-    var held = S("g", { transform: "translate(40,-58)" }, [
-      S("circle", { r: 14, fill: C.ivory, stroke: C.amber, "stroke-width": 3 })
-    ]);
-    needle = S("g", {}, [
-      S("path", { d: "M0 -11 3.4 0 -3.4 0Z", fill: C.amber }),
-      S("path", { d: "M0 11 3.4 0 -3.4 0Z", fill: C.teal })
-    ]);
-    held.appendChild(needle);
-    held.appendChild(S("circle", { r: 2.4, fill: C.deep }));
-    var g = S("g", { "class": "s-char" }, [
-      S("ellipse", { cx: 0, cy: 2, rx: 22, ry: 5, fill: "rgba(0,0,0,.28)" }),
-      S("path", { d: "M-7 0 L-5 -30 M7 0 L5 -30", stroke: C.deep, "stroke-width": 7, "stroke-linecap": "round", fill: "none" }),
-      S("rect", { x: -16, y: -76, width: 32, height: 50, rx: 15, fill: C.sea }),
-      S("circle", { cx: 0, cy: -93, r: 17, fill: C.ivory }),
-      S("path", { d: "M-16 -96 C -14 -114, 14 -114, 16 -96 C 8 -104, -8 -104, -16 -96Z", fill: C.amber }),
-      S("circle", { cx: -5, cy: -91, r: 1.9, fill: C.deep }),
-      S("circle", { cx: 6, cy: -91, r: 1.9, fill: C.deep }),
-      S("path", { d: "M12 -64 L32 -60", stroke: C.sea, "stroke-width": 8, "stroke-linecap": "round" }),
-      held
-    ]);
-    g.style.transform = "translate(" + x + "px," + y + "px)";
-    return g;
+  function build() {
+    var stars = "", seed = 7;
+    function r() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
+    for (var i = 0; i < 34; i++) stars += '<circle cx="' + (r() * 800).toFixed(0) + '" cy="' + (r() * 270).toFixed(0) + '" r="' + (0.6 + r() * 1.4).toFixed(1) + '"/>';
+    scene.innerHTML = SVG.replace("%STARS%", stars);
+    needle = $(".ndl");
+    hot.innerHTML = "";
+    stage.className = "st-stage";
   }
 
-  function person(x, y, s, fill) {
-    return S("g", { transform: "translate(" + x + "," + y + ") scale(" + s + ")" }, [
-      S("path", { d: "M-5 -10 L-5 0 M5 -10 L5 0", stroke: C.deep, "stroke-width": 5, "stroke-linecap": "round" }),
-      S("rect", { x: -11, y: -46, width: 22, height: 38, rx: 11, fill: fill }),
-      S("circle", { cx: 0, cy: -56, r: 11, fill: C.ivory })
-    ]);
-  }
-
-  function placeIcon(key, x, y) {
-    var g = S("g", {});
-    if (key === "workshop") {
-      g.appendChild(S("path", { d: "M" + (x - 40) + " " + (y - 44) + " L" + x + " " + (y - 76) + " L" + (x + 40) + " " + (y - 44) + "Z", fill: C.deep, stroke: C.sea, "stroke-width": 1.5 }));
-      g.appendChild(S("rect", { x: x - 32, y: y - 46, width: 64, height: 46, fill: C.teal, stroke: C.sea, "stroke-width": 1.5 }));
-      g.appendChild(S("rect", { x: x - 11, y: y - 28, width: 22, height: 28, fill: C.amber }));
-      g.appendChild(S("circle", { cx: x + 20, cy: y - 32, r: 7, fill: "none", stroke: C.amber, "stroke-width": 3, "stroke-dasharray": "3 2.5" }));
-    } else if (key === "studio") {
-      g.appendChild(S("path", { d: "M" + (x - 24) + " " + y + " L" + (x - 6) + " " + (y - 70) + " M" + (x + 24) + " " + y + " L" + (x + 6) + " " + (y - 70) + " M" + x + " " + (y - 30) + " L" + x + " " + y, stroke: C.sea, "stroke-width": 3, "stroke-linecap": "round" }));
-      g.appendChild(S("rect", { x: x - 30, y: y - 76, width: 60, height: 44, rx: 3, fill: C.ivory }));
-      g.appendChild(S("circle", { cx: x - 9, cy: y - 56, r: 9, fill: C.amber }));
-      g.appendChild(S("path", { d: "M" + (x + 1) + " " + (y - 38) + " l12 -20 l12 20z", fill: C.teal }));
-    } else {
-      g.appendChild(person(x - 30, y - 2, 0.55, C.sea));
-      g.appendChild(person(x + 30, y - 2, 0.55, C.sand));
-      g.appendChild(person(x, y - 16, 0.48, C.sea));
-      g.appendChild(S("path", { d: "M" + (x - 8) + " " + y + " Q " + x + " " + (y - 30) + " " + (x + 8) + " " + y + "Z", fill: C.amber }));
-      g.appendChild(S("path", { d: "M" + (x - 4) + " " + y + " Q " + x + " " + (y - 16) + " " + (x + 4) + " " + y + "Z", fill: C.ivory }));
+  function burst(x, y) {
+    var g = $(".burst"), cols = ["#D9A441", "#7FD1B9", "#F6F2E9", "#E58E73", "#F4CF7E"];
+    for (var i = 0; i < 18; i++) {
+      var a = i / 18 * 6.283 + Math.random() * 0.35, d = 60 + Math.random() * 95;
+      var px = x + Math.cos(a) * d, py = y + Math.sin(a) * d * 0.7, sz = 3 + Math.random() * 4.5, e;
+      if (i % 3 === 0) { e = document.createElementNS(NS, "path"); e.setAttribute("d", sparkle(px, py, sz * 1.8)); }
+      else { e = document.createElementNS(NS, "circle"); e.setAttribute("cx", px.toFixed(1)); e.setAttribute("cy", py.toFixed(1)); e.setAttribute("r", sz.toFixed(1)); }
+      e.setAttribute("fill", cols[i % cols.length]);
+      e.style.setProperty("--fx", (x - px).toFixed(1) + "px");
+      e.style.setProperty("--fy", (y - py).toFixed(1) + "px");
+      e.style.setProperty("--bd", (Math.random() * 0.18).toFixed(2) + "s");
+      g.appendChild(e);
     }
-    return g;
   }
 
-  function sparkle(layer, x, y, delay) {
-    var d = "M" + x + " " + (y - 9) + " Q " + x + " " + y + " " + (x + 9) + " " + y + " Q " + x + " " + y + " " + x + " " + (y + 9) + " Q " + x + " " + y + " " + (x - 9) + " " + y + " Q " + x + " " + y + " " + x + " " + (y - 9) + "Z";
-    var p = S("path", { d: d, fill: C.amber, "class": "s-pop" });
-    p.style.animationDelay = delay + "s";
-    layer.appendChild(p);
-  }
-
-  // ---------- SCENE 1: everyone has a direction ----------
-  function scene1() {
-    setStep(L.s1);
-    var voices = [];
-    var N = narrow(), fs = N ? 34 : 18, vh = N ? 62 : 38;
-    var V = L.voices;
-    var VOICES = N
-      ? [[V[0], 400, 62], [V[2], 400, 128], [V[1], 400, 194]]
-      : [[V[0], 205, 112], [V[1], 410, 58], [V[2], 618, 152]];
-    frame(function (root) {
-      root.appendChild(S("path", { d: "M0 378 C 200 372, 600 372, 800 378 L800 404 C 600 398, 200 398, 0 404Z", fill: "rgba(185,220,208,.1)" }));
-      root.appendChild(S("path", { d: "M388 352 L412 352 L470 440 L330 440Z", fill: "rgba(185,220,208,.1)" }));
-      root.appendChild(S("g", {}, [
-        S("rect", { x: 286, y: 238, width: 6, height: 140, fill: "#7A5A3A" }),
-        S("path", { d: "M292 248 h58 l10 9 l-10 9 h-58z", fill: C.sea }),
-        S("path", { d: "M286 274 h-58 l-10 9 l10 9 h58z", fill: C.sand }),
-        S("path", { d: "M292 300 h50 l10 9 l-10 9 h-50z", fill: C.ivory })
-      ]));
-      VOICES.forEach(function (v) {
-        var w = v[0].length * fs * 0.53 + (N ? 60 : 34);
-        var g = S("g", { "class": "voice" }, [
-          S("rect", { x: v[1] - w / 2, y: v[2] - vh * 0.66, width: w, height: vh, rx: vh / 2, fill: "rgba(246,242,233,.09)", stroke: "rgba(185,220,208,.35)" }),
-          T({ x: v[1], y: v[2], "text-anchor": "middle", fill: C.ivory, "font-size": fs, "font-style": L.italic, "font-family": L.serif }, v[0])
-        ]);
-        voices.push(g);
-        root.appendChild(g);
-      });
-      root.appendChild(character(400, 384));
-    });
-    setNeedle("wobble");
-    voices.forEach(function (g, i) { later(function () { g.classList.add("show"); }, 450 + i * 850); });
-    setText(L.s1Text);
+  // ---------- 1 · What do I actually enjoy? ----------
+  function m1() {
+    step(1);
+    cls({ hes: 1 });
+    aim(0, 48);
+    setText(L.m1);
     setSub(null);
-    var step = button(L.step, { cls: "primary" }, function () {
-      step.disabled = true;
-      voices.forEach(function (g) { g.classList.add("show", "leave"); });
-      later(scene2, 900);
-    });
-    setChoices([step]);
+    setChoices([button(L.letsTry, "primary", m2)]);
   }
 
-  // ---------- SCENE 2: follow something interesting ----------
-  function scene2() {
-    setStep(L.s2);
-    var spots = {}, charG;
-    frame(function (root) {
-      ORDER.forEach(function (key) {
-        var p = PLACES[key];
-        var g = S("g", { "class": "s-spot" }, [
-          S("circle", { cx: p.x, cy: 318, r: 80, fill: "url(#storyWarm)", "class": "s-glow" }),
-          placeIcon(key, p.x, 352),
-          T({ x: p.x, y: 258, "text-anchor": "middle", fill: C.ivory, "font-size": narrow() ? 28 : 13, "font-weight": 700, "letter-spacing": narrow() ? 1.5 : 2.5, "font-family": L.font }, L.places[key].label)
-        ]);
-        if (state.visited.indexOf(key) > -1) sparkle(g, p.x, 236, 0.2);
-        spots[key] = g;
-        root.appendChild(g);
-      });
-      charG = character(state.charX, 432);
-      root.appendChild(charG);
-    });
-    setNeedle("wobble");
-    setText(L.s2Text);
-    setSub(state.visited.length ? L.s2Again : null);
-    var nodes = ORDER.map(function (key) {
-      var p = PLACES[key], seen = state.visited.indexOf(key) > -1;
-      var b = button("", {
-        cls: "place-btn",
-        html: (seen ? '<span class="tag">' + L.visited + '</span>' : "") + '<span class="pt">' + L.places[key].name + '</span><span class="pd">' + L.places[key].desc + "</span>"
-      }, function () { go(key); });
-      ["mouseenter", "focus"].forEach(function (ev) { b.addEventListener(ev, function () { spots[key].classList.add("hot"); }); });
-      ["mouseleave", "blur"].forEach(function (ev) { b.addEventListener(ev, function () { if (!b.disabled) spots[key].classList.remove("hot"); }); });
-      return b;
-    });
-    setChoices(nodes);
-    function go(key) {
-      nodes.forEach(function (b) { b.disabled = true; });
-      ORDER.forEach(function (k) { spots[k].classList.toggle("hot", k === key); });
-      state.charX = PLACES[key].x;
-      charG.style.transform = "translate(" + PLACES[key].x + "px,432px)";
-      later(function () { if (key === "workshop") workshop(); else if (key === "studio") studio(); else gathering(); }, 1050);
-    }
-  }
-
-  // ---------- ACTIVITY: the workshop (finish a bridge) ----------
-  function workshop() {
-    setStep(L.places.workshop.name);
-    var SLOTS = { plank: 250, beam: 350, door: 450 }, placed = {}, count = 0, layer, charG;
-    frame(function (root) {
-      root.appendChild(S("rect", { x: 250, y: 300, width: 300, height: 140, fill: "#061E1C" }));
-      root.appendChild(S("path", { d: "M0 300 H250 V440 H0Z", fill: C.cliff }));
-      root.appendChild(S("path", { d: "M550 300 H800 V440 H550Z", fill: C.cliff }));
-      root.appendChild(S("path", { d: "M0 300 H250 M550 300 H800", stroke: C.sea, "stroke-opacity": ".55", "stroke-width": 2 }));
-      root.appendChild(S("rect", { x: 238, y: 278, width: 7, height: 24, fill: C.sand }));
-      root.appendChild(S("rect", { x: 555, y: 278, width: 7, height: 24, fill: C.sand }));
-      Object.keys(SLOTS).forEach(function (k) {
-        root.appendChild(S("rect", { x: SLOTS[k] + 4, y: 291, width: 92, height: 15, rx: 3, fill: "none", stroke: "rgba(246,242,233,.45)", "stroke-dasharray": "5 5" }));
-      });
-      root.appendChild(S("circle", { cx: 690, cy: 262, r: 70, fill: "url(#storyWarm)", "class": "s-glow" }));
-      root.appendChild(S("rect", { x: 686, y: 236, width: 8, height: 64, fill: "#7A5A3A" }));
-      root.appendChild(S("circle", { cx: 690, cy: 232, r: 9, fill: C.amber }));
-      layer = S("g", {});
-      root.appendChild(layer);
-      charG = character(150, 300);
-      root.appendChild(charG);
-    });
-    setNeedle("wobble");
-    setText(L.wsText);
-    setSub(L.wsSub);
-    var PIECES = [["plank", L.pieces[0]], ["beam", L.pieces[1]], ["door", L.pieces[2]]];
-    var btns = PIECES.map(function (pc) {
-      var b = button(pc[1], {}, function () { place(pc[0], b); });
-      return b;
-    });
-    setChoices(btns);
-    function place(k, b) {
-      if (placed[k]) return;
-      placed[k] = true; count++;
-      b.disabled = true; b.classList.add("picked");
-      var x = SLOTS[k], g = S("g", { "class": "s-pop" });
-      if (k === "plank") {
-        g.appendChild(S("rect", { x: x + 2, y: 290, width: 96, height: 16, rx: 3, fill: "#C9934A" }));
-        g.appendChild(S("path", { d: "M" + (x + 18) + " 298 h60", stroke: "rgba(0,0,0,.2)", "stroke-width": 2 }));
-      } else if (k === "beam") {
-        g.appendChild(S("rect", { x: x + 2, y: 288, width: 96, height: 20, rx: 2, fill: "#A8783A" }));
-        g.appendChild(S("circle", { cx: x + 12, cy: 298, r: 2.2, fill: C.ivory }));
-        g.appendChild(S("circle", { cx: x + 88, cy: 298, r: 2.2, fill: C.ivory }));
-      } else {
-        g.appendChild(S("rect", { x: x + 2, y: 289, width: 96, height: 18, rx: 2, fill: C.sea }));
-        g.appendChild(S("rect", { x: x + 12, y: 292, width: 34, height: 12, rx: 1, fill: "none", stroke: "rgba(16,62,59,.35)" }));
-        g.appendChild(S("circle", { cx: x + 84, cy: 298, r: 3, fill: C.amber }));
-      }
-      layer.appendChild(g);
-      sparkle(layer, x + 50, 270, 0.1);
-      if (count === 3) later(done, 450);
-    }
-    function done() {
-      layer.appendChild(S("path", { d: "M241 280 Q 400 256 559 280", fill: "none", stroke: C.amber, "stroke-width": 2.5, "class": "s-draw", pathLength: 400 }));
-      later(function () { charG.style.transform = "translate(640px,300px)"; }, 350);
-      setText(L.wsDone);
-      setSub(null);
-      setChoices([button(L.cont, { cls: "primary" }, function () { signal("workshop"); })]);
-    }
-  }
-
-  // ---------- ACTIVITY: the studio (make a flag) ----------
-  function studio() {
-    setStep(L.places.studio.name);
-    var shape = null, color = null, cloth, mark, sparks;
-    frame(function (root) {
-      root.appendChild(S("circle", { cx: 500, cy: 186, r: 140, fill: "url(#storyWarm)", opacity: ".55" }));
-      root.appendChild(S("rect", { x: 396, y: 112, width: 8, height: 242, rx: 3, fill: C.sea }));
-      root.appendChild(S("circle", { cx: 400, cy: 108, r: 8, fill: C.amber }));
-      cloth = S("path", { d: "M404 124 C 460 110, 520 142, 590 126 L 590 238 C 520 254, 460 222, 404 236 Z", fill: "rgba(246,242,233,.06)", stroke: "rgba(246,242,233,.55)", "stroke-width": 2, "stroke-dasharray": "7 7" });
-      root.appendChild(cloth);
-      mark = S("g", {});
-      root.appendChild(mark);
-      sparks = S("g", {});
-      root.appendChild(sparks);
-      root.appendChild(character(300, 352));
-    });
-    setNeedle("wobble");
-    setText(L.stText);
-    setSub(L.stSub);
-
-    function shapeEl(kind, cx, cy, fill) {
-      if (kind === "circle") return S("circle", { cx: cx, cy: cy, r: 28, fill: fill });
-      if (kind === "triangle") return S("path", { d: "M" + cx + " " + (cy - 30) + " L" + (cx + 33) + " " + (cy + 25) + " L" + (cx - 33) + " " + (cy + 25) + "Z", fill: fill });
-      var d = "";
-      for (var i = 0; i < 10; i++) {
-        var r = i % 2 ? 13 : 32, a = Math.PI / 5 * i - Math.PI / 2;
-        d += (i ? "L" : "M") + (cx + r * Math.cos(a)).toFixed(1) + " " + (cy + r * Math.sin(a)).toFixed(1);
-      }
-      return S("path", { d: d + "Z", fill: fill });
-    }
-    function paint() {
-      if (color) { cloth.setAttribute("fill", color); cloth.setAttribute("stroke", color); cloth.removeAttribute("stroke-dasharray"); }
-      while (mark.firstChild) mark.removeChild(mark.firstChild);
-      if (shape) mark.appendChild(S("g", { "class": "s-pop" }, [shapeEl(shape, 497, 181, color ? C.deep : C.ivory)]));
-      doneBtn.disabled = !(shape && color);
-    }
-
-    var shapeRow = document.createElement("div");
-    shapeRow.className = "choice-row";
-    shapeRow.innerHTML = '<span class="choice-label">' + L.shape + '</span>';
-    [["circle", L.shapes[0]], ["triangle", L.shapes[1]], ["star", L.shapes[2]]].forEach(function (s) {
-      var b = button(s[1], {}, function () { shape = s[0]; pick(shapeRow, b); paint(); });
-      b.setAttribute("aria-pressed", "false");
-      shapeRow.appendChild(b);
-    });
-    var colorRow = document.createElement("div");
-    colorRow.className = "choice-row";
-    colorRow.innerHTML = '<span class="choice-label">' + L.color + '</span>';
-    [[C.amber, L.colors[0]], [C.sea, L.colors[1]], [C.ivory, L.colors[2]]].forEach(function (c) {
-      var b = button("", { cls: "swatch", aria: c[1] }, function () { color = c[0]; pick(colorRow, b); paint(); });
-      b.style.background = c[0];
-      b.setAttribute("aria-pressed", "false");
-      colorRow.appendChild(b);
-    });
-    var doneBtn = button(L.raise, { cls: "primary" }, function () {
-      [[430, 110], [580, 112], [612, 190], [560, 262], [440, 258], [470, 96]].forEach(function (p, i) { sparkle(sparks, p[0], p[1], i * 0.08); });
-      setText(L.stDone);
-      setSub(null);
-      setChoices([button(L.cont, { cls: "primary" }, function () { signal("studio"); })]);
-    });
-    doneBtn.disabled = true;
-    setChoices([shapeRow, colorRow, doneBtn]);
-  }
-
-  // ---------- ACTIVITY: the gathering (welcome someone) ----------
-  function gathering() {
-    setStep(L.places.gathering.name);
-    var mover, lone, bubble, sparks;
-    frame(function (root) {
-      root.appendChild(S("circle", { cx: 400, cy: 330, r: 160, fill: "url(#storyWarm)", "class": "s-glow" }));
-      root.appendChild(S("path", { d: "M380 376 h40", stroke: "#7A5530", "stroke-width": 6, "stroke-linecap": "round" }));
-      root.appendChild(S("path", { d: "M386 374 Q 400 318 414 374Z", fill: C.amber }));
-      root.appendChild(S("path", { d: "M393 374 Q 400 344 407 374Z", fill: C.ivory }));
-      root.appendChild(person(372, 352, 0.82, C.sand));
-      root.appendChild(person(430, 352, 0.82, C.sea));
-      root.appendChild(person(326, 396, 1, C.sea));
-      root.appendChild(S("ellipse", { cx: 475, cy: 398, rx: 20, ry: 5, fill: "none", stroke: "rgba(246,242,233,.4)", "stroke-dasharray": "4 4" }));
-      mover = S("g", { "class": "s-move" });
-      mover.style.transform = "translate(0px,0px)";
-      lone = person(690, 396, 1, "#8FAAA2");
-      lone.setAttribute("opacity", ".7");
-      mover.appendChild(lone);
-      root.appendChild(mover);
-      bubble = S("g", {});
-      root.appendChild(bubble);
-      sparks = S("g", {});
-      root.appendChild(sparks);
-      root.appendChild(character(170, 404));
-    });
-    setNeedle("wobble");
-    setText(L.gaText);
-    setSub(null);
-    setChoices([button(L.invite, { cls: "primary" }, invite)]);
-
-    function invite() {
-      mover.style.transform = "translate(-215px,0px)";
-      lone.setAttribute("opacity", "1");
-      setText(L.gaIn);
-      setSub(L.gaSay);
-      var starters = L.starters;
-      setChoices(starters.map(function (s) { return button(L.q1 + s + L.q2, {}, function () { say(s); }); }));
-    }
-    function say(s) {
-      while (bubble.firstChild) bubble.removeChild(bubble.firstChild);
-      var N = narrow(), fs = N ? 30 : 16, lh = N ? 38 : 22;
-      var lines = wrap(s, N ? 20 : 28), h = lines.length * lh + (N ? 30 : 24), w = N ? 620 : 310, top = 196 - h;
-      var g = S("g", { "class": "s-pop" }, [
-        S("rect", { x: 400 - w / 2, y: top, width: w, height: h, rx: 16, fill: C.ivory }),
-        S("path", { d: "M420 196 l16 20 l6 -20z", fill: C.ivory })
-      ]);
-      lines.forEach(function (ln, i) {
-        g.appendChild(T({ x: 400, y: top + (N ? 44 : 30) + i * lh, "text-anchor": "middle", fill: C.deep, "font-size": fs, "font-weight": 600, "font-family": L.font }, ln));
-      });
-      bubble.appendChild(g);
-      [[300, 300], [500, 296], [470, 330], [330, 330]].forEach(function (p, i) { sparkle(sparks, p[0], p[1], 0.2 + i * 0.1); });
-      setText(L.gaDone);
-      setSub(null);
-      setChoices([button(L.cont, { cls: "primary" }, function () { signal("gathering"); })]);
-    }
-  }
-
-  // ---------- SCENE 3: the first signal ----------
-  function signal(key) {
-    if (state.visited.indexOf(key) < 0) state.visited.push(key);
-    state.last = key;
-    setStep(L.s3);
-    var p = PLACES[key], cx = 400, cy = 168, px = p.x, py = 318;
-    var bearing = Math.atan2(px - cx, -(py - cy)) * 180 / Math.PI;
-    var big, guide;
-    frame(function (root) {
-      root.appendChild(S("circle", { cx: px, cy: 318, r: 74, fill: "url(#storyWarm)", "class": "s-glow" }));
-      root.appendChild(placeIcon(key, px, 352));
-      root.appendChild(character(px + (px > 400 ? -86 : 86), 432));
-      guide = S("path", { d: "M" + cx + " " + cy + " L" + px + " " + (py - 6), stroke: C.amber, "stroke-width": 2.5, "stroke-dasharray": "2 9", "stroke-linecap": "round", fill: "none" });
-      guide.style.opacity = "0";
-      guide.style.transition = "opacity .9s ease";
-      root.appendChild(guide);
-      var comp = S("g", { transform: "translate(" + cx + "," + cy + ")" }, [
-        S("circle", { r: 128, fill: "url(#storyWarm)", "class": "s-glow" }),
-        S("circle", { r: 74, fill: C.ivory, stroke: C.amber, "stroke-width": 5 }),
-        S("circle", { r: 62, fill: "none", stroke: C.sea, "stroke-width": 1.5 })
-      ]);
-      for (var a = 0; a < 360; a += 30) {
-        var rad = a * Math.PI / 180, inner = a % 90 ? 55 : 49;
-        comp.appendChild(S("line", { x1: (Math.sin(rad) * 62).toFixed(1), y1: (-Math.cos(rad) * 62).toFixed(1), x2: (Math.sin(rad) * inner).toFixed(1), y2: (-Math.cos(rad) * inner).toFixed(1), stroke: C.teal, "stroke-width": a % 90 ? 1.5 : 3 }));
-      }
-      big = S("g", {}, [
-        S("path", { d: "M0 -54 8 0 -8 0Z", fill: C.amber }),
-        S("path", { d: "M0 54 8 0 -8 0Z", fill: C.teal })
-      ]);
-      comp.appendChild(big);
-      comp.appendChild(S("circle", { r: 6, fill: C.deep }));
-      root.appendChild(comp);
-    });
-    needle = big;
-    setNeedle("wobble");
-    later(function () { setNeedle("steady", bearing); }, 700);
-    later(function () { guide.style.opacity = ".85"; }, 1700);
-    setText(L.s3Text);
+  // ---------- 2 · Let's try something. ----------
+  function m2() {
+    step(2);
+    cls({ dim: 1, hes: !stage.classList.contains("lvlh"), "look-l": 0, "look-u": 0, "look-r": 0 });
+    setText(L.m2);
     setSub(null);
     setChoices([]);
+    hot.innerHTML = "";
+    ACTS.forEach(function (k, i) {
+      var a = ACT[k], b = document.createElement("button");
+      b.type = "button";
+      b.className = "orb" + (tried[k] ? " done" : "");
+      place(b, a.orb[0], a.orb[1]);
+      b.style.setProperty("--c1", a.c[0]); b.style.setProperty("--c2", a.c[1]);
+      b.style.setProperty("--fd", (i * 0.5) + "s");
+      b.setAttribute("aria-label", L.acts[k].name);
+      b.disabled = !!tried[k];
+      b.innerHTML = ICONS[k] + '<span class="ol" aria-hidden="true">' + L.acts[k].name + "</span>";
+      b.addEventListener("click", function () { choose(k); });
+      hot.appendChild(b);
+      later(function () { b.classList.add("in"); }, 150 + i * 160);
+    });
+    if (kb) later(function () { var f = hot.querySelector(".orb:not([disabled])"); if (f) f.focus({ preventScroll: true }); }, 700);
+  }
+
+  function choose(k) {
+    if (busy) return;
+    current = k;
+    Array.prototype.forEach.call(hot.querySelectorAll(".orb"), function (o) { o.classList.add("out"); o.disabled = true; });
+    cls({ "look-l": k === "create", "look-u": k === "solve", "look-r": k === "connect" });
+    $(".p-" + k).classList.add("on");
+    var tap = function () { act(k); };
     later(function () {
-      setSub(L.feel);
-      setChoices([
-        button(L.feels[0], {}, function () { feel(key, "more"); }),
-        button(L.feels[1], {}, function () { feel(key, "other"); }),
-        button(L.feels[2], {}, function () { feel(key, "not"); })
-      ]);
-    }, 900);
+      hot.innerHTML = "";
+      var h = document.createElement("button");
+      h.type = "button"; h.className = "hot";
+      h.setAttribute("aria-label", L.acts[k].action);
+      place(h, ACT[k].spot[0], ACT[k].spot[1]);
+      h.addEventListener("click", tap);
+      hot.appendChild(h);
+    }, 450);
+    setChoices([button(L.acts[k].action, "primary", tap)]);
   }
 
-  function feel(key, f) {
-    state.feelings[key] = f;
-    var ack = L.acks;
-    setSub(ack[f]);
-    var left = ORDER.filter(function (k) { return state.visited.indexOf(k) < 0; }).length;
-    var explore = button(left ? L.another : L.revisit, { cls: f === "more" ? "" : "primary" }, scene2);
-    var onward = button(L.onward, { cls: f === "more" ? "primary" : "" }, ending);
-    setChoices(f === "more" ? [onward, explore] : [explore, onward]);
+  function act(k) {
+    if (busy) return;
+    busy = true;
+    hot.innerHTML = "";
+    Array.prototype.forEach.call(choicesEl.querySelectorAll("button"), function (b) { b.disabled = true; });
+    tried[k] = true;
+    if (k === "create") cls({ painted: 1 });
+    else if (k === "solve") { $(".piece").style.transform = "translate(-120px,28px)"; later(function () { cls({ solved: 1 }); }, 700); }
+    else { cls({ waving: 1 }); later(function () { cls({ met: 1 }); }, 450); }
+    later(engage, k === "create" ? 1150 : 1350);
   }
 
-  // ---------- ENDING: one step is enough ----------
-  function pickExperiment() {
-    var recent = state.visited.slice().reverse();
-    var liked = recent.filter(function (k) { return state.feelings[k] === "more"; })[0];
-    if (liked) return L.places[liked].experiment;
-    var curious = recent.filter(function (k) { return state.feelings[k] === "other"; })[0];
-    if (curious) {
-      var next = ORDER.filter(function (k) { return state.visited.indexOf(k) < 0; })[0];
-      if (next) return L.places[next].experiment;
-    }
-    return L.unfamiliar;
+  // The scene fills with colour; the student lights up. We don't assume they loved it.
+  function engage() {
+    cls({ hes: 0, eng: 1, happy: 1, lvl1: 1, lvlh: 0 });
+    burst(ACT[current].burst[0], ACT[current].burst[1]);
+    aim(0, 16);
+    later(function () {
+      busy = false;
+      setChoices([button(L.liked, "primary", function () { m3(current); }), button(L.tryElse, "", tryElse)]);
+    }, 700);
+  }
+
+  // Not for me: still useful. The student nods, keeps a little colour, and looks again.
+  function tryElse() {
+    setChoices([]);
+    setText(L.goodToKnow);
+    cls({ eng: 0, happy: 0, lvl1: 0, lvlh: 1, nod: 1, "look-l": 0, "look-u": 0, "look-r": 0 });
+    aim(0, 30);
+    $(".p-" + current).classList.remove("on");
+    pause(function () {
+      cls({ nod: 0, painted: 0, solved: 0, waving: 0, met: 0 });
+      $(".piece").style.transform = "";
+      var g = $(".burst"); while (g.firstChild) g.removeChild(g.firstChild);
+      var left = ACTS.filter(function (k) { return !tried[k]; });
+      if (left.length) m2(); else m3(null);
+    }, 1500);
+  }
+
+  // ---------- 3 · That felt like me. ----------
+  function m3(k) {
+    step(3);
+    hot.innerHTML = "";
+    setChoices([]);
+    ACTS.forEach(function (a) { $(".p-" + a).classList.remove("on"); });
+    cls({ hes: 0, eng: 0, tall: 1, happy: 1, lvl1: 0, lvlh: 0, lvl2: 1, steady: 1, dim: 1,
+          "look-l": 0, "look-u": 0, "look-r": 0, painted: 0, solved: 0, waving: 0, met: 0 });
+    var src = scene.querySelectorAll(".dp")[k ? ACT[k].dir : 0];
+    var len = src.getTotalLength(), pt = src.getPointAtLength(len * 0.55), end = src.getPointAtLength(len);
+    $(".lit").setAttribute("d", src.getAttribute("d"));
+    $(".lit-star").setAttribute("d", sparkle(pt.x, pt.y, 12));
+    aim(Math.atan2(end.x - 352, -(end.y - 326)) * 180 / Math.PI, 0);
+    later(function () { cls({ "show-lit": 1 }); }, 250);
+    later(function () {
+      $(".kidpos").style.transform = "translate(" + ((pt.x - 400) * 0.14).toFixed(1) + "px," + ((pt.y - 386) * 0.14).toFixed(1) + "px)";
+    }, 1700);
+    setText(k ? L.m3 : L.m3alt);
+    setSub(L.nextStep);
+    pause(ending, RM ? 2600 : 3400);
   }
 
   function ending() {
-    setStep(L.end);
-    var POINTS = { studio: [400, 50], workshop: [PLACES.workshop.x < 400 ? 290 : 510, 150], gathering: [PLACES.gathering.x < 400 ? 290 : 510, 150] };
-    var cam = frame(function (root) {
-      state.visited.forEach(function (k, i) {
-        var p = PLACES[k];
-        root.appendChild(S("g", { opacity: ".9" }, [placeIcon(k, p.x, 352)]));
-        for (var t = 0; t <= 1.0001; t += 0.125) {
-          var dot = S("circle", { cx: (400 + (p.x - 400) * t).toFixed(1), cy: (428 - 62 * t).toFixed(1), r: 3, fill: C.amber, "class": "s-pop" });
-          dot.style.animationDelay = (0.5 + i * 0.35 + t * 0.6).toFixed(2) + "s";
-          root.appendChild(dot);
-        }
-      });
-      var rose = S("path", { d: "M400 50 L414 136 L510 150 L414 164 L400 250 L386 164 L290 150 L386 136 Z", fill: "rgba(217,164,65,.06)", stroke: "rgba(246,242,233,.6)", "stroke-width": 1.5, "class": "s-draw", pathLength: 400 });
-      rose.style.animationDelay = "1.1s";
-      root.appendChild(rose);
-      var cross = S("path", { d: "M400 50 V250 M290 150 H510", stroke: "rgba(185,220,208,.3)", "stroke-width": 1, fill: "none", "class": "s-draw", pathLength: 400 });
-      cross.style.animationDelay = "1.4s";
-      root.appendChild(cross);
-      function star(x, y, lit, delay) {
-        var g = S("g", { "class": "s-pop" });
-        g.style.animationDelay = delay + "s";
-        if (lit) g.appendChild(S("circle", { cx: x, cy: y, r: 20, fill: "url(#storyWarm)" }));
-        g.appendChild(S("circle", { cx: x, cy: y, r: lit ? 5.5 : 3, fill: lit ? C.amber : "rgba(246,242,233,.55)" }));
-        return g;
-      }
-      ORDER.forEach(function (k, i) { root.appendChild(star(POINTS[k][0], POINTS[k][1], state.visited.indexOf(k) > -1, 1.6 + i * 0.3)); });
-      root.appendChild(star(400, 250, true, 1.3));
-      root.appendChild(star(400, 150, true, 2.5));
-      root.appendChild(character(400, 432));
-    });
-    setNeedle("steady", 0);
-    if (!RM) {
-      cam.style.transition = "none";
-      cam.style.transformOrigin = "400px 400px";
-      cam.style.transform = "scale(1.7)";
-      void cam.getBoundingClientRect();
-      cam.style.transition = "";
-      later(function () { cam.style.transform = "scale(1)"; }, 60);
-    }
-    setText(L.endText);
-    setSub('<span class="experiment"><span class="k">' + L.expLabel + '</span><span class="v">' + pickExperiment() + "</span></span>");
-    var fin = document.createElement("p");
-    fin.className = "story-fin";
-    fin.textContent = L.fin;
-    setChoices([
-      fin,
-      button(L.toClub, { cls: "primary" }, toClub),
-      button(L.again, {}, scene2)
-    ]);
+    setText(L.endTitle);
+    setSub(L.endLine);
+    setChoices([button(L.explore, "primary", toClub)]);
   }
 
   // ---------- open / close ----------
   function open() {
     clearTimers();
-    reset();
     L = LANG[window.CCLang && CCLang.current() === "ar" ? "ar" : "en"];
-    PLACES.workshop.x = L === LANG.ar ? 630 : 170;
-    PLACES.gathering.x = L === LANG.ar ? 170 : 630;
+    tried = {}; current = null; busy = false;
     lastFocus = document.activeElement;
+    build();
     overlay.hidden = false;
     overlay.classList.add("open");
     overlay.scrollTop = 0;
     document.body.classList.add("story-lock");
-    startNeedle();
-    scene1();
+    nA = 0; amp = ampT = 48;
+    if (!RM && !raf) raf = requestAnimationFrame(loop);
+    m1();
     if (!kb) overlay.focus({ preventScroll: true });
   }
   function close(after) {
     clearTimers();
-    stopNeedle();
-    needle = null;
+    if (raf) cancelAnimationFrame(raf);
+    raf = 0; needle = null;
     overlay.classList.remove("open");
     overlay.hidden = true;
     document.body.classList.remove("story-lock");
