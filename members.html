@@ -775,6 +775,10 @@
 
   var start = indexOf((location.hash || "").slice(1));
   show(start > -1 ? start : 0, 1, false);
+  window.addEventListener("hashchange", function () {
+    var i = indexOf((location.hash || "").slice(1));
+    if (i > -1) go(i);
+  });
 
   // Hub needle: wanders, then swings to whichever station you point at.
   var needle = document.getElementById("hubNeedle"), nA = 0, hoverB = null;
