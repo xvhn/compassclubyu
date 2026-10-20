@@ -1,0 +1,755 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Crew — Compass Club</title>
+<script>try{if(sessionStorage.getItem("cc-arrive")){document.documentElement.classList.add("cc-arriving");setTimeout(function(){document.documentElement.classList.remove("cc-arriving")},1600)}}catch(e){}</script>
+<meta name="description" content="Meet the Compass Club crew at Al Yamamah University: presidency, operations, treasury, public relations, events, media and design.">
+<link rel="canonical" href="https://xvhn.github.io/my-game/members.html">
+<meta name="theme-color" content="#0A2B29">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Compass Club">
+<meta property="og:title" content="The Crew — Compass Club">
+<meta property="og:description" content="Thirteen people, seven roles, one direction. Meet the Compass Club crew.">
+<meta property="og:url" content="https://xvhn.github.io/my-game/members.html">
+<meta property="og:image" content="https://xvhn.github.io/my-game/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+  /* The Crew — night-voyage theme. Each station is one division; a giant
+     background compass rose turns to face whichever station is open. */
+  :root {
+    --teal: #103E3B; --teal-900: #0A2B29; --ink: #0E3431;
+    --ivory: #F6F2E9; --seafoam: #B9DCD0; --amber: #D9A441;
+    --muted: rgba(246,242,233,.66); --line: rgba(185,220,208,.18);
+    --display: "Fraunces", Georgia, serif;
+    --sans: "Manrope", "Segoe UI", system-ui, sans-serif;
+    --arabic: "Cairo", "Segoe UI", sans-serif;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--teal-900); }
+  html.cc-arriving::after { content: ""; position: fixed; inset: 0; z-index: 9998; background: #0A2B29; }
+  body { margin: 0; min-height: 100vh; background: var(--teal-900); color: var(--ivory); font-family: var(--sans); font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  h1, h2, h3, p { margin: 0; }
+  a { color: inherit; }
+  button { font: inherit; }
+  :focus-visible { outline: 3px solid var(--amber); outline-offset: 3px; border-radius: 6px; }
+
+  /* ---------- moving background ---------- */
+  .bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+    background: radial-gradient(1200px 820px at 72% 0%, #17524D 0%, #0D332F 46%, #071B19 100%); }
+  .bg .layer { position: absolute; inset: 0; will-change: transform; }
+  .contours { position: absolute; width: 170vmax; height: 170vmax; left: 50%; top: 50%; margin: -85vmax 0 0 -85vmax; opacity: .55; animation: drift 70s ease-in-out infinite alternate; }
+  .contours ellipse { fill: none; stroke: rgba(185,220,208,.09); stroke-width: 1.2; }
+  @keyframes drift { from { transform: translate(-3%, -2%) rotate(-4deg); } to { transform: translate(3%, 2%) rotate(5deg); } }
+  .bigrose { position: absolute; width: 132vmax; height: 132vmax; left: 50%; top: 58%; margin: -66vmax 0 0 -66vmax; opacity: .1; }
+  .bigrose .rot { transition: transform 1.7s cubic-bezier(.65,0,.2,1); }
+  .bigrose .idle { animation: idle 26s ease-in-out infinite alternate; }
+  @keyframes idle { from { transform: rotate(-3deg); } to { transform: rotate(3deg); } }
+  .bigrose text { font-family: var(--sans); font-weight: 700; fill: #B9DCD0; font-size: 22px; letter-spacing: 3px; }
+  .ambient { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
+
+  /* ---------- top bar & dock ---------- */
+  .top { position: fixed; top: 0; left: 0; right: 0; z-index: 20; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: max(14px, env(safe-area-inset-top, 0px)) max(18px, env(safe-area-inset-right, 0px)) 22px max(18px, env(safe-area-inset-left, 0px));
+    background: linear-gradient(rgba(10,43,41,.92) 40%, rgba(10,43,41,0)); }
+  .back { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 9px 16px; border-radius: 999px; text-decoration: none; font-weight: 700; font-size: .92rem;
+    border: 1.5px solid rgba(185,220,208,.4); background: rgba(246,242,233,.06); transition: background .2s ease, transform .2s ease; }
+  .back:hover { background: rgba(246,242,233,.14); transform: translateX(-2px); }
+  .back svg { width: 16px; height: 16px; }
+  .where { text-align: right; }
+  .where .nm { display: block; font-family: var(--display); font-size: 1.05rem; }
+  .where .ct { display: block; font-size: .72rem; letter-spacing: .18em; color: var(--seafoam); font-weight: 700; font-variant-numeric: tabular-nums; }
+
+  .dock { display: none; }
+  .js .dock { position: fixed; z-index: 20; left: 50%; bottom: max(14px, env(safe-area-inset-bottom, 0px)); transform: translateX(-50%);
+    display: flex; align-items: center; gap: 4px; padding: 6px; border-radius: 999px; max-width: calc(100vw - 20px);
+    background: rgba(10,43,41,.78); border: 1px solid var(--line); backdrop-filter: blur(10px); box-shadow: 0 20px 50px -20px rgba(0,0,0,.6); }
+  .arrow { width: 44px; height: 44px; flex: none; border-radius: 50%; border: 0; cursor: pointer; color: var(--ivory); background: rgba(246,242,233,.08); display: grid; place-items: center; transition: background .2s ease, transform .15s ease; }
+  .arrow:hover:not([disabled]) { background: var(--amber); color: var(--teal-900); }
+  .arrow:active:not([disabled]) { transform: scale(.92); }
+  .arrow[disabled] { opacity: .3; cursor: default; }
+  .arrow svg { width: 18px; height: 18px; }
+  .dots { display: flex; align-items: center; }
+  .dot { height: 36px; min-width: 30px; padding: 0 9px; border: 0; background: none; cursor: pointer; color: var(--ivory); display: inline-flex; align-items: center; gap: 8px; border-radius: 999px; transition: background .3s ease; }
+  .dot-mark { width: 8px; height: 8px; border-radius: 50%; background: rgba(246,242,233,.4); transition: transform .3s ease, background .3s ease; flex: none; }
+  .dot:hover .dot-mark { background: var(--seafoam); transform: scale(1.3); }
+  .dot-label { font-size: .82rem; font-weight: 700; white-space: nowrap; max-width: 0; overflow: hidden; opacity: 0; transition: max-width .45s ease, opacity .3s ease; }
+  .dot.on { background: rgba(217,164,65,.16); }
+  .dot.on .dot-mark { background: var(--amber); transform: scale(1.35); }
+  .dot.on .dot-label { max-width: 120px; opacity: 1; }
+  .dot.hub .dot-mark { width: 12px; height: 12px; background: none; border: 2px solid rgba(246,242,233,.55); }
+  .dot.hub.on .dot-mark { border-color: var(--amber); background: none; }
+
+  /* ---------- stations ---------- */
+  main { position: relative; z-index: 2; max-width: 1180px; min-height: 100vh; margin-inline: auto; display: flex; flex-direction: column; justify-content: center;
+    padding: 104px max(20px, env(safe-area-inset-right, 0px)) 120px max(20px, env(safe-area-inset-left, 0px)); }
+  .station { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(26px, 5vw, 64px); align-items: center; padding-block: 24px; }
+  .js .station { display: none; }
+  .js .station.active { display: grid; }
+  .station.leaving { animation: stLeave .3s ease forwards; }
+  @keyframes stLeave { to { opacity: 0; transform: translateX(var(--ox, -40px)); } }
+  .station.active .rise { animation: stRise .8s cubic-bezier(.2,.8,.2,1) backwards; animation-delay: calc(var(--d, 0) * 85ms + 80ms); }
+  @keyframes stRise { from { opacity: 0; transform: translateX(var(--dx, 40px)); } }
+  .station.active .st-art { animation: artIn 1.05s cubic-bezier(.2,.8,.2,1) backwards .12s; }
+  @keyframes artIn { from { opacity: 0; transform: scale(.8) rotate(var(--ar, 8deg)); } }
+
+  .kicker { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font-size: .74rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+  .kicker .brg { color: var(--amber); font-variant-numeric: tabular-nums; }
+  .kicker .brg::before { content: ""; display: inline-block; width: 22px; height: 2px; background: var(--amber); vertical-align: middle; margin-right: 10px; border-radius: 2px; }
+  .st-copy h2 { font-family: var(--display); font-weight: 500; font-size: clamp(2.2rem, 5.2vw, 3.7rem); line-height: 1; letter-spacing: -.015em; margin-top: 14px; text-wrap: balance; }
+  .st-copy h2:focus { outline: none; }
+  .ar { display: block; font-family: var(--arabic); font-weight: 600; font-size: 1.05rem; color: var(--seafoam); margin-top: 8px; letter-spacing: 0; }
+  .concept { margin-top: 16px; font-size: 1.12rem; color: var(--muted); }
+  .concept b { font-family: var(--display); font-style: italic; font-weight: 400; color: var(--amber); font-size: 1.22rem; }
+
+  /* member cards */
+  .crew { list-style: none; padding: 0; margin: 28px 0 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 290px), 1fr)); gap: 14px; }
+  .member { display: flex; align-items: center; gap: 15px; padding: 15px 18px; border-radius: 20px; background: rgba(246,242,233,.055); border: 1px solid var(--line);
+    transition: transform .3s cubic-bezier(.2,.8,.2,1), background .3s ease, border-color .3s ease, box-shadow .3s ease; min-width: 0; }
+  .member:hover { background: rgba(246,242,233,.09); border-color: rgba(217,164,65,.5); box-shadow: 0 18px 40px -22px rgba(0,0,0,.7); }
+  .avatar { position: relative; width: 56px; height: 56px; flex: none; border-radius: 50%; display: grid; place-items: center;
+    background: radial-gradient(circle at 32% 28%, #1E5C56, #0E3431); border: 2px solid rgba(217,164,65,.75);
+    font-family: var(--display); font-size: 1.2rem; letter-spacing: .02em; }
+  .avatar::after { content: ""; position: absolute; inset: -7px; border-radius: 50%; border: 1.5px dashed rgba(217,164,65,.42); animation: aSpinPlain 28s linear infinite; }
+  .member.lead .avatar { background: radial-gradient(circle at 32% 28%, #F0C46A, #C58F2E); color: var(--teal-900); border-color: #F6E3B4; }
+  .member:hover .avatar::after { animation-duration: 6s; border-color: rgba(217,164,65,.8); }
+  .m-body { min-width: 0; }
+  .m-name { display: block; font-weight: 700; font-size: 1.06rem; }
+  .m-role { display: block; color: var(--seafoam); font-size: .92rem; font-weight: 600; }
+  .m-role [lang="ar"] { display: block; font-family: var(--arabic); font-weight: 400; opacity: .85; }
+  .m-meta { display: block; margin-top: 3px; font-size: .78rem; color: var(--muted); }
+  .crew.big .member { padding: 20px 22px; }
+  .crew.big .avatar { width: 66px; height: 66px; font-size: 1.4rem; }
+  .crew.big .m-name { font-size: 1.2rem; }
+
+  /* illustration */
+  .st-art { position: relative; width: 100%; max-width: 540px; justify-self: center; }
+  .st-art::before { content: ""; position: absolute; inset: 6% 10%; border-radius: 50%; background: radial-gradient(circle, rgba(217,164,65,.22), transparent 66%); filter: blur(8px); }
+  .st-art svg { position: relative; width: 100%; height: auto; display: block; overflow: visible; }
+  .st-art text { font-family: var(--sans); }
+
+  /* hub */
+  .hub-copy h1 { font-family: var(--display); font-weight: 500; font-size: clamp(2.8rem, 7vw, 5.2rem); line-height: .96; letter-spacing: -.02em; margin-top: 16px; }
+  .hub-copy h1:focus { outline: none; }
+  .hub-line { margin-top: 18px; font-size: 1.15rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .hub-line b { color: var(--amber); font-weight: 700; }
+  .start { margin-top: 30px; display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 15px 26px; border-radius: 999px; border: 0; cursor: pointer;
+    background: var(--amber); color: var(--teal-900); font-weight: 700; font-size: 1.02rem; box-shadow: 0 16px 36px -16px rgba(217,164,65,.9); transition: transform .15s ease, filter .2s ease; }
+  .start:hover { filter: brightness(1.07); transform: translateY(-2px); }
+  .start:active { transform: scale(.97); }
+  .start svg { width: 18px; height: 18px; }
+  .rose-ui { position: relative; width: min(500px, 88vw); aspect-ratio: 1; justify-self: center; container-type: inline-size; }
+  .rose-ui > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .pt { position: absolute; left: 50%; top: 50%; border: 0; background: none; color: var(--ivory); cursor: pointer; padding: 6px; border-radius: 14px;
+    display: flex; flex-direction: column; align-items: center; gap: 5px;
+    transform: translate(-50%, -50%) rotate(var(--a)) translateY(-38cqw) rotate(calc(var(--a) * -1)); }
+  .pt .pd { width: 14px; height: 14px; border-radius: 50%; background: var(--seafoam); box-shadow: 0 0 0 5px rgba(185,220,208,.14); transition: transform .3s ease, background .3s ease, box-shadow .3s ease; }
+  .pt .pl { font-weight: 700; font-size: .86rem; white-space: nowrap; text-shadow: 0 2px 10px #071B19; }
+  .pt .pb { font-size: .66rem; letter-spacing: .14em; color: var(--seafoam); font-weight: 700; }
+  .pt:hover .pd, .pt:focus-visible .pd { background: var(--amber); transform: scale(1.4); box-shadow: 0 0 0 9px rgba(217,164,65,.2); }
+  .pt.you .pd { background: none; border: 2px dashed var(--amber); }
+  #hubNeedle { transform-origin: 50px 50px; }
+
+  /* the you station */
+  .you-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+  .pill { display: inline-flex; align-items: center; gap: 10px; min-height: 50px; padding: 14px 22px; border-radius: 999px; text-decoration: none; font-weight: 700; transition: transform .15s ease, background .2s ease, filter .2s ease; }
+  .pill:hover { transform: translateY(-2px); }
+  .pill.solid { background: var(--amber); color: var(--teal-900); }
+  .pill.solid:hover { filter: brightness(1.07); }
+  .pill.ghost { border: 1.5px solid rgba(185,220,208,.5); }
+  .pill.ghost:hover { background: rgba(246,242,233,.1); }
+  .pill svg { width: 19px; height: 19px; }
+
+  /* ---------- illustration motion ---------- */
+  .a-spin { animation: aSpin var(--t, 12s) linear infinite; transform-box: fill-box; transform-origin: center; }
+  .a-rev { animation-direction: reverse; }
+  @keyframes aSpin { to { transform: rotate(360deg); } }
+  @keyframes aSpinPlain { to { transform: rotate(360deg); } }
+  .a-swing { animation: aSwing var(--t, 6s) ease-in-out infinite; transform-box: view-box; }
+  @keyframes aSwing { 0%, 100% { transform: rotate(var(--from, -16deg)); } 50% { transform: rotate(var(--to, 14deg)); } }
+  .a-draw { stroke-dasharray: 100; stroke-dashoffset: 100; animation: aDraw var(--t, 6s) ease-in-out infinite; }
+  @keyframes aDraw { 0% { stroke-dashoffset: 100; opacity: 1; } 55%, 86% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+  .a-ring { animation: aRing var(--t, 2.8s) ease-out infinite; transform-box: fill-box; transform-origin: center; }
+  @keyframes aRing { from { transform: scale(1); opacity: .75; } to { transform: scale(2.1); opacity: 0; } }
+  .a-blink { animation: aBlink 1.4s steps(1) infinite; }
+  @keyframes aBlink { 50% { opacity: .12; } }
+  .a-twinkle { animation: aTw 2.6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+  @keyframes aTw { 0%, 100% { opacity: .45; transform: scale(.8); } 50% { opacity: 1; transform: scale(1.18); } }
+  .a-bob { animation: aBob var(--t, 4s) ease-in-out infinite; }
+  @keyframes aBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+  .a-wave { animation: aWave 2.4s ease-in-out infinite; }
+  @keyframes aWave { 0%, 100% { opacity: .12; } 50% { opacity: 1; } }
+  .a-drop { animation: aDrop 6s cubic-bezier(.5,0,.6,1) infinite both; }
+  @keyframes aDrop { 0% { transform: translateY(-200px); opacity: 0; } 6% { opacity: 1; } 17% { transform: translateY(0); } 20% { transform: translateY(-7px); } 23%, 88% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(0); opacity: 0; } }
+  .a-light { animation: aLight 4s ease-in-out infinite both; }
+  @keyframes aLight { 0%, 12% { fill: rgba(246,242,233,.16); } 22%, 84% { fill: #D9A441; } 100% { fill: rgba(246,242,233,.16); } }
+  .a-shutter { animation: aShut 3.6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+  @keyframes aShut { 0%, 72%, 100% { transform: scale(1); } 77% { transform: scale(.12); } 83% { transform: scale(1); } }
+  .a-flash { opacity: 0; animation: aFlash 3.6s ease-out infinite; transform-box: fill-box; transform-origin: center; }
+  @keyframes aFlash { 0%, 75% { opacity: 0; transform: scale(.5); } 78% { opacity: .95; transform: scale(1); } 92%, 100% { opacity: 0; transform: scale(3.4); } }
+  .a-photo { animation: aPhoto 10.8s cubic-bezier(.2,.8,.2,1) infinite both; transform-box: fill-box; transform-origin: center; }
+  @keyframes aPhoto { 0% { transform: translate(-84px, 18px) rotate(0) scale(.55); opacity: 0; } 2% { opacity: 1; } 7%, 92% { transform: translate(0, 0) rotate(var(--r, 0deg)) scale(1); opacity: 1; } 100% { transform: translate(0, 0) rotate(var(--r, 0deg)) scale(1); opacity: 0; } }
+  .a-pop { animation: aPop var(--t, 5s) cubic-bezier(.2,1.4,.4,1) infinite both; transform-box: fill-box; transform-origin: center; }
+  @keyframes aPop { 0% { transform: scale(0); opacity: 0; } 12%, 84% { transform: scale(1); opacity: 1; } 100% { transform: scale(.6); opacity: 0; } }
+  .a-drafter { animation: aDrafter 5s linear infinite; transform-box: view-box; }
+  @keyframes aDrafter { 0% { transform: rotate(0); } 75%, 100% { transform: rotate(360deg); } }
+  .a-arc { stroke-dasharray: 100; animation: aArc 5s linear infinite; }
+  @keyframes aArc { 0% { stroke-dashoffset: 100; opacity: 1; } 75% { stroke-dashoffset: 0; opacity: 1; } 90% { opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+
+  @media (max-width: 860px) {
+    .station { grid-template-columns: 1fr; gap: 18px; }
+    .st-art { order: -1; max-width: 380px; }
+    .rose-ui { order: -1; width: min(420px, 92vw); }
+    .hub-copy { text-align: center; }
+  }
+  @media (max-width: 600px) {
+    main { padding-top: 92px; }
+    .dot { min-width: 26px; padding: 0 7px; }
+    .dot.on .dot-label { max-width: 0; opacity: 0; }
+    .pt .pl { font-size: .74rem; }
+    .pt .pb { display: none; }
+    .where .nm { font-size: .95rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .st-art *, .rose-ui *, .contours, .bigrose .idle, .avatar::after { animation: none !important; }
+    .station.active .rise, .station.active .st-art, .station.leaving { animation: none !important; }
+    .bigrose .rot { transition: none; }
+    .a-draw, .a-arc { stroke-dashoffset: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- moving background -->
+<div class="bg" aria-hidden="true">
+  <div class="layer" data-depth="18">
+    <svg class="contours" viewBox="0 0 1000 1000">
+      <ellipse cx="380" cy="420" rx="90" ry="70"/><ellipse cx="380" cy="420" rx="170" ry="138"/><ellipse cx="380" cy="420" rx="250" ry="210"/>
+      <ellipse cx="380" cy="420" rx="340" ry="290"/><ellipse cx="380" cy="420" rx="440" ry="380"/>
+      <ellipse cx="720" cy="700" rx="70" ry="60"/><ellipse cx="720" cy="700" rx="140" ry="118"/><ellipse cx="720" cy="700" rx="220" ry="188"/>
+    </svg>
+  </div>
+  <div class="layer" data-depth="34">
+    <svg class="bigrose" viewBox="-500 -500 1000 1000">
+      <g class="idle"><g class="rot" id="bgRose">
+        <g fill="none" stroke="#B9DCD0">
+          <circle r="480" stroke-width="2"/><circle r="452" stroke-width="1" stroke-dasharray="2 10"/><circle r="330" stroke-width="1.4"/><circle r="190" stroke-width="1"/>
+          <path d="M0 -480 V480 M-480 0 H480 M-339 -339 L339 339 M339 -339 L-339 339" stroke-width="1"/>
+        </g>
+        <path d="M0 -440 L46 -46 L440 0 L46 46 L0 440 L-46 46 L-440 0 L-46 -46Z" fill="rgba(185,220,208,.08)" stroke="#B9DCD0" stroke-width="2"/>
+        <path d="M0 -440 L46 -46 L0 0Z M440 0 L46 46 L0 0Z M0 440 L-46 46 L0 0Z M-440 0 L-46 -46 L0 0Z" fill="rgba(217,164,65,.45)"/>
+        <text x="0" y="-400" text-anchor="middle">N</text><text x="0" y="420" text-anchor="middle">S</text>
+        <text x="410" y="8" text-anchor="middle">E</text><text x="-410" y="8" text-anchor="middle">W</text>
+        <text x="290" y="-282" text-anchor="middle">045</text><text x="290" y="298" text-anchor="middle">135</text>
+        <text x="-290" y="298" text-anchor="middle">225</text><text x="-290" y="-282" text-anchor="middle">315</text>
+      </g></g>
+    </svg>
+  </div>
+</div>
+<canvas class="ambient" id="ambient" aria-hidden="true"></canvas>
+
+<header class="top">
+  <a class="back" href="index.html" data-transition>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+    Compass Club
+  </a>
+  <div class="where" aria-live="polite"><span class="nm" id="whereName">The Crew</span><span class="ct" id="whereCount"></span></div>
+</header>
+
+<main id="main">
+
+  <!-- ============ HUB ============ -->
+  <section class="station hub" id="crew" data-label="The Crew" data-bearing="0" aria-labelledby="h-crew">
+    <div class="hub-copy">
+      <p class="kicker rise" style="--d:0"><span class="brg">Compass Club</span></p>
+      <h1 id="h-crew" class="rise" style="--d:1" tabindex="-1">Meet the crew</h1>
+      <p class="hub-line rise" style="--d:2"><b>13</b> people · <b>7</b> roles · <b>1</b> direction</p>
+      <button class="start rise" style="--d:3" type="button" data-go="presidency">
+        Start the tour
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+    <div class="rose-ui st-art">
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <circle cx="50" cy="50" r="38" fill="none" stroke="rgba(185,220,208,.4)" stroke-width=".4"/>
+        <circle cx="50" cy="50" r="27" fill="none" stroke="rgba(185,220,208,.25)" stroke-width=".3" stroke-dasharray="1 1.5"/>
+        <path d="M50 42V12 M55.66 44.34 76.87 23.13 M58 50H88 M55.66 55.66 76.87 76.87 M50 58V88 M44.34 55.66 23.13 76.87 M42 50H12 M44.34 44.34 23.13 23.13" stroke="rgba(185,220,208,.22)" stroke-width=".3"/>
+        <path d="M50 24 L54 46 L76 50 L54 54 L50 76 L46 54 L24 50 L46 46Z" fill="rgba(246,242,233,.05)" stroke="rgba(246,242,233,.35)" stroke-width=".4"/>
+        <g id="hubNeedle"><path d="M50 31 53.2 50 46.8 50Z" fill="#D9A441"/><path d="M50 69 53.2 50 46.8 50Z" fill="#B9DCD0"/></g>
+        <circle cx="50" cy="50" r="2.8" fill="#0A2B29" stroke="#D9A441" stroke-width=".8"/>
+      </svg>
+      <button class="pt" type="button" style="--a:0deg" data-go="presidency" data-bearing="0"><span class="pd"></span><span class="pl">Presidency</span><span class="pb">000°</span></button>
+      <button class="pt" type="button" style="--a:45deg" data-go="operations" data-bearing="45"><span class="pd"></span><span class="pl">Operations</span><span class="pb">045°</span></button>
+      <button class="pt" type="button" style="--a:90deg" data-go="treasury" data-bearing="90"><span class="pd"></span><span class="pl">Treasury</span><span class="pb">090°</span></button>
+      <button class="pt" type="button" style="--a:135deg" data-go="relations" data-bearing="135"><span class="pd"></span><span class="pl">Relations</span><span class="pb">135°</span></button>
+      <button class="pt" type="button" style="--a:180deg" data-go="events" data-bearing="180"><span class="pd"></span><span class="pl">Events</span><span class="pb">180°</span></button>
+      <button class="pt" type="button" style="--a:225deg" data-go="media" data-bearing="225"><span class="pd"></span><span class="pl">Media</span><span class="pb">225°</span></button>
+      <button class="pt" type="button" style="--a:270deg" data-go="design" data-bearing="270"><span class="pd"></span><span class="pl">Design</span><span class="pb">270°</span></button>
+      <button class="pt you" type="button" style="--a:315deg" data-go="you" data-bearing="315"><span class="pd"></span><span class="pl">You?</span><span class="pb">315°</span></button>
+    </div>
+  </section>
+
+  <!-- ============ 01 PRESIDENCY — THE HELM ============ -->
+  <section class="station" id="presidency" data-label="Presidency" data-bearing="0" aria-labelledby="h-presidency">
+    <div class="st-copy">
+      <p class="kicker rise" style="--d:0"><span class="brg">000° N</span> Station 01</p>
+      <h2 id="h-presidency" class="rise" style="--d:1" tabindex="-1">Presidency <span class="ar" lang="ar">الرئاسة</span></h2>
+      <p class="concept rise" style="--d:2"><b>The Helm.</b> Setting the course.</p>
+      <ul class="crew big">
+        <li class="member lead rise" style="--d:3"><span class="avatar">DA</span><span class="m-body"><span class="m-name">Dhidan AlArjani</span><span class="m-role">President <span lang="ar">رئيس النادي</span></span><span class="m-meta">Industrial · 2nd year</span></span></li>
+        <li class="member lead rise" style="--d:4"><span class="avatar">LT</span><span class="m-body"><span class="m-name">Latifa AlTuwaijri</span><span class="m-role">Vice President <span lang="ar">نائب الرئيس</span></span><span class="m-meta">Architecture · 4th year</span></span></li>
+      </ul>
+    </div>
+    <div class="st-art" aria-hidden="true">
+      <svg viewBox="0 0 400 320">
+        <path d="M20 80 H380 M20 160 H380 M20 240 H380 M100 20 V300 M200 20 V300 M300 20 V300" stroke="rgba(185,220,208,.12)"/>
+        <path d="M40 292 C 100 262, 118 198, 178 176 S 300 120, 344 56" fill="none" stroke="rgba(217,164,65,.35)" stroke-width="2" stroke-dasharray="3 7"/>
+        <path class="a-draw" pathLength="100" d="M40 292 C 100 262, 118 198, 178 176 S 300 120, 344 56" fill="none" stroke="#D9A441" stroke-width="3" stroke-linecap="round" style="--t:7s"/>
+        <circle cx="40" cy="292" r="5" fill="#B9DCD0"/>
+        <path class="a-twinkle" d="M344 36 Q344 56 364 56 Q344 56 344 76 Q344 56 324 56 Q344 56 344 36Z" fill="#D9A441"/>
+        <g class="a-swing" style="transform-origin:200px 175px;--t:7s;--from:-22deg;--to:18deg">
+          <path d="M200 67 V283 M92 175 H308 M123.6 98.6 L276.4 251.4 M276.4 98.6 L123.6 251.4" stroke="#F6F2E9" stroke-width="7" stroke-linecap="round"/>
+          <circle cx="200" cy="175" r="74" fill="none" stroke="#F6F2E9" stroke-width="10"/>
+          <circle cx="200" cy="175" r="60" fill="none" stroke="#B9DCD0" stroke-width="2"/>
+          <g fill="#D9A441"><circle cx="200" cy="63" r="8"/><circle cx="279.2" cy="95.8" r="8"/><circle cx="312" cy="175" r="8"/><circle cx="279.2" cy="254.2" r="8"/><circle cx="200" cy="287" r="8"/><circle cx="120.8" cy="254.2" r="8"/><circle cx="88" cy="175" r="8"/><circle cx="120.8" cy="95.8" r="8"/></g>
+          <circle cx="200" cy="175" r="20" fill="#D9A441"/>
+          <circle cx="200" cy="175" r="8" fill="#0A2B29"/>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ============ 02 OPERATIONS — THE ENGINE ROOM ============ -->
+  <section class="station" id="operations" data-label="Operations" data-bearing="45" aria-labelledby="h-operations">
+    <div class="st-copy">
+      <p class="kicker rise" style="--d:0"><span class="brg">045° NE</span> Station 02</p>
+      <h2 id="h-operations" class="rise" style="--d:1" tabindex="-1">Technical &amp; Professional Development <span class="ar" lang="ar">التطوير التقني والمهني</span></h2>
+      <p class="concept rise" style="--d:2"><b>The Engine Room.</b> Keeping every part moving.</p>
+      <ul class="crew big">
+        <li class="member lead rise" style="--d:3"><span class="avatar">AO</span><span class="m-body"><span class="m-name">Abdullah AlOlayan</span><span class="m-role">Operations Manager <span lang="ar">مدير العمليات</span></span><span class="m-meta">Industrial · 2nd year</span></span></li>
+      </ul>
+    </div>
+    <div class="st-art" aria-hidden="true">
+      <svg viewBox="0 0 400 320">
+        <g class="a-spin" style="--t:14s">
+          <circle cx="160" cy="150" r="64" fill="none" stroke="#B9DCD0" stroke-width="16" pathLength="100" stroke-dasharray="2.5 2.5"/>
+          <circle cx="160" cy="150" r="56" fill="#0F3633" stroke="#B9DCD0" stroke-width="3"/>
+          <circle cx="160" cy="150" r="34" fill="none" stroke="rgba(185,220,208,.35)" stroke-width="2"/>
+          <g fill="#0A2B29"><circle cx="160" cy="116" r="8"/><circle cx="194" cy="150" r="8"/><circle cx="160" cy="184" r="8"/><circle cx="126" cy="150" r="8"/></g>
+          <circle cx="160" cy="150" r="15" fill="#D9A441"/>
+        </g>
+        <g class="a-spin a-rev" style="--t:9.8s">
+          <circle cx="250" cy="95" r="44" fill="none" stroke="#F6F2E9" stroke-width="14" pathLength="100" stroke-dasharray="3.57 3.57"/>
+          <circle cx="250" cy="95" r="37" fill="#0F3633" stroke="#F6F2E9" stroke-width="3"/>
+          <g fill="#0A2B29"><circle cx="250" cy="75" r="6"/><circle cx="267" cy="105" r="6"/><circle cx="233" cy="105" r="6"/></g>
+          <circle cx="250" cy="95" r="10" fill="#D9A441"/>
+        </g>
+        <g class="a-spin a-rev" style="--t:7s">
+          <circle cx="220" cy="228" r="31" fill="none" stroke="#D9A441" stroke-width="12" pathLength="100" stroke-dasharray="5 5"/>
+          <circle cx="220" cy="228" r="25" fill="#0F3633" stroke="#D9A441" stroke-width="3"/>
+          <circle cx="220" cy="228" r="8" fill="#F6F2E9"/>
+        </g>
+        <path d="M70 292 H330" stroke="rgba(185,220,208,.3)" stroke-width="3" stroke-linecap="round"/>
+        <circle class="a-light" cx="100" cy="292" r="10" fill="rgba(246,242,233,.16)"/>
+        <circle class="a-light" cx="200" cy="292" r="10" fill="rgba(246,242,233,.16)" style="animation-delay:.8s"/>
+        <circle class="a-light" cx="300" cy="292" r="10" fill="rgba(246,242,233,.16)" style="animation-delay:1.6s"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ============ 03 TREASURY — THE LEDGER ============ -->
+  <section class="station" id="treasury" data-label="Treasury" data-bearing="90" aria-labelledby="h-treasury">
+    <div class="st-copy">
+      <p class="kicker rise" style="--d:0"><span class="brg">090° E</span> Station 03</p>
+      <h2 id="h-treasury" class="rise" style="--d:1" tabindex="-1">Treasury <span class="ar" lang="ar">المالية</span></h2>
+      <p class="concept rise" style="--d:2"><b>The Ledger.</b> Every riyal, accounted for.</p>
+      <ul class="crew big">
+        <li class="member lead rise" style="--d:3"><span class="avatar">HJ</span><span class="m-body"><span class="m-name">Hanin AlJumah</span><span class="m-role">Finance Advisor <span lang="ar">المستشار المالي</span></span><span class="m-meta">Finance · 3rd year</span></span></li>
+      </ul>
+    </div>
+    <div class="st-art" aria-hidden="true">
+      <svg viewBox="0 0 400 320">
+        <rect x="150" y="268" width="100" height="12" rx="6" fill="#B9DCD0"/>
+        <rect x="196" y="100" width="8" height="170" rx="3" fill="#B9DCD0"/>
+        <g class="a-swing" style="transform-origin:200px 100px;--t:5s;--from:-6deg;--to:6deg">
+          <path d="M86 100 H314" stroke="#F6F2E9" stroke-width="6" stroke-linecap="round"/>
+          <path d="M100 100 L76 176 M100 100 L124 176 M300 100 L276 176 M300 100 L324 176" stroke="rgba(246,242,233,.55)" stroke-width="2"/>
+          <path d="M64 176 Q100 206 136 176 Z" fill="#F6F2E9"/>
+          <path d="M264 176 Q300 206 336 176 Z" fill="#F6F2E9"/>
+          <g fill="#D9A441" stroke="#B8862F" stroke-width="1.5"><ellipse cx="100" cy="170" rx="16" ry="5.5"/><ellipse cx="100" cy="163" rx="16" ry="5.5"/><ellipse cx="100" cy="156" rx="16" ry="5.5"/></g>
+          <rect x="284" y="144" width="32" height="32" rx="3" fill="#B9DCD0"/>
+          <path d="M290 154 H310 M290 161 H310 M290 168 H303" stroke="#103E3B" stroke-width="2"/>
+        </g>
+        <circle cx="200" cy="100" r="9" fill="#D9A441"/>
+        <ellipse cx="360" cy="287" rx="30" ry="6" fill="rgba(185,220,208,.4)"/>
+        <g fill="#D9A441" stroke="#B8862F" stroke-width="1.5">
+          <ellipse class="a-drop" cx="360" cy="278" rx="17" ry="6"/>
+          <ellipse class="a-drop" cx="360" cy="270" rx="17" ry="6" style="animation-delay:.55s"/>
+          <ellipse class="a-drop" cx="360" cy="262" rx="17" ry="6" style="animation-delay:1.1s"/>
+          <ellipse class="a-drop" cx="360" cy="254" rx="17" ry="6" style="animation-delay:1.65s"/>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ============ 04 RELATIONS — THE BRIDGE ============ -->
+  <section class="station" id="relations" data-label="Relations" data-bearing="135" aria-labelledby="h-relations">
+    <div class="st-copy">
+      <p class="kicker rise" style="--d:0"><span class="brg">135° SE</span> Station 04</p>
+      <h2 id="h-relations" class="rise" style="--d:1" tabindex="-1">Public Relations &amp; Partnerships <span class="ar" lang="ar">العلاقات العامة والشراكات</span></h2>
+      <p class="concept rise" style="--d:2"><b>The Bridge.</b> Connecting students and partners.</p>
+      <ul class="crew">
+        <li class="member rise" style="--d:3"><span class="avatar">HA</span><span class="m-body"><span class="m-name">Hind AlAmri</span><span class="m-role">Female Students Officer <span lang="ar">مسؤولة شؤون الطالبات</span></span><span class="m-meta">Finance · 3rd year</span></span></li>
+        <li class="member rise" style="--d:4"><span class="avatar">SA</span><span class="m-body"><span class="m-name">Sultan AlAnazi</span><span class="m-role">Male Students Officer <span lang="ar">مسؤول شؤون الطلاب</span></span><span class="m-meta">Industrial · 2nd year</span></span></li>
+      </ul>
+    </div>
+    <div class="st-art" aria-hidden="true">
+      <svg viewBox="0 0 400 320">
+        <path d="M200 145 L150 60 M200 145 L250 52 M200 145 L200 26 M150 60 L200 26 L250 52" stroke="rgba(185,220,208,.25)" stroke-width="1.5" fill="none"/>
+        <circle class="a-twinkle" cx="150" cy="60" r="6" fill="#B9DCD0"/>
+        <circle class="a-twinkle" cx="250" cy="52" r="6" fill="#B9DCD0" style="animation-delay:.8s"/>
+        <circle class="a-twinkle" cx="200" cy="26" r="7" fill="#D9A441" style="animation-delay:1.6s"/>
+        <path d="M80 200 H320" stroke="#B9DCD0" stroke-width="5" stroke-linecap="round"/>
+        <path d="M120 169.4 V200 M160 151.1 V200 M200 145 V200 M240 151.1 V200 M280 169.4 V200" stroke="rgba(246,242,233,.5)" stroke-width="2"/>
+        <path id="relArch" d="M80 200 Q200 90 320 200" fill="none" stroke="#F6F2E9" stroke-width="4"/>
+        <circle r="6" fill="#D9A441"><animateMotion dur="2.8s" repeatCount="indefinite"><mpath href="#relArch"/></animateMotion></circle>
+        <circle r="6" fill="#B9DCD0"><animateMotion dur="2.8s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#relArch"/></animateMotion></circle>
+        <circle class="a-ring" cx="80" cy="200" r="34" fill="none" stroke="#D9A441" stroke-width="2"/>
+        <circle class="a-ring" cx="320" cy="200" r="34" fill="none" stroke="#D9A441" stroke-width="2" style="animation-delay:1.4s"/>
+        <circle cx="80" cy="200" r="34" fill="#103E3B" stroke="#B9DCD0" stroke-width="3"/>
+        <circle cx="320" cy="200" r="34" fill="#103E3B" stroke="#B9DCD0" stroke-width="3"/>
+        <g fill="#F6F2E9"><circle cx="80" cy="190" r="9"/><path d="M64 218 Q64 202 80 202 Q96 202 96 218Z"/><circle cx="320" cy="190" r="9"/><path d="M304 218 Q304 202 320 202 Q336 202 336 218Z"/></g>
+        <g fill="#B9DCD0">
+          <circle class="a-bob" cx="120" cy="272" r="6" style="--t:3s"/><circle class="a-bob" cx="160" cy="276" r="6" style="--t:3.4s"/>
+          <circle class="a-bob" cx="200" cy="270" r="6" style="--t:2.8s"/><circle class="a-bob" cx="240" cy="276" r="6" style="--t:3.6s"/>
+          <circle class="a-bob" cx="280" cy="272" r="6" style="--t:3.1s"/>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ============ 05 EVENTS — BASE CAMP ============ -->
+  <section class="station" id="events" data-label="Events" data-bearing="180" aria-labelledby="h-events">
+    <div class="st-copy">
+      <p class="kicker rise" style="--d:0"><span class="brg">180° S</span> Station 05</p>
+      <h2 id="h-events" class="rise" style="--d:1" tabindex="-1">Event Coordination <span class="ar" lang="ar">تنسيق الفعاليات</span></h2>
+      <p class="concept rise" style="--d:2"><b>Base Camp.</b> Turning plans into moments.</p>
+      <ul class="crew big">
+        <li class="member rise" style="--d:3"><span class="avatar">HM</span><span class="m-body"><span class="m-name">Hamad AlMulhim</span><span class="m-role">Officer <span lang="ar">عضو اللجنة</span></span><span class="m-meta">Industrial · 2nd year</span></span></li>
+      </ul>
+    </div>
+    <div class="st-art" aria-hidden="true">
+      <svg viewBox="0 0 400 320">
+        <g class="a-swing" style="transform-origin:70px 34px;--t:5s;--from:-14deg;--to:10deg">
+          <path d="M70 34 L140 236 L200 236 Z" fill="#D9A441" opacity=".17"/>
+          <rect x="58" y="22" width="24" height="18" rx="4" fill="#B9DCD0"/>
+        </g>
+        <g class="a-swing" style="transform-origin:330px 34px;--t:5s;--from:12deg;--to:-12deg">
+          <path d="M330 34 L200 236 L260 236 Z" fill="#D9A441" opacity=".17"/>
+          <rect x="318" y="22" width="24" height="18" rx="4" fill="#B9DCD0"/>
+        </g>
+        <g class="a-bob" style="--t:3.6s">
+          <path d="M60 84 Q200 128 340 84" fill="none" stroke="rgba(246,242,233,.5)" stroke-width="1.5"/>
+          <path d="M85 93.6 L105 93.6 L95 111.6Z" fill="#D9A441"/><path d="M120 100.5 L140 100.5 L130 118.5Z" fill="#B9DCD0"/>
+          <path d="M155 104.6 L175 104.6 L165 122.6Z" fill="#F6F2E9"/><path d="M190 106 L210 106 L200 124Z" fill="#D9A441"/>
+          <path d="M225 104.6 L245 104.6 L235 122.6Z" fill="#B9DCD0"/><path d="M260 100.5 L280 100.5 L270 118.5Z" fill="#F6F2E9"/>
+          <path d="M295 93.6 L315 93.6 L305 111.6Z" fill="#D9A441"/>
+        </g>
+        <rect x="60" y="236" width="280" height="16" rx="4" fill="#B9DCD0"/>
+        <rect x="72" y="252" width="256" height="44" fill="#0F3633" stroke="rgba(185,220,208,.3)"/>
+        <g class="a-bob" style="--t:4.5s">
+          <rect x="160" y="150" width="80" height="76" rx="9" fill="#F6F2E9"/>
+          <path d="M160 170 V159 Q160 150 169 150 H231 Q240 150 240 159 V170Z" fill="#D9A441"/>
+          <circle cx="178" cy="146" r="4" fill="#B9DCD0"/><circle cx="222" cy="146" r="4" fill="#B9DCD0"/>
+          <path class="a-draw" pathLength="100" d="M182 198 L195 211 L220 184" fill="none" stroke="#103E3B" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" style="--t:4s"/>
+        </g>
+        <g fill="#D9A441">
+          <path class="a-pop" d="M110 158 Q110 170 122 170 Q110 170 110 182 Q110 170 98 170 Q110 170 110 158Z" style="--t:3.2s"/>
+          <path class="a-pop" d="M292 150 Q292 160 302 160 Q292 160 292 170 Q292 160 282 160 Q292 160 292 150Z" style="--t:3.2s;animation-delay:.9s"/>
+          <path class="a-pop" d="M258 120 Q258 128 266 128 Q258 128 258 136 Q258 128 250 128 Q258 128 258 120Z" style="--t:3.2s;animation-delay:1.7s"/>
+          <path class="a-pop" d="M142 124 Q142 132 150 132 Q142 132 142 140 Q142 132 134 132 Q142 132 142 124Z" style="--t:3.2s;animation-delay:2.4s"/>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ============ 06 MEDIA — THE LOOKOUT ============ -->
+  <section class="station" id="media" data-label="Media" data-bearing="225" aria-labelledby="h-media">
+    <div class="st-copy">
+      <p class="kicker rise" style="--d:0"><span class="brg">225° SW</span> Station 06</p>
+      <h2 id="h-media" class="rise" style="--d:1" tabindex="-1">Media Coordination <span class="ar" lang="ar">التنسيق الإعلامي</span></h2>
+      <p class="concept rise" style="--d:2"><b>The Lookout.</b> Capturing the story as it happens.</p>
+      <ul class="crew">
+        <li class="member lead rise" style="--d:3"><span class="avatar">AK</span><span class="m-body"><span class="m-name">Ali AlKhaldi</span><span class="m-role">Officer in Charge <span lang="ar">مسؤول اللجنة</span></span><span class="m-meta">Industrial · 1st year</span></span></li>
+        <li class="member rise" style="--d:4"><span class="avatar">GD</span><span class="m-body"><span class="m-name">Ghazlan AlDaham</span><span class="m-role">Officer <span lang="ar">عضو اللجنة</span></span><span class="m-meta">Architecture · 1st year</span></span></li>
+      </ul>
+    </div>
+    <div class="st-art" aria-hidden="true">
+      <svg viewBox="0 0 400 320">
+        <g fill="none" stroke="#B9DCD0" stroke-width="3" stroke-linecap="round">
+          <path class="a-wave" d="M153 80 Q171 66 189 80"/>
+          <path class="a-wave" d="M143 69 Q171 46 199 69" style="animation-delay:.3s"/>
+          <path class="a-wave" d="M133 58 Q171 26 209 58" style="animation-delay:.6s"/>
+        </g>
+        <g class="a-photo" style="--r:-9deg;animation-delay:.6s">
+          <rect x="300" y="132" width="64" height="74" rx="4" fill="#F6F2E9"/><rect x="306" y="138" width="52" height="46" fill="#1B5651"/>
+          <circle cx="344" cy="150" r="6" fill="#D9A441"/><path d="M306 184 L322 164 L336 176 L346 168 L358 184Z" fill="#B9DCD0"/>
+        </g>
+        <g class="a-photo" style="--r:5deg;animation-delay:4.2s">
+          <rect x="300" y="132" width="64" height="74" rx="4" fill="#F6F2E9"/><rect x="306" y="138" width="52" height="46" fill="#0F3633"/>
+          <circle cx="322" cy="156" r="7" fill="#F6F2E9"/><circle cx="342" cy="160" r="7" fill="#D9A441"/><path d="M308 184 Q332 168 356 184Z" fill="#B9DCD0"/>
+        </g>
+        <g class="a-photo" style="--r:13deg;animation-delay:7.8s">
+          <rect x="300" y="132" width="64" height="74" rx="4" fill="#F6F2E9"/><rect x="306" y="138" width="52" height="46" fill="#1B5651"/>
+          <path d="M314 178 L332 148 L350 178Z" fill="#D9A441"/>
+        </g>
+        <rect x="140" y="96" width="62" height="22" rx="6" fill="#103E3B" stroke="#B9DCD0" stroke-width="3"/>
+        <rect x="96" y="112" width="190" height="128" rx="20" fill="#103E3B" stroke="#B9DCD0" stroke-width="3"/>
+        <rect x="236" y="100" width="34" height="14" rx="3" fill="#F6F2E9"/>
+        <circle class="a-flash" cx="253" cy="107" r="16" fill="#F6F2E9" style="animation-delay:-2.2s"/>
+        <circle cx="191" cy="178" r="50" fill="#0A2B29" stroke="#F6F2E9" stroke-width="6"/>
+        <circle cx="191" cy="178" r="36" fill="none" stroke="#B9DCD0" stroke-width="2"/>
+        <circle class="a-shutter" cx="191" cy="178" r="24" fill="#D9A441" style="animation-delay:-2.2s"/>
+        <circle cx="179" cy="165" r="6" fill="#F6F2E9" opacity=".85"/>
+        <circle class="a-blink" cx="118" cy="132" r="5" fill="#D9A441"/>
+        <text x="128" y="136" font-size="11" fill="#F6F2E9" font-weight="700" letter-spacing="1">REC</text>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ============ 07 DESIGN — THE DRAFTING TABLE ============ -->
+  <section class="station" id="design" data-label="Design" data-bearing="270" aria-labelledby="h-design">
+    <div class="st-copy">
+      <p class="kicker rise" style="--d:0"><span class="brg">270° W</span> Station 07</p>
+      <h2 id="h-design" class="rise" style="--d:1" tabindex="-1">Design Coordination <span class="ar" lang="ar">التصميم</span></h2>
+      <p class="concept rise" style="--d:2"><b>The Drafting Table.</b> Drawing the map we all follow.</p>
+      <ul class="crew">
+        <li class="member lead rise" style="--d:3"><span class="avatar">JS</span><span class="m-body"><span class="m-name">Jana AlShangiti</span><span class="m-role">Officer in Charge <span lang="ar">مسؤول اللجنة</span></span><span class="m-meta">Finance · 1st year</span></span></li>
+        <li class="member rise" style="--d:4"><span class="avatar">KB</span><span class="m-body"><span class="m-name">Khadega Baessa</span><span class="m-role">Officer <span lang="ar">عضو اللجنة</span></span><span class="m-meta">Software · 1st year</span></span></li>
+        <li class="member rise" style="--d:5"><span class="avatar">DS</span><span class="m-body"><span class="m-name">Dala AlShahrani</span><span class="m-role">Officer <span lang="ar">عضو اللجنة</span></span><span class="m-meta">Software · 1st year</span></span></li>
+        <li class="member rise" style="--d:6"><span class="avatar">SB</span><span class="m-body"><span class="m-name">Soud AlBgumi</span><span class="m-role">Officer <span lang="ar">عضو اللجنة</span></span><span class="m-meta">Industrial · 2nd year</span></span></li>
+      </ul>
+    </div>
+    <div class="st-art" aria-hidden="true">
+      <svg viewBox="0 0 400 320">
+        <g transform="rotate(-2 203 163)">
+          <rect x="58" y="58" width="290" height="210" rx="6" fill="#F6F2E9"/>
+          <path d="M88 58 V268 M148 58 V268 M208 58 V268 M268 58 V268 M328 58 V268 M58 88 H348 M58 148 H348 M58 208 H348" stroke="rgba(16,62,59,.08)"/>
+        </g>
+        <path class="a-draw" pathLength="100" d="M84 108 C 120 76, 196 74, 238 100" fill="none" stroke="#B07F1E" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="100" style="--t:5s"/>
+        <circle class="a-arc" cx="170" cy="168" r="62" pathLength="100" fill="none" stroke="#103E3B" stroke-width="3"/>
+        <path class="a-pop" d="M286 92 L310 134 L262 134 Z" fill="#D9A441" style="--t:5s;animation-delay:1.2s"/>
+        <rect class="a-pop" x="264" y="176" width="40" height="40" rx="5" fill="#1B5651" style="--t:5s;animation-delay:2s"/>
+        <circle class="a-pop" cx="104" cy="236" r="14" fill="#B9DCD0" style="--t:5s;animation-delay:2.8s"/>
+        <g class="a-drafter" style="transform-origin:170px 168px">
+          <path d="M170 168 L232 168" stroke="#0A2B29" stroke-width="5" stroke-linecap="round"/>
+          <circle cx="201" cy="168" r="9" fill="#D9A441"/>
+          <path d="M232 163 L242 168 L232 173Z" fill="#D9A441"/>
+        </g>
+        <circle cx="170" cy="168" r="5" fill="#D9A441"/>
+        <g>
+          <circle class="a-bob" cx="150" cy="298" r="10" fill="#D9A441" style="--t:2.6s"/>
+          <circle class="a-bob" cx="180" cy="298" r="10" fill="#B9DCD0" style="--t:2.6s;animation-delay:.2s"/>
+          <circle class="a-bob" cx="210" cy="298" r="10" fill="#1B5651" stroke="#F6F2E9" stroke-width="2" style="--t:2.6s;animation-delay:.4s"/>
+          <circle class="a-bob" cx="240" cy="298" r="10" fill="#F6F2E9" style="--t:2.6s;animation-delay:.6s"/>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ============ 08 YOU — YOUR SEAT ============ -->
+  <section class="station" id="you" data-label="You?" data-bearing="315" aria-labelledby="h-you">
+    <div class="st-copy">
+      <p class="kicker rise" style="--d:0"><span class="brg">315° NW</span> Station 08</p>
+      <h2 id="h-you" class="rise" style="--d:1" tabindex="-1">Your seat <span class="ar" lang="ar">مكانك معنا</span></h2>
+      <p class="concept rise" style="--d:2"><b>Every crew has room for one more.</b></p>
+      <div class="you-cta rise" style="--d:3">
+        <a class="pill solid" href="https://wa.me/966501882680" target="_blank" rel="noopener">
+          <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.1 1.6 5.9L4 29l8.3-1.6c1.7.9 3.6 1.4 5.7 1.4 6.6 0 12-5.4 12-12S22.6 3 16 3zm0 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-4.9 1 1-4.8-.2-.4c-1-1.6-1.5-3.4-1.5-5.3C5 9.5 9.9 4.6 16 4.6S27 9.5 27 15.6 22.1 24.8 16 24.8zm6.1-7.1c-.3-.2-2-1-2.3-1.1-.3-.1-.5-.2-.8.2-.2.3-.9 1.1-1.1 1.3-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.7-1.6-1-.9-1.6-2-1.8-2.3-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.4-.6.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.8-.6h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.5 3.8 6 5.3.8.4 1.5.6 2 .8.8.3 1.6.2 2.2.1.7-.1 2-.8 2.3-1.6.3-.8.3-1.5.2-1.6-.1-.2-.3-.2-.6-.4z"/></svg>
+          Message us on WhatsApp
+        </a>
+        <a class="pill ghost" href="index.html#join" data-transition>Back to Compass Club</a>
+      </div>
+    </div>
+    <div class="st-art" aria-hidden="true">
+      <svg viewBox="0 0 400 320">
+        <circle class="a-spin" cx="200" cy="160" r="110" fill="none" stroke="rgba(185,220,208,.35)" stroke-width="1.5" stroke-dasharray="3 9" style="--t:60s"/>
+        <path d="M200 160 L200 50 M200 160 L277.8 82.2 M200 160 L310 160 M200 160 L277.8 237.8 M200 160 L200 270 M200 160 L122.2 237.8 M200 160 L90 160" stroke="rgba(185,220,208,.16)" stroke-width="1.5"/>
+        <path d="M200 160 L122.2 82.2" stroke="rgba(217,164,65,.6)" stroke-width="2" stroke-dasharray="4 6"/>
+        <g>
+          <circle class="a-twinkle" cx="200" cy="50" r="9" fill="#D9A441"/>
+          <circle class="a-twinkle" cx="277.8" cy="82.2" r="8" fill="#B9DCD0" style="animation-delay:.3s"/>
+          <circle class="a-twinkle" cx="310" cy="160" r="8" fill="#B9DCD0" style="animation-delay:.6s"/>
+          <circle class="a-twinkle" cx="277.8" cy="237.8" r="8" fill="#B9DCD0" style="animation-delay:.9s"/>
+          <circle class="a-twinkle" cx="200" cy="270" r="8" fill="#B9DCD0" style="animation-delay:1.2s"/>
+          <circle class="a-twinkle" cx="122.2" cy="237.8" r="8" fill="#B9DCD0" style="animation-delay:1.5s"/>
+          <circle class="a-twinkle" cx="90" cy="160" r="8" fill="#B9DCD0" style="animation-delay:1.8s"/>
+        </g>
+        <circle class="a-ring" cx="122.2" cy="82.2" r="22" fill="none" stroke="#D9A441" stroke-width="2"/>
+        <circle cx="122.2" cy="82.2" r="22" fill="rgba(217,164,65,.12)" stroke="#D9A441" stroke-width="2.5" stroke-dasharray="5 4"/>
+        <path d="M122.2 73 V91.4 M113 82.2 H131.4" stroke="#F6F2E9" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="200" cy="160" r="30" fill="#F6F2E9" stroke="#D9A441" stroke-width="4"/>
+        <g transform="rotate(-45 200 160)"><path d="M200 138 205 160 195 160Z" fill="#D9A441"/><path d="M200 182 205 160 195 160Z" fill="#103E3B"/></g>
+        <circle cx="200" cy="160" r="3.5" fill="#0A2B29"/>
+      </svg>
+    </div>
+  </section>
+</main>
+
+<nav class="dock" aria-label="Crew stations">
+  <button class="arrow" id="prevBtn" type="button" aria-label="Previous station">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+  </button>
+  <div class="dots" id="dots"></div>
+  <button class="arrow" id="nextBtn" type="button" aria-label="Next station">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+  </button>
+</nav>
+
+<script src="motion.js"></script>
+<script>
+(function () {
+  "use strict";
+  var root = document.documentElement;
+  var RM = false, FINE = false;
+  try { RM = matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
+  try { FINE = matchMedia("(hover: hover) and (pointer: fine)").matches; } catch (e) {}
+
+  if (window.CCMotion) CCMotion.ambient(document.getElementById("ambient"), { dark: true, density: 15000, max: 90, sparkRatio: 0.34 });
+  if (RM) Array.prototype.forEach.call(document.querySelectorAll("svg"), function (s) { if (s.pauseAnimations) s.pauseAnimations(); });
+
+  var stations = Array.prototype.slice.call(document.querySelectorAll(".station"));
+  if (!stations.length) return;
+  root.classList.add("js");
+
+  var dotsEl = document.getElementById("dots");
+  var prevBtn = document.getElementById("prevBtn"), nextBtn = document.getElementById("nextBtn");
+  var nameEl = document.getElementById("whereName"), countEl = document.getElementById("whereCount");
+  var bgRose = document.getElementById("bgRose");
+  var cur = -1, busy = false, rot = 0, total = stations.length - 1;
+  function pad(n) { return (n < 10 ? "0" : "") + n; }
+  function indexOf(id) { for (var i = 0; i < stations.length; i++) if (stations[i].id === id) return i; return -1; }
+
+  var dots = stations.map(function (st, i) {
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "dot" + (i === 0 ? " hub" : "");
+    b.setAttribute("aria-label", st.getAttribute("data-label"));
+    b.innerHTML = '<span class="dot-mark"></span><span class="dot-label">' + st.getAttribute("data-label") + "</span>";
+    b.addEventListener("click", function (e) { go(i, e.detail === 0); });
+    dotsEl.appendChild(b);
+    return b;
+  });
+
+  function show(i, dir, focus) {
+    var st = stations[i];
+    st.style.setProperty("--dx", (dir >= 0 ? 44 : -44) + "px");
+    st.style.setProperty("--ar", (dir >= 0 ? 8 : -8) + "deg");
+    st.classList.add("active");
+    cur = i;
+    var target = -(parseFloat(st.getAttribute("data-bearing")) || 0);
+    rot += ((target - rot) % 360 + 540) % 360 - 180;
+    if (bgRose) bgRose.style.transform = "rotate(" + rot + "deg)";
+    dots.forEach(function (d, k) {
+      d.classList.toggle("on", k === i);
+      if (k === i) d.setAttribute("aria-current", "step"); else d.removeAttribute("aria-current");
+    });
+    prevBtn.disabled = i === 0;
+    nextBtn.disabled = i === total;
+    nameEl.textContent = st.getAttribute("data-label");
+    countEl.textContent = i === 0 ? "8 stations" : pad(i) + " / " + pad(total);
+    document.title = (i === 0 ? "The Crew" : st.getAttribute("data-label") + " · The Crew") + " — Compass Club";
+    if (history.replaceState) history.replaceState(null, "", "#" + st.id);
+    if (focus) { var h = st.querySelector("h1, h2"); if (h) h.focus({ preventScroll: true }); }
+  }
+  function go(i, focus) {
+    if (busy || i === cur || i < 0 || i > total) return;
+    var dir = i > cur ? 1 : -1, old = stations[cur];
+    busy = true;
+    old.style.setProperty("--ox", (dir > 0 ? -44 : 44) + "px");
+    old.classList.add("leaving");
+    setTimeout(function () {
+      old.classList.remove("active", "leaving");
+      window.scrollTo(0, 0);
+      show(i, dir, focus);
+      busy = false;
+    }, RM ? 0 : 290);
+  }
+
+  prevBtn.addEventListener("click", function (e) { go(cur - 1, e.detail === 0); });
+  nextBtn.addEventListener("click", function (e) { go(cur + 1, e.detail === 0); });
+  Array.prototype.forEach.call(document.querySelectorAll("[data-go]"), function (b) {
+    b.addEventListener("click", function (e) { go(indexOf(b.getAttribute("data-go")), e.detail === 0); });
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    if (e.key === "ArrowRight") { e.preventDefault(); go(cur + 1, true); }
+    else if (e.key === "ArrowLeft") { e.preventDefault(); go(cur - 1, true); }
+    else if (e.key === "Home") { e.preventDefault(); go(0, true); }
+  });
+  var main = document.getElementById("main"), sx = null, sy = 0;
+  main.addEventListener("touchstart", function (e) { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+  main.addEventListener("touchend", function (e) {
+    if (sx === null) return;
+    var t = e.changedTouches[0], dx = t.clientX - sx, dy = t.clientY - sy;
+    sx = null;
+    if (Math.abs(dx) > 70 && Math.abs(dy) < 50) go(cur + (dx < 0 ? 1 : -1));
+  }, { passive: true });
+
+  var start = indexOf((location.hash || "").slice(1));
+  show(start > -1 ? start : 0, 1, false);
+
+  // Hub needle: wanders, then swings to whichever station you point at.
+  var needle = document.getElementById("hubNeedle"), nA = 0, hoverB = null;
+  Array.prototype.forEach.call(document.querySelectorAll(".pt"), function (p) {
+    var b = parseFloat(p.getAttribute("data-bearing"));
+    ["mouseenter", "focus"].forEach(function (ev) { p.addEventListener(ev, function () { hoverB = b; }); });
+    ["mouseleave", "blur"].forEach(function (ev) { p.addEventListener(ev, function () { hoverB = null; }); });
+  });
+  function tick(t) {
+    requestAnimationFrame(tick);
+    if (cur !== 0 || !needle) return;
+    var target = hoverB !== null ? hoverB : Math.sin(t / 2400) * 32 + Math.sin(t / 700) * 6;
+    nA += (((target - nA) % 360 + 540) % 360 - 180) * 0.08;
+    needle.style.transform = "rotate(" + nA.toFixed(2) + "deg)";
+  }
+  if (!RM) requestAnimationFrame(tick);
+
+  if (FINE && !RM) {
+    // Background layers drift against the pointer at different depths.
+    var layers = Array.prototype.slice.call(document.querySelectorAll(".bg [data-depth]"));
+    var tx = 0, ty = 0, px = 0, py = 0, raf = 0;
+    function apply() {
+      raf = 0;
+      px += (tx - px) * 0.06; py += (ty - py) * 0.06;
+      layers.forEach(function (l) {
+        var d = parseFloat(l.getAttribute("data-depth"));
+        l.style.transform = "translate3d(" + (-px * d).toFixed(1) + "px," + (-py * d).toFixed(1) + "px,0)";
+      });
+      if (Math.abs(tx - px) > 0.001 || Math.abs(ty - py) > 0.001) raf = requestAnimationFrame(apply);
+    }
+    window.addEventListener("pointermove", function (e) {
+      tx = e.clientX / window.innerWidth - 0.5; ty = e.clientY / window.innerHeight - 0.5;
+      if (!raf) raf = requestAnimationFrame(apply);
+    }, { passive: true });
+
+    // Gentle tilt on member cards.
+    Array.prototype.forEach.call(document.querySelectorAll(".member"), function (c) {
+      c.addEventListener("pointermove", function (e) {
+        var r = c.getBoundingClientRect();
+        var rx = ((e.clientY - r.top) / r.height - 0.5) * -7, ry = ((e.clientX - r.left) / r.width - 0.5) * 7;
+        c.style.transform = "perspective(800px) rotateX(" + rx.toFixed(2) + "deg) rotateY(" + ry.toFixed(2) + "deg) translateY(-3px)";
+      });
+      c.addEventListener("pointerleave", function () { c.style.transform = ""; });
+    });
+  }
+})();
+</script>
+</body>
+</html>

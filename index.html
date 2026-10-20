@@ -1,6 +1,7 @@
 <!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>try{if(sessionStorage.getItem("cc-arrive")){document.documentElement.classList.add("cc-arriving");setTimeout(function(){document.documentElement.classList.remove("cc-arriving")},1600)}}catch(e){}</script>
 <title>Compass Club — Find your bearings</title>
 <meta name="description" content="Compass Club at Al Yamamah University helps students discover what they love by trying new experiences. Try something new, discover what energizes you, choose your direction.">
 <link rel="canonical" href="https://xvhn.github.io/my-game/">
@@ -82,7 +83,7 @@
   a { color: inherit; }
   img, svg { max-width: 100%; }
 
-  .wrap { width: 100%; max-width: var(--maxw); margin-inline: auto;
+  .wrap { position: relative; z-index: 2; width: 100%; max-width: var(--maxw); margin-inline: auto;
     padding-inline: max(22px, env(safe-area-inset-left, 0px)) max(22px, env(safe-area-inset-right, 0px)); }
 
   .skip { position: absolute; left: -999px; top: 0; background: var(--teal); color: var(--on-teal); padding: 10px 16px; border-radius: 8px; z-index: 100; }
@@ -125,7 +126,7 @@
   .nav-links { display: flex; align-items: center; gap: 28px; }
   .nav-links a { text-decoration: none; color: var(--muted); font-weight: 600; font-size: .95rem; transition: color .2s ease; }
   .nav-links a:hover { color: var(--teal); }
-  .nav-links .btn { padding: 11px 20px; min-height: 42px; font-size: .92rem; }
+  .nav-links .btn { padding: 11px 20px; min-height: 42px; font-size: .92rem; color: var(--on-teal); }
   @media (max-width: 720px) { .nav-links a.link { display: none; } }
 
   /* ---------- scroll progress path (fixed, desktop) ---------- */
@@ -361,11 +362,21 @@
     .story-scene { max-height: 40vh; }
     .place-btn { flex-basis: 100%; max-width: none; }
     .story-top { padding-right: 128px; }
+  }
+
+  /* ---------- drifting background + page transition cover ---------- */
+  html.cc-arriving::after { content: ""; position: fixed; inset: 0; z-index: 9998; background: #0A2B29; }
+  .ambient { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
+  .crew-cta { margin-top: 34px; display: flex; justify-content: center; }
+  .crew-cta svg { width: 18px; height: 18px; transition: transform .2s ease; }
+  .crew-cta .btn:hover svg { transform: translateX(3px); }
+  @media (max-width: 600px) {
     .story-progress { font-size: .66rem; letter-spacing: .1em; }
     .story-exit { padding: 9px 14px; font-size: .85rem; }
   }
 </style>
 
+<canvas class="ambient" id="ambient" aria-hidden="true"></canvas>
 <a class="skip" href="#main">Skip to content</a>
 
 <!-- scroll progress route -->
@@ -389,6 +400,7 @@
     <nav class="nav-links" aria-label="Primary">
       <a class="link" href="#explore">Explore</a>
       <a class="link" href="#about">About</a>
+      <a class="link" href="members.html" data-transition>The crew</a>
       <a class="btn btn-primary" href="#join">Join</a>
     </nav>
   </div>
@@ -551,12 +563,17 @@
 </section>
 
 <!-- ============ ABOUT ============ -->
-<section class="about pad" id="about">
+<section class="about on-teal pad" id="about">
   <div class="ring parallax" data-depth="16" style="width:460px;height:460px;left:-120px;top:-120px" aria-hidden="true"></div>
   <div class="ring parallax" data-depth="26" style="width:620px;height:620px;right:-200px;bottom:-220px" aria-hidden="true"></div>
   <div class="wrap">
     <span class="sec-kicker" data-reveal style="--i:0">About Compass</span>
     <p class="statement" data-reveal style="--i:1">We help students discover their interests through <b>experience</b> — try things, notice what you enjoy, and find your own direction.</p>
+    <div class="crew-cta" data-reveal style="--i:2">
+      <a class="btn btn-outline" href="members.html" data-transition>Meet the crew
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
   </div>
 </section>
 
@@ -622,6 +639,7 @@
         <a href="https://wa.me/966501882680" target="_blank" rel="noopener">WhatsApp · 050 188 2680</a>
         <a href="mailto:202414030@yu.edu.sa">202414030@yu.edu.sa</a>
         <a href="#explore">Explore</a>
+        <a href="members.html" data-transition>The crew</a>
         <a href="#join">Join</a>
       </div>
     </div>
@@ -1471,5 +1489,36 @@
     if (e.shiftKey && a === first) { e.preventDefault(); last.focus(); }
     else if (!e.shiftKey && a === last) { e.preventDefault(); first.focus(); }
   }, true);
+})();
+</script>
+
+<script src="motion.js"></script>
+<script>
+/* Drifting background particles; each one is tinted for the light or dark section under it. */
+(function () {
+  if (!window.CCMotion) return;
+  var els = [], rects = [];
+  ["steps", "about"].forEach(function (id) { var e = document.getElementById(id); if (e) els.push(e); });
+  var panel = document.querySelector(".join .panel");
+  if (panel) els.push(panel);
+  function measure() {
+    var sy = window.scrollY;
+    rects = els.map(function (e) { var r = e.getBoundingClientRect(); return [r.left, r.top + sy, r.right, r.bottom + sy]; });
+  }
+  measure();
+  window.addEventListener("resize", measure, { passive: true });
+  window.addEventListener("load", measure);
+  setInterval(measure, 2000);
+  CCMotion.ambient(document.getElementById("ambient"), {
+    density: 20000, max: 70, sparkRatio: 0.32,
+    isDark: function (x, y) {
+      var Y = y + window.scrollY;
+      for (var i = 0; i < rects.length; i++) {
+        var r = rects[i];
+        if (x >= r[0] && x <= r[2] && Y >= r[1] && Y <= r[3]) return true;
+      }
+      return false;
+    }
+  });
 })();
 </script>
