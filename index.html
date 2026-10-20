@@ -1,0 +1,686 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Compass Club — Find your bearings</title>
+<meta name="description" content="Compass Club at Al Yamamah University helps students discover what they love by trying new experiences. Try something new, discover what energizes you, choose your direction.">
+<link rel="canonical" href="https://xvhn.github.io/my-game/">
+<meta name="theme-color" content="#103E3B">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Compass Club">
+<meta property="og:title" content="Compass Club — Find your bearings">
+<meta property="og:description" content="Discover what you love by trying something new. A student club at Al Yamamah University.">
+<meta property="og:url" content="https://xvhn.github.io/my-game/">
+<meta property="og:image" content="https://xvhn.github.io/my-game/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Compass Club — Find your bearings">
+<meta name="twitter:description" content="Discover what you love by trying something new. A student club at Al Yamamah University.">
+<meta name="twitter:image" content="https://xvhn.github.io/my-game/og-image.png">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23103E3B'/%3E%3Cpath d='M16 6 19 16 16 26 13 16Z' fill='%23D9A441'/%3E%3Ccircle cx='16' cy='16' r='2.2' fill='%23F6F2E9'/%3E%3C/svg%3E">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Compass Club",
+  "description": "A student club at Al Yamamah University that helps students discover their interests through experience.",
+  "url": "https://xvhn.github.io/my-game/",
+  "parentOrganization": { "@type": "CollegeOrUniversity", "name": "Al Yamamah University" },
+  "location": { "@type": "Place", "address": { "@type": "PostalAddress", "addressLocality": "Qubar", "addressCountry": "SA" } },
+  "email": "202414030@yu.edu.sa"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+  /* Compass Club — ivory-first navigation theme with selected deep-teal sections.
+     Palette: deep ocean teal, warm ivory, muted seafoam, warm amber (sparing). */
+  :root {
+    --teal:    #103E3B;
+    --teal-900:#0A2B29;
+    --ivory:   #F6F2E9;
+    --ivory-2: #EFE9DA;   /* faintly deeper ivory for panels */
+    --seafoam: #B9DCD0;
+    --amber:   #D9A441;
+
+    --ink:     #13322F;   /* body text on ivory */
+    --muted:   #4C615D;   /* secondary text on ivory */
+    --on-teal: #F6F2E9;   /* text on teal */
+    --on-teal-muted:#B9DCD0;
+
+    --line:    rgba(16,62,59,.14);
+    --shadow:  0 24px 60px -28px rgba(16,62,59,.45);
+
+    --display: "Fraunces", Georgia, "Times New Roman", serif;
+    --sans:    "Manrope", "Segoe UI", system-ui, sans-serif;
+    --arabic:  "Cairo", "Segoe UI", sans-serif;
+
+    --maxw: 1120px;
+    color-scheme: light;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  body {
+    margin: 0;
+    background: var(--ivory);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3 { font-family: var(--display); font-weight: 500; margin: 0; text-wrap: balance; letter-spacing: -.015em; }
+  p { margin: 0; }
+  a { color: inherit; }
+  img, svg { max-width: 100%; }
+
+  .wrap { width: 100%; max-width: var(--maxw); margin-inline: auto;
+    padding-inline: max(22px, env(safe-area-inset-left, 0px)) max(22px, env(safe-area-inset-right, 0px)); }
+
+  .skip { position: absolute; left: -999px; top: 0; background: var(--teal); color: var(--on-teal); padding: 10px 16px; border-radius: 8px; z-index: 100; }
+  .skip:focus { left: 12px; top: 12px; }
+
+  /* ---------- buttons ---------- */
+  .btn {
+    --bx: 0px; --by: 0px;
+    font-family: var(--sans); font-weight: 600; font-size: 1rem; line-height: 1;
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 15px 24px; min-height: 48px; border-radius: 999px;
+    text-decoration: none; cursor: pointer; border: 1.5px solid transparent;
+    transform: translate3d(var(--bx), var(--by), 0);
+    transition: background .2s ease, color .2s ease, border-color .2s ease, box-shadow .2s ease, transform .12s ease;
+    will-change: transform;
+  }
+  .btn:active { transform: translate3d(var(--bx), var(--by), 0) scale(.96); }
+  .btn-primary { background: var(--teal); color: var(--on-teal); box-shadow: 0 14px 30px -16px rgba(16,62,59,.8); }
+  .btn-primary:hover { background: var(--teal-900); box-shadow: 0 20px 38px -16px rgba(16,62,59,.9); }
+  .btn-outline { background: transparent; color: var(--teal); border-color: var(--teal); }
+  .btn-outline:hover { background: var(--teal); color: var(--on-teal); }
+  .btn-amber { background: var(--amber); color: var(--teal-900); box-shadow: 0 14px 30px -16px rgba(217,164,65,.9); }
+  .btn-amber:hover { filter: brightness(1.05); box-shadow: 0 20px 40px -16px rgba(217,164,65,1); }
+  .btn svg { width: 20px; height: 20px; flex: none; }
+  .on-teal .btn-outline { color: var(--on-teal); border-color: var(--seafoam); }
+  .on-teal .btn-outline:hover { background: var(--seafoam); color: var(--teal-900); }
+
+  /* ---------- top nav ---------- */
+  header.nav {
+    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 40;
+    backdrop-filter: saturate(1.2) blur(8px);
+    background: color-mix(in srgb, var(--ivory) 82%, transparent);
+    border-bottom: 1px solid transparent;
+    transition: border-color .3s ease, background .3s ease;
+  }
+  header.nav.scrolled { border-bottom-color: var(--line); }
+  .nav-row { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding-block: 14px; }
+  .brand { display: inline-flex; align-items: center; gap: 11px; text-decoration: none; color: var(--teal); font-weight: 700; letter-spacing: .01em; font-size: 1.06rem; }
+  .brand .mk { width: 30px; height: 30px; flex: none; }
+  .nav-links { display: flex; align-items: center; gap: 28px; }
+  .nav-links a { text-decoration: none; color: var(--muted); font-weight: 600; font-size: .95rem; transition: color .2s ease; }
+  .nav-links a:hover { color: var(--teal); }
+  .nav-links .btn { padding: 11px 20px; min-height: 42px; font-size: .92rem; }
+  @media (max-width: 720px) { .nav-links a.link { display: none; } }
+
+  /* ---------- scroll progress path (fixed, desktop) ---------- */
+  .route { position: fixed; left: 14px; top: 0; height: 100vh; width: 46px; z-index: 5; pointer-events: none; }
+  @media (max-width: 1000px) { .route { display: none; } }
+  .route .trail { fill: none; stroke: var(--line); stroke-width: 2; }
+  .route .draw { fill: none; stroke: var(--amber); stroke-width: 2.4; stroke-linecap: round; }
+  .route .head { fill: var(--amber); }
+
+  /* ---------- hero ---------- */
+  .hero { position: relative; padding-block: clamp(40px, 7vw, 86px) clamp(56px, 9vw, 110px); overflow: hidden; }
+  .hero-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+  .hero-bg svg { position: absolute; width: 140%; height: 140%; left: -20%; top: -20%; }
+  .contours { stroke: var(--seafoam); fill: none; opacity: .55; }
+  .contours.b { stroke: color-mix(in srgb, var(--teal) 24%, transparent); opacity: .3; }
+  .spotlight { position: absolute; width: 520px; height: 520px; border-radius: 50%; left: 0; top: 0;
+    background: radial-gradient(circle, rgba(185,220,208,.5), rgba(185,220,208,0) 62%);
+    transform: translate3d(-50%, -50%, 0); opacity: 0; transition: opacity .5s ease; z-index: 1; mix-blend-mode: multiply; }
+
+  .hero-grid { position: relative; z-index: 2; display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(28px, 5vw, 72px); align-items: center; }
+  .kicker { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; font-size: .78rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+  .kicker::before { content: ""; width: 26px; height: 2px; background: var(--amber); border-radius: 2px; }
+  h1.hero-h {
+    font-size: clamp(3rem, 8.5vw, 5.6rem); line-height: .96; margin-top: 20px; color: var(--teal);
+    font-optical-sizing: auto; font-weight: 500;
+  }
+  .hero-sub { margin-top: 20px; font-size: clamp(1.1rem, 2.4vw, 1.4rem); color: var(--muted); max-width: 30ch; }
+  .hero-cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
+
+  .compass-stage { position: relative; display: flex; justify-content: center; align-items: center; }
+  .compass { width: min(100%, 460px); aspect-ratio: 1; display: block; }
+  .compass text { font-family: var(--sans); }
+
+  /* ---------- generic section ---------- */
+  section { position: relative; }
+  .pad { padding-block: clamp(64px, 10vw, 128px); }
+  .sec-kicker { font-weight: 600; font-size: .78rem; letter-spacing: .2em; text-transform: uppercase; color: var(--amber); }
+  .on-ivory .sec-kicker { color: #B07F1E; }
+  .sec-title { font-size: clamp(2.1rem, 5vw, 3.4rem); margin-top: 14px; color: inherit; line-height: 1.02; }
+
+  /* ---------- steps (teal section) ---------- */
+  .steps { background: var(--teal); color: var(--on-teal); overflow: hidden; }
+  .steps .topo { position: absolute; inset: 0; z-index: 0; opacity: .5; pointer-events: none; }
+  .steps .topo path { fill: none; stroke: rgba(185,220,208,.16); stroke-width: 1.4; }
+  .steps .wrap { position: relative; z-index: 1; }
+  .steps .sec-title { color: var(--on-teal); }
+  .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(20px, 3vw, 40px); margin-top: clamp(40px, 6vw, 64px); }
+  .step { position: relative; }
+  .step .ico { width: 64px; height: 64px; }
+  .step .n { font-family: var(--display); font-size: .95rem; color: var(--amber); letter-spacing: .04em; margin-top: 18px; }
+  .step h3 { font-size: clamp(1.5rem, 3vw, 2rem); color: var(--on-teal); margin-top: 6px; font-weight: 500; }
+  .step p { color: var(--on-teal-muted); margin-top: 8px; font-size: 1.02rem; }
+
+  /* ---------- explore tiles ---------- */
+  .explore { background: var(--ivory); }
+  .tiles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: clamp(38px, 5vw, 56px); perspective: 1000px; }
+  .tile {
+    position: relative; padding: 34px 32px 36px; border-radius: 20px; background: var(--ivory-2);
+    border: 1px solid var(--line); overflow: hidden; transform-style: preserve-3d;
+    transition: box-shadow .3s ease, transform .25s cubic-bezier(.2,.7,.2,1), border-color .3s ease;
+    min-width: 0;
+  }
+  .tile:hover { box-shadow: var(--shadow); border-color: color-mix(in srgb, var(--teal) 30%, transparent); }
+  .tile .bearing { font-family: var(--sans); font-weight: 700; font-size: .76rem; letter-spacing: .14em; color: var(--amber); }
+  .tile .ico { width: 52px; height: 52px; margin: 10px 0 2px; color: var(--teal); }
+  .tile h3 { font-size: 1.6rem; color: var(--teal); margin-top: 10px; font-weight: 500; }
+  .tile p { color: var(--muted); margin-top: 6px; font-size: 1rem; }
+  .tile::after { content: ""; position: absolute; right: -40px; bottom: -40px; width: 150px; height: 150px; border-radius: 50%;
+    background: radial-gradient(circle, var(--seafoam), transparent 68%); opacity: .5; transform: translateZ(-1px); }
+
+  /* ---------- about (teal) ---------- */
+  .about { background: var(--teal-900); color: var(--on-teal); overflow: hidden; }
+  .about .wrap { position: relative; z-index: 1; max-width: 880px; text-align: center; }
+  .about .sec-kicker { color: var(--amber); }
+  .about .statement { font-family: var(--display); font-weight: 400; font-size: clamp(1.7rem, 4vw, 2.7rem); line-height: 1.26; margin-top: 20px; color: var(--on-teal); }
+  .about .statement b { color: var(--amber); font-weight: 500; }
+  .about .ring { position: absolute; z-index: 0; border: 1px solid rgba(185,220,208,.16); border-radius: 50%; }
+
+  /* ---------- join ---------- */
+  .join { background: var(--ivory); }
+  .join .panel {
+    position: relative; overflow: hidden; border-radius: 28px; background: var(--teal); color: var(--on-teal);
+    padding: clamp(40px, 7vw, 76px); text-align: center; box-shadow: var(--shadow);
+  }
+  .join .panel .topo { position: absolute; inset: 0; opacity: .45; pointer-events: none; }
+  .join .panel .topo path { fill: none; stroke: rgba(185,220,208,.18); stroke-width: 1.4; }
+  .join .panel .inner { position: relative; z-index: 1; }
+  .join h2 { font-size: clamp(2rem, 5vw, 3.2rem); color: var(--on-teal); font-weight: 500; }
+  .join .lead { color: var(--on-teal-muted); margin: 16px auto 0; max-width: 32ch; font-size: 1.1rem; }
+  .join .cta { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 30px; }
+  .join .contact { margin-top: 22px; font-size: .96rem; color: var(--on-teal-muted); }
+  .join .contact a { color: var(--seafoam); text-decoration: none; border-bottom: 1px solid rgba(185,220,208,.4); }
+  .join .contact a:hover { color: var(--on-teal); }
+
+  /* ---------- footer ---------- */
+  footer { background: var(--ivory); border-top: 1px solid var(--line); padding-block: 44px 60px; }
+  .foot { display: flex; flex-wrap: wrap; gap: 24px 40px; align-items: flex-start; justify-content: space-between; }
+  .foot .id .brand { font-size: 1.15rem; }
+  .foot .meta { color: var(--muted); font-size: .92rem; margin-top: 10px; }
+  .foot .ar { font-family: var(--arabic); color: var(--muted); direction: rtl; margin-top: 6px; font-size: .95rem; }
+  .foot .links { display: flex; flex-direction: column; gap: 8px; }
+  .foot .links a { color: var(--muted); text-decoration: none; font-size: .95rem; font-weight: 600; }
+  .foot .links a:hover { color: var(--teal); }
+  .foot-bottom { margin-top: 30px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: .8rem; display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; }
+
+  /* ---------- motion states ---------- */
+  [data-enter], [data-reveal] > * , .tile[data-reveal] { }
+  .js:not(.rm) [data-enter] { opacity: 0; transform: translate3d(0, 22px, 0); }
+  .js:not(.rm) .hero.ready [data-enter] { opacity: 1; transform: none;
+    transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1);
+    transition-delay: calc(var(--i, 0) * 110ms); }
+  .js:not(.rm) [data-reveal] { opacity: 0; transform: translate3d(0, 30px, 0); }
+  .js:not(.rm) [data-reveal].in { opacity: 1; transform: none;
+    transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1);
+    transition-delay: calc(var(--i, 0) * 90ms); }
+
+  .parallax { will-change: transform; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .parallax { transform: none !important; }
+  }
+
+  @media (max-width: 860px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .compass-stage { order: -1; }
+    .compass { width: min(76%, 360px); }
+    .hero-sub { max-width: none; }
+    .steps-grid { grid-template-columns: 1fr; gap: 28px; }
+    .tiles { grid-template-columns: 1fr; }
+  }
+
+  :focus-visible { outline: 3px solid var(--amber); outline-offset: 3px; border-radius: 4px; }
+</style>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- scroll progress route -->
+<svg class="route" viewBox="0 0 46 1000" preserveAspectRatio="none" aria-hidden="true">
+  <path class="trail" id="routeTrail" d="M23 0 C 8 140, 40 280, 23 420 S 6 700, 23 860 S 34 960, 23 1000"></path>
+  <path class="draw"  id="routeDraw"  d="M23 0 C 8 140, 40 280, 23 420 S 6 700, 23 860 S 34 960, 23 1000"></path>
+  <circle class="head" id="routeHead" cx="23" cy="0" r="5"></circle>
+</svg>
+
+<!-- ============ NAV ============ -->
+<header class="nav" id="nav">
+  <div class="wrap nav-row">
+    <a class="brand" href="#top" aria-label="Compass Club home">
+      <svg class="mk" viewBox="0 0 32 32" aria-hidden="true">
+        <circle cx="16" cy="16" r="15" fill="none" stroke="#103E3B" stroke-width="2"/>
+        <path d="M16 5 19.2 16 16 27 12.8 16Z" fill="#D9A441"/>
+        <circle cx="16" cy="16" r="2.4" fill="#103E3B"/>
+      </svg>
+      Compass&nbsp;Club
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a class="link" href="#explore">Explore</a>
+      <a class="link" href="#about">About</a>
+      <a class="btn btn-primary" href="#join">Join</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<span id="top"></span>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero">
+  <div class="hero-bg" aria-hidden="true">
+    <div class="spotlight" id="spotlight"></div>
+    <svg class="parallax" data-depth="10" viewBox="0 0 1200 900" preserveAspectRatio="xMidYMid slice">
+      <g class="contours">
+        <ellipse cx="820" cy="420" rx="120" ry="110"/>
+        <ellipse cx="820" cy="420" rx="210" ry="190"/>
+        <ellipse cx="820" cy="420" rx="310" ry="280"/>
+        <ellipse cx="820" cy="420" rx="430" ry="390"/>
+        <ellipse cx="820" cy="420" rx="560" ry="510"/>
+      </g>
+    </svg>
+    <svg class="parallax" data-depth="24" viewBox="0 0 1200 900" preserveAspectRatio="xMidYMid slice">
+      <g class="contours b">
+        <ellipse cx="300" cy="640" rx="150" ry="130"/>
+        <ellipse cx="300" cy="640" rx="260" ry="230"/>
+        <ellipse cx="300" cy="640" rx="390" ry="340"/>
+      </g>
+      <path class="contours b" d="M-40 760 C 300 680, 520 840, 900 720 S 1300 700, 1340 760" stroke-dasharray="10 12"/>
+    </svg>
+  </div>
+
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="kicker" data-enter style="--i:0">Al Yamamah University · Student Club</span>
+      <h1 class="hero-h" data-enter style="--i:1">Find your<br>bearings.</h1>
+      <p class="hero-sub" data-enter style="--i:2">Discover what you love by trying something new.</p>
+      <div class="hero-cta" data-enter style="--i:3">
+        <a class="btn btn-primary" href="#explore">Explore experiences</a>
+        <a class="btn btn-outline" href="#join">Join Compass Club</a>
+      </div>
+    </div>
+
+    <div class="compass-stage" data-enter style="--i:2">
+      <svg class="compass" id="compass" viewBox="0 0 400 400" role="img" aria-label="An interactive compass whose needle follows your pointer">
+        <g id="compassBuild"></g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRY. DISCOVER. CHOOSE. ============ -->
+<section class="steps pad" id="steps">
+  <svg class="topo parallax" data-depth="8" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path d="M-20 120 C 300 60, 520 200, 900 120 S 1260 100, 1260 160"/>
+    <path d="M-20 260 C 280 200, 560 340, 900 250 S 1260 240, 1260 300"/>
+    <path d="M-20 420 C 320 360, 520 500, 900 400 S 1260 390, 1260 450"/>
+  </svg>
+  <div class="wrap">
+    <span class="sec-kicker" data-reveal style="--i:0">How it works</span>
+    <h2 class="sec-title" data-reveal style="--i:1">Try. Discover. Choose.</h2>
+    <div class="steps-grid">
+      <div class="step" data-reveal style="--i:2">
+        <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="#D9A441" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="32" cy="32" r="22" class="spin-slow"/>
+          <path d="M32 14v10M32 40v10M14 32h10M40 32h10"/>
+          <circle cx="32" cy="32" r="4" fill="#D9A441" stroke="none"/>
+        </svg>
+        <div class="n">01</div>
+        <h3>Try something new</h3>
+        <p>Step into activities you've never tried.</p>
+      </div>
+      <div class="step" data-reveal style="--i:3">
+        <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="#D9A441" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M32 10c9 0 16 7 16 16 0 7-4 11-7 15-2 2-2 4-2 7H25c0-3 0-5-2-7-3-4-7-8-7-15 0-9 7-16 16-16Z"/>
+          <path d="M26 54h12"/>
+          <path d="M32 26l4 6h-8l4 6" class="flicker"/>
+        </svg>
+        <div class="n">02</div>
+        <h3>Discover what energizes you</h3>
+        <p>Notice what pulls you in.</p>
+      </div>
+      <div class="step" data-reveal style="--i:4">
+        <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="#D9A441" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M16 48c6-20 26-20 32-36"/>
+          <path d="M40 10h8v8" class="arrow"/>
+          <circle cx="16" cy="48" r="3.4" fill="#D9A441" stroke="none"/>
+        </svg>
+        <div class="n">03</div>
+        <h3>Choose your next direction</h3>
+        <p>Move forward with clarity.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXPLORE WITH US ============ -->
+<section class="explore on-ivory pad" id="explore">
+  <div class="wrap">
+    <span class="sec-kicker" data-reveal style="--i:0">What we do</span>
+    <h2 class="sec-title" data-reveal style="--i:1; color:var(--teal)">Explore with us</h2>
+    <div class="tiles">
+      <article class="tile" data-reveal data-tilt style="--i:2" tabindex="0">
+        <div class="bearing">000° · N</div>
+        <svg class="ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="24" cy="24" r="18"/><path d="M24 24 30 14 24 24 18 34Z" fill="#D9A441" stroke="#D9A441"/><circle cx="24" cy="24" r="2.4" fill="currentColor" stroke="none"/>
+        </svg>
+        <h3>Self-discovery</h3>
+        <p>Find your strengths.</p>
+      </article>
+      <article class="tile" data-reveal data-tilt style="--i:3" tabindex="0">
+        <div class="bearing">090° · E</div>
+        <svg class="ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M10 30c0-8 6-14 14-14s14 6 14 14"/><path d="M24 10v6"/><rect x="18" y="30" width="12" height="8" rx="2"/><path d="M14 38h20"/>
+        </svg>
+        <h3>Workshops</h3>
+        <p>Speaking, presenting, teamwork.</p>
+      </article>
+      <article class="tile" data-reveal data-tilt style="--i:4" tabindex="0">
+        <div class="bearing">180° · S</div>
+        <svg class="ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14 34V18l10-6 10 6v16"/><path d="M14 34h20"/><path d="M24 34v-9"/><circle cx="24" cy="12" r="0"/><path d="M20 25h8"/>
+        </svg>
+        <h3>Real experience</h3>
+        <p>Run events. Lead a team.</p>
+      </article>
+      <article class="tile" data-reveal data-tilt style="--i:5" tabindex="0">
+        <div class="bearing">270° · W</div>
+        <svg class="ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="18" cy="20" r="5"/><circle cx="31" cy="22" r="4"/><path d="M9 38c0-6 4-9 9-9s9 3 9 9"/><path d="M27 38c0-5 3-7 4-7 4 0 7 3 7 7"/>
+        </svg>
+        <h3>Community</h3>
+        <p>Every major, every year.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="about pad" id="about">
+  <div class="ring parallax" data-depth="16" style="width:460px;height:460px;left:-120px;top:-120px" aria-hidden="true"></div>
+  <div class="ring parallax" data-depth="26" style="width:620px;height:620px;right:-200px;bottom:-220px" aria-hidden="true"></div>
+  <div class="wrap">
+    <span class="sec-kicker" data-reveal style="--i:0">About Compass</span>
+    <p class="statement" data-reveal style="--i:1">We help students discover their interests through <b>experience</b> — try things, notice what you enjoy, and find your own direction.</p>
+  </div>
+</section>
+
+<!-- ============ JOIN ============ -->
+<section class="join pad" id="join">
+  <div class="wrap">
+    <div class="panel on-teal" data-reveal>
+      <svg class="topo parallax" data-depth="6" viewBox="0 0 1000 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <path d="M-20 90 C 220 40, 460 150, 700 80 S 1020 70, 1020 120"/>
+        <path d="M-20 230 C 260 180, 520 290, 760 210 S 1020 210, 1020 260"/>
+      </svg>
+      <div class="inner">
+        <h2>Join Compass Club</h2>
+        <p class="lead">No experience needed — bring your curiosity.</p>
+        <div class="cta">
+          <a class="btn btn-amber" href="https://wa.me/966501882680" target="_blank" rel="noopener">
+            <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.1 1.6 5.9L4 29l8.3-1.6c1.7.9 3.6 1.4 5.7 1.4 6.6 0 12-5.4 12-12S22.6 3 16 3zm0 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-4.9 1 1-4.8-.2-.4c-1-1.6-1.5-3.4-1.5-5.3C5 9.5 9.9 4.6 16 4.6S27 9.5 27 15.6 22.1 24.8 16 24.8zm6.1-7.1c-.3-.2-2-1-2.3-1.1-.3-.1-.5-.2-.8.2-.2.3-.9 1.1-1.1 1.3-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.7-1.6-1-.9-1.6-2-1.8-2.3-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.4-.6.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.8-.6h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.5 3.8 6 5.3.8.4 1.5.6 2 .8.8.3 1.6.2 2.2.1.7-.1 2-.8 2.3-1.6.3-.8.3-1.5.2-1.6-.1-.2-.3-.2-.6-.4z"/></svg>
+            Message us on WhatsApp
+          </a>
+          <a class="btn btn-outline" href="mailto:202414030@yu.edu.sa">Email us</a>
+        </div>
+        <p class="contact">WhatsApp <a href="https://wa.me/966501882680" target="_blank" rel="noopener">050 188 2680</a> &nbsp;·&nbsp; <a href="mailto:202414030@yu.edu.sa">202414030@yu.edu.sa</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div class="id">
+        <a class="brand" href="#top">
+          <svg class="mk" viewBox="0 0 32 32" aria-hidden="true">
+            <circle cx="16" cy="16" r="15" fill="none" stroke="#103E3B" stroke-width="2"/>
+            <path d="M16 5 19.2 16 16 27 12.8 16Z" fill="#D9A441"/>
+            <circle cx="16" cy="16" r="2.4" fill="#103E3B"/>
+          </svg>
+          Compass Club
+        </a>
+        <p class="meta">Al Yamamah University · Qubar, Saudi Arabia</p>
+        <p class="ar">وجهتك تبدأ منك.</p>
+      </div>
+      <div class="links" aria-label="Contact and navigation">
+        <a href="https://wa.me/966501882680" target="_blank" rel="noopener">WhatsApp · 050 188 2680</a>
+        <a href="mailto:202414030@yu.edu.sa">202414030@yu.edu.sa</a>
+        <a href="#explore">Explore</a>
+        <a href="#join">Join</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Compass Club · Al Yamamah University</span>
+      <span>A compass, not a map.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  var root = document.documentElement;
+  root.classList.add("js");
+  var RM = false, FINE = false;
+  try { RM = matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
+  try { FINE = matchMedia("(hover: hover) and (pointer: fine)").matches; } catch (e) {}
+  if (RM) root.classList.add("rm");
+
+  // Failsafe: if anything below throws, make sure all content is visible.
+  function revealAll() {
+    try {
+      var els = document.querySelectorAll("[data-reveal]");
+      for (var i = 0; i < els.length; i++) els[i].classList.add("in");
+      var h = document.getElementById("hero");
+      if (h) h.classList.add("ready");
+    } catch (e) {}
+  }
+  var failsafe = setTimeout(revealAll, 1400);
+
+  try {
+    // ---------- build the compass ----------
+    (function buildCompass() {
+      var NS = "http://www.w3.org/2000/svg";
+      var g = document.getElementById("compassBuild");
+      if (!g) return;
+      var cx = 200, cy = 200;
+      var TEAL = "#103E3B", IVORY = "#F6F2E9", SEAFOAM = "#B9DCD0", AMBER = "#D9A441";
+      function el(n, a) { var e = document.createElementNS(NS, n); for (var k in a) e.setAttribute(k, a[k]); return e; }
+      function vec(d) { var r = (d - 90) * Math.PI / 180; return { x: Math.cos(r), y: Math.sin(r) }; }
+
+      // face
+      g.appendChild(el("circle", { cx: cx, cy: cy, r: 168, fill: IVORY }));
+      g.appendChild(el("circle", { cx: cx, cy: cy, r: 168, fill: "none", stroke: TEAL, "stroke-width": 10 }));
+      g.appendChild(el("circle", { cx: cx, cy: cy, r: 150, fill: "none", stroke: SEAFOAM, "stroke-width": 2 }));
+
+      // ticks
+      for (var d = 0; d < 360; d += 6) {
+        var v = vec(d), major = (d % 30 === 0);
+        g.appendChild(el("line", {
+          x1: cx + v.x * 150, y1: cy + v.y * 150,
+          x2: cx + v.x * (major ? 132 : 142), y2: cy + v.y * (major ? 132 : 142),
+          stroke: major ? TEAL : "rgba(16,62,59,.4)", "stroke-width": major ? 2.4 : 1.2
+        }));
+      }
+      // cardinal letters
+      [[0, "N"], [90, "E"], [180, "S"], [270, "W"]].forEach(function (p) {
+        var v = vec(p[0]);
+        var t = el("text", { x: cx + v.x * 112, y: cy + v.y * 112 + 6, "text-anchor": "middle",
+          fill: p[0] === 0 ? AMBER : TEAL, "font-size": 19, "font-weight": 700, "letter-spacing": 1 });
+        t.textContent = p[1]; g.appendChild(t);
+      });
+
+      // rotating needle group
+      var needle = el("g", { id: "needle" });
+      // north half (amber) + south half (teal)
+      needle.appendChild(el("path", { d: "M200 70 L214 200 L200 200 Z", fill: AMBER }));
+      needle.appendChild(el("path", { d: "M200 70 L186 200 L200 200 Z", fill: "#C08F2E" }));
+      needle.appendChild(el("path", { d: "M200 330 L214 200 L200 200 Z", fill: TEAL }));
+      needle.appendChild(el("path", { d: "M200 330 L186 200 L200 200 Z", fill: "#0A2B29" }));
+      g.appendChild(needle);
+
+      // hub + YOU
+      g.appendChild(el("circle", { cx: cx, cy: cy, r: 15, fill: IVORY, stroke: TEAL, "stroke-width": 3 }));
+      g.appendChild(el("circle", { cx: cx, cy: cy, r: 5, fill: AMBER }));
+
+      // needle animation: follow pointer, else gentle ambient sway
+      var cur = 16, tgt = 16, lastMove = 0;
+      var stage = document.getElementById("compass");
+      function pointer(e) {
+        if (RM) return;
+        var r = stage.getBoundingClientRect();
+        var px = (e.touches ? e.touches[0].clientX : e.clientX) - (r.left + r.width / 2);
+        var py = (e.touches ? e.touches[0].clientY : e.clientY) - (r.top + r.height / 2);
+        tgt = Math.atan2(px, -py) * 180 / Math.PI;
+        lastMove = performance.now();
+      }
+      window.addEventListener("pointermove", pointer, { passive: true });
+      window.addEventListener("touchmove", pointer, { passive: true });
+
+      function frame(now) {
+        if (!RM && now - lastMove > 2200) {
+          // ambient sway toward a slow drifting bearing
+          tgt = Math.sin(now / 2600) * 18 + Math.sin(now / 900) * 3;
+        }
+        // shortest-path lerp
+        var diff = ((tgt - cur + 540) % 360) - 180;
+        cur += diff * 0.08;
+        needle.setAttribute("transform", "rotate(" + cur.toFixed(2) + " 200 200)");
+        requestAnimationFrame(frame);
+      }
+      if (RM) { needle.setAttribute("transform", "rotate(18 200 200)"); }
+      else { requestAnimationFrame(frame); }
+    })();
+
+    // ---------- entrance ----------
+    var hero = document.getElementById("hero");
+    requestAnimationFrame(function () { requestAnimationFrame(function () { if (hero) hero.classList.add("ready"); }); });
+
+    // ---------- scroll reveals ----------
+    if ("IntersectionObserver" in window && !RM) {
+      var io = new IntersectionObserver(function (ents) {
+        ents.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
+      }, { threshold: 0.14, rootMargin: "0px 0px -8% 0px" });
+      document.querySelectorAll("[data-reveal]").forEach(function (el) { io.observe(el); });
+    } else {
+      revealAll();
+    }
+
+    // ---------- nav shadow ----------
+    var nav = document.getElementById("nav");
+    function onScrollNav() { if (nav) nav.classList.toggle("scrolled", window.scrollY > 10); }
+    onScrollNav();
+    window.addEventListener("scroll", onScrollNav, { passive: true });
+
+    // ---------- scroll route draw ----------
+    (function route() {
+      var draw = document.getElementById("routeDraw");
+      var trail = document.getElementById("routeTrail");
+      var head = document.getElementById("routeHead");
+      if (!draw || !trail) return;
+      var len = trail.getTotalLength();
+      draw.style.strokeDasharray = len;
+      draw.style.strokeDashoffset = len;
+      var ticking = false;
+      function update() {
+        ticking = false;
+        var max = document.documentElement.scrollHeight - window.innerHeight;
+        var p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+        draw.style.strokeDashoffset = (len * (1 - p)).toFixed(1);
+        if (head) { var pt = trail.getPointAtLength(len * p); head.setAttribute("cx", pt.x); head.setAttribute("cy", pt.y); }
+      }
+      function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", update, { passive: true });
+      update();
+    })();
+
+    // ---------- parallax (desktop, pointer) ----------
+    if (FINE && !RM) {
+      var layers = Array.prototype.slice.call(document.querySelectorAll(".parallax[data-depth]"));
+      var spot = document.getElementById("spotlight");
+      var hx = 0.5, hy = 0.5, tx = 0.5, ty = 0.5, raf = 0;
+      var heroEl = document.getElementById("hero");
+      function apply() {
+        raf = 0;
+        hx += (tx - hx) * 0.08; hy += (ty - hy) * 0.08;
+        var dx = (hx - 0.5), dy = (hy - 0.5);
+        layers.forEach(function (l) {
+          var depth = parseFloat(l.getAttribute("data-depth")) || 10;
+          l.style.transform = "translate3d(" + (-dx * depth) + "px," + (-dy * depth) + "px,0)";
+        });
+        if (Math.abs(tx - hx) > 0.001 || Math.abs(ty - hy) > 0.001) raf = requestAnimationFrame(apply);
+      }
+      window.addEventListener("pointermove", function (e) {
+        tx = e.clientX / window.innerWidth; ty = e.clientY / window.innerHeight;
+        if (!raf) raf = requestAnimationFrame(apply);
+      }, { passive: true });
+      if (heroEl && spot) {
+        heroEl.addEventListener("pointermove", function (e) {
+          var r = heroEl.getBoundingClientRect();
+          spot.style.left = (e.clientX - r.left) + "px";
+          spot.style.top = (e.clientY - r.top) + "px";
+          spot.style.opacity = "1";
+        }, { passive: true });
+        heroEl.addEventListener("pointerleave", function () { spot.style.opacity = "0"; });
+      }
+
+      // ---------- card tilt ----------
+      document.querySelectorAll("[data-tilt]").forEach(function (card) {
+        card.addEventListener("pointermove", function (e) {
+          var r = card.getBoundingClientRect();
+          var rx = ((e.clientY - r.top) / r.height - 0.5) * -6;
+          var ry = ((e.clientX - r.left) / r.width - 0.5) * 6;
+          card.style.transform = "perspective(900px) rotateX(" + rx.toFixed(2) + "deg) rotateY(" + ry.toFixed(2) + "deg) translateZ(6px)";
+        });
+        card.addEventListener("pointerleave", function () { card.style.transform = ""; });
+      });
+
+      // ---------- subtle magnetic buttons ----------
+      document.querySelectorAll(".btn").forEach(function (b) {
+        b.addEventListener("pointermove", function (e) {
+          var r = b.getBoundingClientRect();
+          b.style.setProperty("--bx", ((e.clientX - (r.left + r.width / 2)) * 0.12).toFixed(1) + "px");
+          b.style.setProperty("--by", ((e.clientY - (r.top + r.height / 2)) * 0.12).toFixed(1) + "px");
+        });
+        b.addEventListener("pointerleave", function () { b.style.setProperty("--bx", "0px"); b.style.setProperty("--by", "0px"); });
+      });
+    }
+
+    clearTimeout(failsafe);
+  } catch (err) {
+    clearTimeout(failsafe);
+    root.classList.remove("js");
+    revealAll();
+  }
+})();
+</script>

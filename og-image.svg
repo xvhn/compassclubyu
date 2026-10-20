@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <style>
+      .d { font-family: Georgia, 'Times New Roman', serif; fill: #103E3B; }
+      .s { font-family: 'Segoe UI', Arial, sans-serif; fill: #4C615D; }
+      .k { font-family: 'Segoe UI', Arial, sans-serif; fill: #B07F1E; letter-spacing: 6px; }
+    </style>
+  </defs>
+  <rect width="1200" height="630" fill="#F6F2E9"/>
+  <!-- topographic contours -->
+  <g fill="none" stroke="#B9DCD0" stroke-width="2" opacity="0.7">
+    <ellipse cx="930" cy="315" rx="120" ry="112"/>
+    <ellipse cx="930" cy="315" rx="200" ry="186"/>
+    <ellipse cx="930" cy="315" rx="285" ry="266"/>
+    <ellipse cx="930" cy="315" rx="380" ry="352"/>
+  </g>
+  <!-- compass -->
+  <g transform="translate(930,315)">
+    <circle r="150" fill="#F6F2E9"/>
+    <circle r="150" fill="none" stroke="#103E3B" stroke-width="9"/>
+    <circle r="134" fill="none" stroke="#B9DCD0" stroke-width="2"/>
+    <path d="M0 -118 L13 0 L0 0 Z" fill="#D9A441"/>
+    <path d="M0 -118 L-13 0 L0 0 Z" fill="#C08F2E"/>
+    <path d="M0 118 L13 0 L0 0 Z" fill="#103E3B"/>
+    <path d="M0 118 L-13 0 L0 0 Z" fill="#0A2B29"/>
+    <circle r="14" fill="#F6F2E9" stroke="#103E3B" stroke-width="3"/>
+    <circle r="5" fill="#D9A441"/>
+    <text y="-96" text-anchor="middle" font-family="'Segoe UI',Arial,sans-serif" font-size="20" font-weight="700" fill="#D9A441">N</text>
+  </g>
+  <!-- text -->
+  <text class="k" x="90" y="190" font-size="24" font-weight="700">COMPASS CLUB</text>
+  <text class="d" x="86" y="312" font-size="104" font-weight="500">Find your</text>
+  <text class="d" x="86" y="416" font-size="104" font-weight="500">bearings.</text>
+  <text class="s" x="90" y="476" font-size="30">Discover what you love by trying something new.</text>
+  <text class="s" x="90" y="540" font-size="22" fill="#103E3B" font-weight="600">Al Yamamah University · Qubar, Saudi Arabia</text>
+</svg>
