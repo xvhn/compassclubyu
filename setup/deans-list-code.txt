@@ -276,7 +276,7 @@ const PAGE = String.raw`<!DOCTYPE html>
     <div class="done" id="done" tabindex="-1">
       <div class="tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
       <h2><span data-l="ar">تم تسجيلك بنجاح</span><span data-l="en">You’re registered</span></h2>
-      <p><span data-l="ar">شكرًا لك! سنتواصل معك على رقم جوالك بالتفاصيل قبل الفعالية.</span><span data-l="en">Thank you! We’ll contact you on your mobile with the details before the event.</span></p>
+      <p><span data-l="ar">شكرًا لك! سنتواصل معك بالتفاصيل قبل الفعالية.</span><span data-l="en">Thank you! We’ll be in touch with the details before the event.</span></p>
     </div>
     <!--/OPEN--><!--CLOSED-->
     <p class="closed"><span data-l="ar">اكتمل العدد — أُغلق التسجيل. شكرًا لاهتمامك.</span><span data-l="en">Registration is now closed. Thank you for your interest.</span></p>
