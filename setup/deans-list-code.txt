@@ -19,6 +19,7 @@ function doGet() {
 
 function sheet_() {
   const ss = SpreadsheetApp.openById(SHEET_ID);
+  if (ss.getSpreadsheetTimeZone() !== 'Asia/Riyadh') ss.setSpreadsheetTimeZone('Asia/Riyadh');
   let sh = ss.getSheetByName(TAB);
   if (!sh) {
     sh = ss.getSheets()[0];
@@ -78,7 +79,8 @@ function submit(d) {
       const ids = sh.getRange(2, 4, last - 1, 1).getDisplayValues();
       if (ids.some(r => String(r[0]).trim() === id)) return { ok: false, error: 'duplicate' };
     }
-    sh.appendRow([new Date(), nameAr, nameEn, id, phone]);
+    // Leading apostrophe stores ID and phone as text so the 0 in 05... is kept.
+    sh.appendRow([new Date(), nameAr, nameEn, "'" + id, "'" + phone]);
   } finally {
     lock.releaseLock();
   }
